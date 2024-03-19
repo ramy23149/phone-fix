@@ -1,11 +1,11 @@
 import 'package:food_delivery_app/Core/widgets/bottomNav_bar.dart';
 import 'package:food_delivery_app/featurs/auth/presentation/views/password_recavory.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/food_detalis_view.dart';
-import 'package:food_delivery_app/featurs/wallet/presentaion/views/wallet_view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../featurs/auth/presentation/views/login_view.dart';
 import '../featurs/auth/presentation/views/signUp_view.dart';
+import '../featurs/on_boarding/presentation/views/on_bording_view.dart';
 
 abstract class AppRouter {
   static String kOnBording = '/';
@@ -29,7 +29,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: '/',
-        builder: (context, state) => const WalletView(),//OnBordingView()
+        builder: (context, state) => const OnBordingView()
       ),
       GoRoute(
         path: kBottomNavBar,
@@ -38,7 +38,7 @@ abstract class AppRouter {
       GoRoute(
         
         path: kPasswordRecavory,
-        builder: (context, state) =>  PasswordRecavory(),
+        builder: (context, state) =>  const PasswordRecavory(),
       ),
       GoRoute(
         path: kfoodDetalis,

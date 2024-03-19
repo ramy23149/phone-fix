@@ -7,7 +7,6 @@ import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
 import '../../../../../Core/widgets/Custom_text_bottom.dart';
 import '../../../../../Core/widgets/custom_appBar.dart';
 import '../../manager/add_mony_cubit/add_mony_cubit.dart';
-import '../../manager/add_mony_cubit/add_mony_state.dart';
 import 'custom_wallet_contaner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,13 +23,11 @@ class _WalletViewBodyState extends State<WalletViewBody> {
   String currency = 'USD';
 
   Future<void> showPaymentSheet(int mony) async {
-    await BlocProvider.of<AddMonyCubit>(context).addMony(mony);
+    await BlocProvider.of<AddMonyCubit>(context).addMony(mony, context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddMonyCubit, AddMonyState>(
-      builder: (context, state) {
         return Column(
           children: [
             const CustomAppBar(),
@@ -71,19 +68,19 @@ class _WalletViewBodyState extends State<WalletViewBody> {
                         ),
                         CustomTextButtom(
                           onPressed: () {
-                          showPaymentSheet(500);
+                            showPaymentSheet(500);
                           },
                           text: "\$500",
                         ),
                         CustomTextButtom(
                           onPressed: () {
-                          showPaymentSheet(1000);
+                            showPaymentSheet(1000);
                           },
                           text: "\$1000",
                         ),
                         CustomTextButtom(
                           onPressed: () {
-                          showPaymentSheet(2000);
+                            showPaymentSheet(2000);
                           },
                           text: "\$2000",
                         ),
@@ -108,7 +105,6 @@ class _WalletViewBodyState extends State<WalletViewBody> {
             )
           ],
         );
-      },
-    );
+    
   }
 }
