@@ -1,7 +1,7 @@
 import 'package:food_delivery_app/Core/widgets/bottomNav_bar.dart';
 import 'package:food_delivery_app/featurs/auth/presentation/views/password_recavory.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/food_detalis_view.dart';
-import 'package:food_delivery_app/featurs/wallet/views/wallet_view.dart';
+import 'package:food_delivery_app/featurs/wallet/presentaion/views/wallet_view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../featurs/auth/presentation/views/login_view.dart';

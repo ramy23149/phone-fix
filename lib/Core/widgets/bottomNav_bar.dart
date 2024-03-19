@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/featurs/Profile/views/profile_view.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/home_view.dart';
 import 'package:food_delivery_app/featurs/order/views/order_view.dart';
-import 'package:food_delivery_app/featurs/wallet/views/wallet_view.dart';
+import 'package:food_delivery_app/featurs/wallet/presentaion/views/wallet_view.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -43,14 +43,29 @@ class _BottomNavBarState extends State<BottomNavBar> {
         backgroundColor: Colors.white,
         onTap: (index) {
           setState(() {
-  pageIndex = index;
-});
-        },
+            pageIndex = index;
+          });
+        //   if(index==2){
+        //     BlocProvider.of<AddMonyCubit>(context).addMony(100);
+        //   }
+         },
         items: const [
-          Icon(Icons.home_outlined,color: Colors.white,),
-          Icon(Icons.shopping_bag_outlined,color: Colors.white,),
-          Icon(Icons.wallet_outlined,color: Colors.white,),
-          Icon(Icons.person_outline,color: Colors.white,)
+          Icon(
+            Icons.home_outlined,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.shopping_bag_outlined,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.wallet_outlined,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.person_outline,
+            color: Colors.white,
+          )
         ],
       ),
       body: pagesList[pageIndex],

@@ -1,11 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
+import 'package:food_delivery_app/Core/constats.dart';
+import 'package:food_delivery_app/observer.dart';
 
 import 'firebase_options.dart';
 
+
 void main() async {
+  Bloc.observer = AppObserver();
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = kPublishablekey;
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
