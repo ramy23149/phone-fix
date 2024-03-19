@@ -19,6 +19,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         email: email,
         password: password,
       );
+      emit(SignUpSuccess());
       showSnackBar(context, 'Account successfully created');
       context.go(AppRouter.kBottomNavBar);
     } on FirebaseAuthException catch (e) {
