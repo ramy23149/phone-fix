@@ -7,9 +7,6 @@ import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
 import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:food_delivery_app/featurs/auth/presentation/manager/cubits/signUp_cubit/sign_up_cubit.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../../../Core/app_router.dart';
-import '../../../../../Core/helper/custom_snakBar.dart';
 import 'custom_uper_container.dart';
 import 'user_state.dart';
 
@@ -23,7 +20,12 @@ class SignInViewBody extends StatefulWidget {
 class _SignInViewBodyState extends State<SignInViewBody> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+    TextEditingController nameController = TextEditingController();
+
   GlobalKey<FormState> key = GlobalKey();
+
+   
+
 
   @override
   void dispose() {
@@ -72,8 +74,8 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                   child: BlocConsumer<SignUpCubit, SignUpState>(
                     listener: (context, state) {
                       if (state is SignUpSuccess) {
-                        showSnackBar(context, 'Account successfully created');
-                        context.go(AppRouter.kBottomNavBar);
+                        //showSnackBar(context, 'Account successfully created,login now');
+                        context.pop();
                       }
                     },
                     builder: (context, state) {
@@ -89,9 +91,10 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                                     style: Styles.textStyle25,
                                   ),
                                   const Spacer(),
-                                  const CustomTextField(
+                                   CustomTextField(
+                                    controller: nameController,
                                     hint: 'Name',
-                                    icon: Icon(Icons.person_outline),
+                                    icon: const Icon(Icons.person_outline),
                                   ),
                                   const Spacer(),
                                   CustomTextField(
@@ -114,6 +117,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                                       if (key.currentState!.validate()) {
                                         BlocProvider.of<SignUpCubit>(context)
                                             .signUpUser(
+                                              name: nameController.text,
                                                 email: emailController.text,
                                                 password:
                                                     passwordController.text,

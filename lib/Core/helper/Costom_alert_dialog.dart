@@ -5,6 +5,8 @@ void showAlertDialog(BuildContext context,String content) {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            icon: const Icon(Icons.done_outline),
+            iconColor: Colors.green,
             content:  Text(content),
             actions: [
               MaterialButton(

@@ -10,7 +10,6 @@ import 'package:food_delivery_app/featurs/auth/presentation/manager/cubits/logIn
 import 'package:food_delivery_app/featurs/auth/presentation/views/widgets/user_state.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../Core/helper/custom_snakBar.dart';
 import 'custom_uper_container.dart';
 
 class LogInViewBody extends StatefulWidget {
