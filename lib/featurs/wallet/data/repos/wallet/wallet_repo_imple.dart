@@ -4,7 +4,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:food_delivery_app/Core/api_service.dart';
 
 import '../../../../../Core/falier/falier.dart';
-import '../wallet_repo.dart';
+import 'wallet_repo.dart';
 
 class WalletRepoImple implements WalletRepo {
 final  ApiService apiService;
@@ -21,7 +21,8 @@ final  ApiService apiService;
     }  catch (e) {
      if(e is DioException){
        return left(ServerFailer.fromDioExption(e));
-     }else{
+     }
+     else{
        return left(ServerFailer(e.toString()));
      }
     }

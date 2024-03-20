@@ -5,7 +5,7 @@ import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/Core/widgets/Costum_text_feld.dart';
 import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
-import 'package:food_delivery_app/Core/widgets/custom_snakBar.dart';
+import 'package:food_delivery_app/Core/helper/custom_snakBar.dart';
 import 'package:go_router/go_router.dart';
 
 class PasswordRecavoryBody extends StatefulWidget {

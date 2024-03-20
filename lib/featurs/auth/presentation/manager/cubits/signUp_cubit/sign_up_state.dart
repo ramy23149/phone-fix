@@ -10,3 +10,4 @@ final class SignUpFailure extends SignUpState {
   final String errMassege;
   SignUpFailure({required this.errMassege});
 }
+

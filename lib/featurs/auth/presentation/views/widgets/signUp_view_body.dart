@@ -8,6 +8,8 @@ import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:food_delivery_app/featurs/auth/presentation/manager/cubits/signUp_cubit/sign_up_cubit.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../Core/app_router.dart';
+import '../../../../../Core/helper/custom_snakBar.dart';
 import 'custom_uper_container.dart';
 import 'user_state.dart';
 
@@ -67,57 +69,66 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                     borderRadius: BorderRadius.circular(17), color: kWhite),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: BlocBuilder<SignUpCubit, SignUpState>(
+                  child: BlocConsumer<SignUpCubit, SignUpState>(
+                    listener: (context, state) {
+                      if (state is SignUpSuccess) {
+                        showSnackBar(context, 'Account successfully created');
+                        context.go(AppRouter.kBottomNavBar);
+                      }
+                    },
                     builder: (context, state) {
-                      return state is SignUpLoading ? const CustomLoadingIndecator() : Form(
-                        key: key,
-                        child: Column(
-                          children: [
-                            const Spacer(),
-                            const Text(
-                              'Sign up',
-                              style: Styles.textStyle25,
-                            ),
-                            const Spacer(),
-                            const CustomTextField(
-                              hint: 'Name',
-                              icon: Icon(Icons.person_outline),
-                            ),
-                            const Spacer(),
-                            CustomTextField(
-                              controller: emailController,
-                              hint: 'Email',
-                              icon: const Icon(Icons.email_outlined),
-                            ),
-                            const Spacer(),
-                            CustomTextField(
-                              controller: passwordController,
-                              obscureText: true,
-                              hint: 'Password',
-                              icon: const Icon(Icons.password_outlined),
-                            ),
-                            const Spacer(
-                              flex: 4,
-                            ),
-                            CustomBotton(
-                              onPressed: () {
-                                if (key.currentState!.validate()) {
-                                  BlocProvider.of<SignUpCubit>(context)
-                                      .signUpUser(
-                                          email: emailController.text,
-                                          password: passwordController.text,
-                                          context: context);
-                                }
-                              },
-                              text: 'SIGN UP',
-                              backgroundColor: kRed,
-                              textColor: kWhite,
-                              borderRadius: BorderRadius.circular(90),
-                            ),
-                            const Spacer()
-                          ],
-                        ),
-                      );
+                      return state is SignUpLoading
+                          ? const CustomLoadingIndecator()
+                          : Form(
+                              key: key,
+                              child: Column(
+                                children: [
+                                  const Spacer(),
+                                  const Text(
+                                    'Sign up',
+                                    style: Styles.textStyle25,
+                                  ),
+                                  const Spacer(),
+                                  const CustomTextField(
+                                    hint: 'Name',
+                                    icon: Icon(Icons.person_outline),
+                                  ),
+                                  const Spacer(),
+                                  CustomTextField(
+                                    controller: emailController,
+                                    hint: 'Email',
+                                    icon: const Icon(Icons.email_outlined),
+                                  ),
+                                  const Spacer(),
+                                  CustomTextField(
+                                    controller: passwordController,
+                                    obscureText: true,
+                                    hint: 'Password',
+                                    icon: const Icon(Icons.password_outlined),
+                                  ),
+                                  const Spacer(
+                                    flex: 4,
+                                  ),
+                                  CustomBotton(
+                                    onPressed: () {
+                                      if (key.currentState!.validate()) {
+                                        BlocProvider.of<SignUpCubit>(context)
+                                            .signUpUser(
+                                                email: emailController.text,
+                                                password:
+                                                    passwordController.text,
+                                                context: context);
+                                      }
+                                    },
+                                    text: 'SIGN UP',
+                                    backgroundColor: kRed,
+                                    textColor: kWhite,
+                                    borderRadius: BorderRadius.circular(90),
+                                  ),
+                                  const Spacer()
+                                ],
+                              ),
+                            );
                     },
                   ),
                 ),

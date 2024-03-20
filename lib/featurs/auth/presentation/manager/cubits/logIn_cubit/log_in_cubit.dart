@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../../Core/app_router.dart';
-import '../../../../../../Core/widgets/custom_snakBar.dart';
+import '../../../../../../Core/helper/custom_snakBar.dart';
 
 part 'log_in_state.dart';
 
@@ -21,15 +21,17 @@ class LogInCubit extends Cubit<LogInState> {
         email: email,
         password: password,
       );
+      
       emit(LogInSuccess());
       showSnackBar(context, 'Login successfully');
       context.go(AppRouter.kBottomNavBar);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         showSnackBar(context, 'No user found for that email.');
-      } else if (e.code == 'wrong-password') {
+      } else if (e.code == e.code) {
         showSnackBar(context, 'Wrong email or password');
       }else{emit(LogInFailure(errMassege: e.toString()));}
+      emit(LogInInitial());
     }
       }
   

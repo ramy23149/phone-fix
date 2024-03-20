@@ -10,6 +10,7 @@ import 'package:food_delivery_app/featurs/auth/presentation/manager/cubits/logIn
 import 'package:food_delivery_app/featurs/auth/presentation/views/widgets/user_state.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../Core/helper/custom_snakBar.dart';
 import 'custom_uper_container.dart';
 
 class LogInViewBody extends StatefulWidget {
@@ -70,64 +71,68 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: BlocBuilder<LogInCubit, LogInState>(
                     builder: (context, state) {
-                      return state is LogInLoading? const CustomLoadingIndecator() :Form(
-                        key: key,
-                        child: Column(
-                          children: [
-                            const Spacer(),
-                            const Text(
-                              'LogIn',
-                              style: Styles.textStyle25,
-                            ),
-                            CustomTextField(
-                              controller: emailController,
-                              hint: 'Email',
-                              icon: const Icon(Icons.email_outlined),
-                            ),
-                            const Spacer(),
-                            CustomTextField(
-                              controller: passwordController,
-                              obscureText: true,
-                              hint: 'Password',
-                              icon: const Icon(Icons.password_outlined),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            SizedBox(
-                              width: double.infinity,
-                              child: GestureDetector(
-                                onTap: () =>
-                                    context.push(AppRouter.kPasswordRecavory),
-                                child: const Text(
-                                  'Forget password?',
-                                  style: Styles.textStyle18,
-                                  textAlign: TextAlign.right,
-                                ),
+                    
+                      return state is LogInLoading
+                          ? const CustomLoadingIndecator()
+                          : Form(
+                              key: key,
+                              child: Column(
+                                children: [
+                                  const Spacer(),
+                                  const Text(
+                                    'LogIn',
+                                    style: Styles.textStyle25,
+                                  ),
+                                  CustomTextField(
+                                    controller: emailController,
+                                    hint: 'Email',
+                                    icon: const Icon(Icons.email_outlined),
+                                  ),
+                                  const Spacer(),
+                                  CustomTextField(
+                                    controller: passwordController,
+                                    obscureText: true,
+                                    hint: 'Password',
+                                    icon: const Icon(Icons.password_outlined),
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: GestureDetector(
+                                      onTap: () => context
+                                          .push(AppRouter.kPasswordRecavory),
+                                      child: const Text(
+                                        'Forget password?',
+                                        style: Styles.textStyle18,
+                                        textAlign: TextAlign.right,
+                                      ),
+                                    ),
+                                  ),
+                                  const Spacer(
+                                    flex: 3,
+                                  ),
+                                  CustomBotton(
+                                    onPressed: () {
+                                      if (key.currentState!.validate()) {
+                                        BlocProvider.of<LogInCubit>(context)
+                                            .loginUser(
+                                                email: emailController.text,
+                                                password:
+                                                    passwordController.text,
+                                                context: context);
+                                      }
+                                    },
+                                    text: 'LOGIN',
+                                    backgroundColor: kRed,
+                                    textColor: kWhite,
+                                    borderRadius: BorderRadius.circular(90),
+                                  ),
+                                  const Spacer()
+                                ],
                               ),
-                            ),
-                            const Spacer(
-                              flex: 3,
-                            ),
-                            CustomBotton(
-                              onPressed: () {
-                                if (key.currentState!.validate()) {
-                                  BlocProvider.of<LogInCubit>(context)
-                                      .loginUser(
-                                          email: emailController.text,
-                                          password: passwordController.text,
-                                          context: context);
-                                }
-                              },
-                              text: 'LOGIN',
-                              backgroundColor: kRed,
-                              textColor: kWhite,
-                              borderRadius: BorderRadius.circular(90),
-                            ),
-                            const Spacer()
-                          ],
-                        ),
-                      );
+                            );
                     },
                   ),
                 ),

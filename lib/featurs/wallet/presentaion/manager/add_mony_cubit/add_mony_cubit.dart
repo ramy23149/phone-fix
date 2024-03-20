@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/featurs/wallet/data/repos/wallet_repo.dart';
+import 'package:food_delivery_app/featurs/wallet/data/repos/wallet/wallet_repo.dart';
 import 'package:food_delivery_app/featurs/wallet/presentaion/manager/add_mony_cubit/add_mony_state.dart';
+
+import '../../../../../Core/helper/Costom_alert_dialog.dart';
 
 class AddMonyCubit extends Cubit<AddMonyState> {
   AddMonyCubit(this.walletRepo) : super(AddMonyInitial());
@@ -15,26 +17,10 @@ class AddMonyCubit extends Cubit<AddMonyState> {
       (falier) => emit(AddMonyFailure(falier.errMasessge)),
       (r) {
         emit(AddMonySuccess());
-        _showPaymentSuccessDialog(context);
+        showAlertDialog(context,"Your payment was successful.");
       },
     );
   }
 
-  void _showPaymentSuccessDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: const Text("Your payment was successful."),
-            actions: [
-              MaterialButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); 
-                },
-                child: const Text("OK"),
-              ),
-            ],
-          );
-        });
-  }
+ 
 }
