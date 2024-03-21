@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Core/servers/sherd_pref.dart';
 import 'package:food_delivery_app/featurs/wallet/data/repos/wallet/wallet_repo.dart';
 import 'package:food_delivery_app/featurs/wallet/presentaion/manager/add_mony_cubit/add_mony_state.dart';
 
@@ -36,6 +37,7 @@ class AddMonyCubit extends Cubit<AddMonyState> {
         'Wallet': newWalletBalance
       },
     );
+    SherdPrefHelper().setUserWallet(newWalletBalance);
   emit(AddMonySuccess());
         showAlertDialog(context, "Your payment was successful.");
       },
