@@ -29,18 +29,20 @@ class SignUpCubit extends Cubit<SignUpState> {
           .whenComplete(
             () => showAlertDialog(context, 'Verify your email'),
           );
+
+            emit(SignUpSuccess());
       Map<String, dynamic> addUserInfo = {
         'email': email,
         'name': name,
         'uid': userCredential.user!.uid,
-        'Wallet': '0'
+        'Wallet': 0
       };
     await  DataBaseMethouds().addUserDetails(addUserInfo, userCredential.user!.uid);
     await SherdPrefHelper().setUserEmail(email);
     await SherdPrefHelper().setUserName(name);
     await SherdPrefHelper().setUserUID(userCredential.user!.uid);
-    await SherdPrefHelper().setUserWallet('0');
-      emit(SignUpSuccess());
+    await SherdPrefHelper().setUserWallet(0);
+    
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         showSnackBar(context, 'password too weak');

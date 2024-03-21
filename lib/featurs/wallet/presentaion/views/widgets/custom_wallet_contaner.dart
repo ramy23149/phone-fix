@@ -33,7 +33,7 @@ class CustomWalletContaner extends StatelessWidget {
                   style: Styles.textStyle14,
                 ),
                 Text(
-                  "\$$totalMony",
+                  "\$ $totalMony",
                   style: Styles.textStyle20Extra,
                 )
               ],

@@ -18,9 +18,9 @@ class SherdPrefHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.setString(userUID, getUserUID);
   }
-  Future<bool> setUserWallet(String getUserWallet) async {
+  Future<bool> setUserWallet(int getUserWallet) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.setString(userWallet, getUserWallet);
+  return prefs.setInt(userWallet, getUserWallet);
   }
   //=================================================================
   Future<String?> getUserEmail() async {
@@ -35,8 +35,8 @@ class SherdPrefHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(userUID);
   }
-  Future<String?> getUserWallet() async {
+  Future<int?> getUserWallet() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(userWallet);
+    return prefs.getInt(userWallet);
   }
 }
