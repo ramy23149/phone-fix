@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AdminTextField extends StatelessWidget {
-  const AdminTextField({super.key, required this.hint, this.maxlines});
+  const AdminTextField({super.key, required this.hint, this.maxlines, this.controller});
   final String hint;
   final int? maxlines;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
     validator: (value) {
       if (value!.isEmpty) {
         return 'Field is required';

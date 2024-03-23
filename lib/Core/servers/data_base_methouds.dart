@@ -7,4 +7,10 @@ class DataBaseMethouds {
         .doc(uId)
         .set(userData);
   }
+
+  Future addItem(Map<String, dynamic> userData, String name) async {
+    return await FirebaseFirestore.instance
+        .collection(name).add(userData);
+        
+  }
 }
