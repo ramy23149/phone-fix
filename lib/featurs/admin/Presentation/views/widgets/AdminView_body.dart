@@ -43,9 +43,11 @@ class _AdminViewBodyState extends State<AdminViewBody> {
         } else if (state is AdminWrongPassword) {
           showSnackBar(context, 'Wrong password');
         } else if (state is AdminLoginSuccess) {
-          context.pushReplacement(AppRouter.kAdminHome);
-        } else {
+          context.push(AppRouter.kAdminHome);
+        } else if (state is AdminLoading) {
           isLoading = true;
+        } else if (state is AdminInitial) {
+          isLoading = false;
         }
       },
       child: ModalProgressHUD(

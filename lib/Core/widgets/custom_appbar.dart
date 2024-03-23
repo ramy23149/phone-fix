@@ -7,14 +7,20 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(
-          height: 50,
-          width: double.infinity,
-           child: Material(
-            elevation: 2,
-            child: Transform.translate(
-              offset: const Offset(0, 8),
-              child: const Text('Wallet',style: Styles.textStyle25,textAlign: TextAlign.center,))),
-         );
+    return SizedBox(
+      height: 50,
+      width: double.infinity,
+      child: Material(
+        elevation: 2,
+        child: Transform.translate(
+          offset: const Offset(0, 8),
+          child: const Text(
+            'Wallet',
+            style: Styles.textStyle25,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    );
   }
 }
