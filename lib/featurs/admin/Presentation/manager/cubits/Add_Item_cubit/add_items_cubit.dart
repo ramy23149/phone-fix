@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:food_delivery_app/Core/servers/data_base_methouds.dart';
 import 'package:meta/meta.dart';
-import 'package:random_string/random_string.dart';
 
 part 'add_items_state.dart';
 
@@ -17,11 +16,12 @@ class AddItemsCubit extends Cubit<AddItemsState> {
     try {
       emit(AddItemsLoading());
       //String id = randomAlphaNumeric(10);
+       await Future.delayed(Duration(seconds: 4));
 
       Reference ref =
           await FirebaseStorage.instance.ref().child('images').child('${DateTime.now()}');
 
-      UploadTask uploadTask = ref.putFile(image!);
+      UploadTask uploadTask = ref.putFile(image?? File(''));
 
       var url = await (await uploadTask).ref.getDownloadURL();
 
@@ -32,7 +32,8 @@ class AddItemsCubit extends Cubit<AddItemsState> {
         'detalis': detalis
       };
 
-      DataBaseMethouds().addItem(data, categoryName).then((value) => emit(AddItemsSuccess()));
+    await  DataBaseMethouds().addItem(data, categoryName);
+    emit(AddItemsSuccess());
     } on FirebaseException catch (e) {
       print("Failed with error '${e.code}': ${e.message}");
       emit(AddItemsError());

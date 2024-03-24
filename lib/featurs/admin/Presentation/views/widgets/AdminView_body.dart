@@ -36,98 +36,102 @@ class _AdminViewBodyState extends State<AdminViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AdminCubit, AdminState>(
-      listener: (context, state) {
+    return BlocBuilder<AdminCubit, AdminState>(
+      builder: (context, state) {
         if (state is AdminWrongId) {
-          showSnackBar(context, 'Wrong user name');
+          Future.microtask(() {
+            showSnackBar(context, 'Wrong user name');
+          });
         } else if (state is AdminWrongPassword) {
-          showSnackBar(context, 'Wrong password');
+          Future.microtask(() {
+            showSnackBar(context, 'Wrong password');
+          });
         } else if (state is AdminLoginSuccess) {
-          context.push(AppRouter.kAdminHome);
-        } else if (state is AdminLoading) {
-          isLoading = true;
-        } else if (state is AdminInitial) {
-          isLoading = false;
+          Future.microtask(() {
+            context.push(AppRouter.kAdminHome);
+          });
+          
         }
-      },
-      child: ModalProgressHUD(
-        inAsyncCall: isLoading,
-        child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              const UperContainer(),
-              const LowerContaner(),
-              const Positioned(
-                right: 0,
-                left: 0,
-                top: 18,
-                child: Center(
-                  child: Text('Let\'s start with\nAdmin!',
-                      style: Styles.textStyle25),
+        return ModalProgressHUD(
+          inAsyncCall: state is AdminLoading,
+          child: SingleChildScrollView(
+            child: Stack(
+              children: [
+                const UperContainer(),
+                const LowerContaner(),
+                const Positioned(
+                  right: 0,
+                  left: 0,
+                  top: 18,
+                  child: Center(
+                    child: Text('Let\'s start with\nAdmin!',
+                        style: Styles.textStyle25),
+                  ),
                 ),
-              ),
-              Positioned(
-                right: 30,
-                left: 30,
-                top: 130,
-                bottom: 260,
-                child: Material(
-                  borderRadius: BorderRadius.circular(17),
-                  elevation: 5.0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(17), color: kWhite),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Form(
-                        key: key,
-                        child: Column(
-                          children: [
-                            const Spacer(
-                              flex: 2,
-                            ),
-                            BorderTextFiald(
-                                hintText: 'Username',
-                                controller: userNameController),
-                            const Spacer(),
-                            BorderTextFiald(
-                              hintText: 'Password',
-                              controller: passwordController,
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            const Spacer(),
-                            CustomBotton(
-                              width: double.infinity,
-                              onPressed: () {
-                                if (key.currentState!.validate()) {
-                                  BlocProvider.of<AdminCubit>(context)
-                                      .loginAdmin(
-                                    userName: userNameController.text,
-                                    password: passwordController.text,
-                                  );
-                                }
-                              },
-                              text: 'LOGIN',
-                              backgroundColor: kBlack,
-                              textColor: kWhite,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            const Spacer(
-                              flex: 3,
-                            )
-                          ],
+                Positioned(
+                  right: 30,
+                  left: 30,
+                  top: 130,
+                  bottom: 260,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(17),
+                    elevation: 5.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(17),
+                          color: kWhite),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Form(
+                          key: key,
+                          child: Column(
+                            children: [
+                              const Spacer(
+                                flex: 2,
+                              ),
+                              BorderTextFiald(
+                                  hintText: 'Username',
+                                  controller: userNameController),
+                              const Spacer(),
+                              BorderTextFiald(
+                                hintText: 'Password',
+                                controller: passwordController,
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              const Spacer(),
+                              CustomBotton(
+                                width: double.infinity,
+                                onPressed: () {
+                                  if (key.currentState!.validate()) {
+                                    BlocProvider.of<AdminCubit>(context)
+                                        .loginAdmin(
+                                      userName: userNameController.text,
+                                      password: passwordController.text,
+                                    );
+                                  }
+                                },
+                                text: 'LOGIN',
+                                backgroundColor: kBlack,
+                                textColor: kWhite,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              const Spacer(
+                                flex: 3,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
