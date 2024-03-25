@@ -42,22 +42,19 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddItemsCubit, AddItemsState>(
-      builder: (context, state) {
+    return BlocConsumer<AddItemsCubit, AddItemsState>(
+      listener: (context, state) {
         if (state is AddItemsSuccess) {
-            nameController.clear();
-            priceController.clear();
-            detalisController.clear();
-        Future.microtask(() {
-            showSnackBar(context, 'Item added successfully');
-          
-            
-          });
+          nameController.clear();
+          priceController.clear();
+          detalisController.clear();
+          packedImage = File(''); //3ayz lama select image el sora t5tafy===================
+          showSnackBar(context, 'Item added successfully');
         } else if (state is AddItemsError) {
-          WidgetsBinding.instance!.addPostFrameCallback((_) {
-            showSnackBar(context, 'something went wrong,try later');
-          });
+          showSnackBar(context, 'something went wrong,try later');
         }
+      },
+      builder: (context, state) {
         return ModalProgressHUD(
           inAsyncCall: state is AddItemsLoading,
           child: SingleChildScrollView(

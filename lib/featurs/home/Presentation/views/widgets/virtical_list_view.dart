@@ -6,7 +6,9 @@ import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'custom_virtical_list_item.dart';
 
 class LowerListView extends StatefulWidget {
-  const LowerListView({super.key});
+  const LowerListView({super.key,required this.foodType});
+
+  final String foodType;
 
   @override
   State<LowerListView> createState() => _LowerListViewState();
@@ -16,7 +18,7 @@ class _LowerListViewState extends State<LowerListView> {
   Stream<QuerySnapshot<Object?>>? foodItemStream;
 
   getItems() async {
-    foodItemStream = await DataBaseMethouds().getItems('ice_cream');
+    foodItemStream = await DataBaseMethouds().getItems(widget.foodType);
     setState(() {});
   }
 
@@ -27,6 +29,13 @@ class _LowerListViewState extends State<LowerListView> {
     getItems();
   }
 
+  @override
+    void didUpdateWidget(LowerListView oldWidget) {
+    if (oldWidget.foodType != widget.foodType) {
+      getItems();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +44,9 @@ class _LowerListViewState extends State<LowerListView> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
                 scrollDirection: Axis.vertical,
                 itemCount: snapshot.data?.docs.length,
                 itemBuilder: (context, index) {

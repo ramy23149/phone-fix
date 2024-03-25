@@ -45,7 +45,7 @@ class _ImageContanerState extends State<ImageContaner> {
               borderRadius: BorderRadius.circular(16),
               border: Border.all(width: 2, color: Colors.black),
             ),
-            child: image == null
+            child: image == null || image == File('')
                 ? const Icon(Icons.camera_alt_outlined)
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(14),

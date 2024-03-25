@@ -16,7 +16,7 @@ class AddItemsCubit extends Cubit<AddItemsState> {
     try {
       emit(AddItemsLoading());
       //String id = randomAlphaNumeric(10);
-       await Future.delayed(Duration(seconds: 4));
+       //await Future.delayed(Duration(seconds: 4));
 
       Reference ref =
           await FirebaseStorage.instance.ref().child('images').child('${DateTime.now()}');
@@ -33,6 +33,7 @@ class AddItemsCubit extends Cubit<AddItemsState> {
       };
 
     await  DataBaseMethouds().addItem(data, categoryName);
+    await DataBaseMethouds().addItem(data, 'genral');
     emit(AddItemsSuccess());
     } on FirebaseException catch (e) {
       print("Failed with error '${e.code}': ${e.message}");

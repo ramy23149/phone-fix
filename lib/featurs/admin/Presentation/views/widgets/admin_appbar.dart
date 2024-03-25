@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:food_delivery_app/Core/widgets/Custom_text_bottom.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../Core/text_styles/Styles.dart';

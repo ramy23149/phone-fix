@@ -6,7 +6,7 @@ import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'custom_horizontal_list_item.dart';
 
 class UperListView extends StatefulWidget {
-  const UperListView({super.key});
+  const UperListView({super.key, });
 
   @override
   State<UperListView> createState() => _UperListViewState();
@@ -16,7 +16,7 @@ class _UperListViewState extends State<UperListView> {
   Stream<QuerySnapshot<Object?>>? foodItemStream;
 
   getItems() async {
-    foodItemStream = await DataBaseMethouds().getItems('pizza');
+    foodItemStream = await DataBaseMethouds().getItems('genral');
     setState(() {});
   }
 
@@ -26,6 +26,7 @@ class _UperListViewState extends State<UperListView> {
     super.initState();
     getItems();
   }
+
 
   @override
   Widget build(BuildContext context) {
