@@ -1,13 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
+import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../Core/text_styles/Styles.dart';
 
 class CustomVirticalListItem extends StatelessWidget {
-  const CustomVirticalListItem({super.key});
+  const CustomVirticalListItem({super.key, required this.imageUrl, required this.foodName, required this.price, required this.desc});
+    final String imageUrl;
+  final String foodName;
+  final String price;
+  final String desc;
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,33 +35,48 @@ class CustomVirticalListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Flexible(
-                  child: Image.asset(
-                    "assets/images/salad2.png",
-                              
-                    fit: BoxFit.cover,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: CachedNetworkImage(
+                        height: 100,
+                        width: 100,
+                        progressIndicatorBuilder: (context, url, progress) {
+                          return const CustomLoadingIndecator();
+                        },
+                        imageUrl: imageUrl,
+                      fit: BoxFit.cover,
+                        errorWidget: (context, url, error) {
+                          
+                          return const Icon(
+                            Icons.error,
+                            color: Colors.red,
+                          );
+                        },
+                        //BoxFit.cover
+                      ),
+                    ),
                   ),
-                ),
                 const SizedBox(
                   width: 13,
                 ),
-                const Expanded(
+                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        'Salad',
+                        foodName,
                         style: Styles.textStyle20,
                       ),
                       Text(
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        'Fresh and Healthy',
+                        desc,
                         style: Styles.textStyle14,
                       ),
                       Text(
-                        '\$25',
+                        '\$$price',
                         style: Styles.textStyle20,
                       ),
                     ],

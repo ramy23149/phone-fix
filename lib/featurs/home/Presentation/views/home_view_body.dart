@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
-import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/custom_horizontal_list_item.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/food_type_section.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/horizontal_List_view.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/virtical_list_view.dart';
 
-import 'widgets/custom_virtical_list_item.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -31,21 +31,11 @@ class HomeViewBody extends StatelessWidget {
             ),
             FoodTypeSection(),
             SizedBox(height: 40,),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  CustomUperListViewItem(),
-                  CustomUperListViewItem(),
-                  CustomUperListViewItem(),
-                ],
-              ),
-            ),
+            UperListView(),//stream
               SizedBox(
               height: 20,
             ),
-            CustomVirticalListItem(),
-            CustomVirticalListItem()
+          LowerListView(),//stream
           ],
         ),
       ),

@@ -9,8 +9,10 @@ class DataBaseMethouds {
   }
 
   Future addItem(Map<String, dynamic> userData, String name) async {
-    return await FirebaseFirestore.instance
-        .collection(name).add(userData);
-        
+    return await FirebaseFirestore.instance.collection(name).add(userData);
+  }
+
+  Future<Stream<QuerySnapshot>> getItems(String name) async {
+    return FirebaseFirestore.instance.collection(name).snapshots();
   }
 }

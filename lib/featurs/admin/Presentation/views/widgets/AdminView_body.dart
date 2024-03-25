@@ -49,8 +49,8 @@ class _AdminViewBodyState extends State<AdminViewBody> {
         } else if (state is AdminLoginSuccess) {
           Future.microtask(() {
             context.push(AppRouter.kAdminHome);
-          });
-          
+          },
+          );
         }
         return ModalProgressHUD(
           inAsyncCall: state is AdminLoading,
@@ -94,6 +94,7 @@ class _AdminViewBodyState extends State<AdminViewBody> {
                                   controller: userNameController),
                               const Spacer(),
                               BorderTextFiald(
+                                obscure: true,
                                 hintText: 'Password',
                                 controller: passwordController,
                               ),

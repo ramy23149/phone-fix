@@ -4,10 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_delivery_app/Core/helper/Costom_alert_dialog.dart';
 import 'package:food_delivery_app/Core/helper/custom_snakBar.dart';
-import 'package:food_delivery_app/Core/servers/data_base_methouds.dart';
-import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
+
 import 'package:food_delivery_app/featurs/admin/Presentation/manager/cubits/Add_Item_cubit/add_items_cubit.dart';
 import 'package:food_delivery_app/featurs/admin/Presentation/views/widgets/admin_text_field.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -47,8 +45,13 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
     return BlocBuilder<AddItemsCubit, AddItemsState>(
       builder: (context, state) {
         if (state is AddItemsSuccess) {
-          WidgetsBinding.instance!.addPostFrameCallback((_) {
+            nameController.clear();
+            priceController.clear();
+            detalisController.clear();
+        Future.microtask(() {
             showSnackBar(context, 'Item added successfully');
+          
+            
           });
         } else if (state is AddItemsError) {
           WidgetsBinding.instance!.addPostFrameCallback((_) {
