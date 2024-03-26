@@ -6,17 +6,22 @@ import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomUperListViewItem extends StatelessWidget {
-  const CustomUperListViewItem({super.key, required this.imageUrl, required this.foodName, required this.price, required this.desc});
+  const CustomUperListViewItem(
+      {super.key,
+      required this.imageUrl,
+      required this.foodName,
+      required this.price,
+      required this.desc, });
   final String imageUrl;
   final String foodName;
   final String price;
   final String desc;
 
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.push(AppRouter.kfoodDetalis),
+      onTap: () => context.push(AppRouter.kfoodDetalis,
+          extra: {'image': imageUrl, 'detalis': desc, 'price': price, 'name': foodName}),
       child: Container(
         width: MediaQuery.of(context).size.width * .6,
         height: MediaQuery.of(context).size.height * .37,
@@ -43,7 +48,7 @@ class CustomUperListViewItem extends StatelessWidget {
                             return const CustomLoadingIndecator();
                           },
                           imageUrl: imageUrl,
-                        fit: BoxFit.cover,
+                          fit: BoxFit.cover,
                           errorWidget: (context, url, error) {
                             return const Icon(
                               Icons.error,
@@ -55,19 +60,19 @@ class CustomUperListViewItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                   Text(
+                  Text(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     foodName,
                     style: Styles.textStyle20,
                   ),
-                   Text(
+                  Text(
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     desc,
                     style: Styles.textStyle14,
                   ),
-                   Text(
+                  Text(
                     '\$$price',
                     style: Styles.textStyle20,
                   )

@@ -30,11 +30,11 @@ abstract class AppRouter {
         path: kSignUpView,
         builder: (context, state) => const SignUpView(),
       ),
-      GoRoute(path: '/', 
-      builder: (context, state) => const BottomNavBar ()),
-      GoRoute(path: kAdminHome,
-       builder: (context, state) => const HomeAdmin(),
-       ),
+      GoRoute(path: '/', builder: (context, state) => const BottomNavBar()),
+      GoRoute(
+        path: kAdminHome,
+        builder: (context, state) => const HomeAdmin(),
+      ),
       GoRoute(
         path: kBottomNavBar,
         builder: (context, state) => const BottomNavBar(),
@@ -44,9 +44,16 @@ abstract class AppRouter {
         builder: (context, state) => const PasswordRecavory(),
       ),
       GoRoute(
-        path: kfoodDetalis,
-        builder: (context, state) => const FoodDetalisView(),
-      )
+          path: kfoodDetalis,
+          builder: (context, state) {
+              final Map<String, dynamic> data = state.extra! as Map<String, dynamic>;
+            return  FoodDetalisView(
+              name: data['name'],
+              imageUrl: data['image'],
+              desc: data['detalis'],
+              price: data['price'],
+            );
+          })
     ],
   );
 }
