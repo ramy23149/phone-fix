@@ -2,6 +2,7 @@ import 'package:food_delivery_app/Core/widgets/bottomNav_bar.dart';
 import 'package:food_delivery_app/featurs/admin/Presentation/views/admin_view.dart';
 import 'package:food_delivery_app/featurs/auth/presentation/views/password_recavory.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/food_detalis_view.dart';
+import 'package:food_delivery_app/featurs/on_boarding/presentation/views/on_bording_view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../featurs/admin/Presentation/views/admin_home.dart';
@@ -30,7 +31,7 @@ abstract class AppRouter {
         path: kSignUpView,
         builder: (context, state) => const SignUpView(),
       ),
-      GoRoute(path: '/', builder: (context, state) => const BottomNavBar()),
+      GoRoute(path: '/', builder: (context, state) => const OnBordingView()),
       GoRoute(
         path: kAdminHome,
         builder: (context, state) => const HomeAdmin(),
