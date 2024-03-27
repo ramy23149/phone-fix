@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'widgets/profile_view_body.dart';
+
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Image.asset('assets/images/screen1.png'));
+    return const SafeArea(
+      child: Scaffold(
+        body: ProfileViewBody(),
+      ),
+    );
   }
 }
