@@ -25,7 +25,7 @@ if (flutterVersionName == null) {
 android {
     namespace "com.example.food_delivery_app"
     compileSdk 34
-    ndkVersion flutter.ndkVersion
+    ndkVersion "25.2.9519653"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

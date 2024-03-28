@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/Core/widgets/Costum_text_feld.dart';
@@ -45,7 +46,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
             question: 'Already have an account?',
             ansswer: 'LOGIN',
             onPressed: () {
-              context.pop();
+              context.go(AppRouter.kLogInView);
             },
           ),
           Positioned(
@@ -75,7 +76,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                     listener: (context, state) {
                       if (state is SignUpSuccess) {
                         //showSnackBar(context, 'Account successfully created,login now');
-                        context.pop();
+                        context.go(AppRouter.kBottomNavBar);
                       }
                     },
                     builder: (context, state) {

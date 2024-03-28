@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
+import 'package:food_delivery_app/Core/servers/data_base_methouds.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:food_delivery_app/featurs/Profile/views/widgets/curved_contaner.dart';
 import 'package:food_delivery_app/featurs/Profile/views/widgets/user_image.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../Core/servers/sherd_pref.dart';
 import 'custom_listile.dart';
 import 'user_action.dart';
@@ -69,17 +72,36 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                       icon: const Icon(Icons.person),
                       title: 'Email',
                       subtitle: email!),
-                  const UserAction(
-                    title: 'Terms and Conditions',
-                    icon: Icon(Icons.verified_user),
-                  ),
-                  const UserAction(
+                  // UserAction(
+                  //   okBtnText: 'show',
+                  //   onOk: ()async {
+                    
+                  //   },
+                  //   dialogTitle: 'Terms and Conditions',
+                  //   title: 'Terms and Conditions',
+                  //   icon: Icon(Icons.verified_user),
+                  // ),
+                  UserAction(
+                    onCancel: () {},
                     title: 'Delete Account',
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
+                    dialogTitle: 'Are You Sure To Delete Your Account ?',
+                    okBtnText: 'Delete',
+                    onOk: () {
+                      DataBaseMethouds().deleteUser();
+                      context.go(AppRouter.kSignUpView);
+                    },
                   ),
-                  const UserAction(
+                  UserAction(
+                    onCancel: () {},
+                    onOk: () {
+                      DataBaseMethouds().logOut();
+                      context.go(AppRouter.kLogInView);
+                    },
+                    dialogTitle: 'Are You Sure To Log Out ?',
+                    okBtnText: 'Log Out',
                     title: 'Log Out',
-                    icon: Icon(Icons.logout),
+                    icon: const Icon(Icons.logout),
                   ),
                 ],
               ),

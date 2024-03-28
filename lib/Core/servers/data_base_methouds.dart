@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DataBaseMethouds {
   Future addUserDetails(Map<String, dynamic> userData, String uId) async {
@@ -21,5 +22,16 @@ class DataBaseMethouds {
         .collection('users')
         .doc(uId).collection('curt')
         .add(userData);
+  }
+
+Future<void> logOut()async{
+    await FirebaseAuth.instance.signOut();
+  }
+
+  Future<void> deleteUser() async {
+      await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).delete();
+    await FirebaseAuth.instance.currentUser!.delete();
+
+
   }
 }
