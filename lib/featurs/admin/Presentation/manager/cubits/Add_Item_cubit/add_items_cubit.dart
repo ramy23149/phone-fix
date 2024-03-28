@@ -19,7 +19,7 @@ class AddItemsCubit extends Cubit<AddItemsState> {
        //await Future.delayed(Duration(seconds: 4));
 
       Reference ref =
-          await FirebaseStorage.instance.ref().child('images').child('${DateTime.now()}');
+           FirebaseStorage.instance.ref().child('images').child('${DateTime.now()}');
 
       UploadTask uploadTask = ref.putFile(image?? File(''));
 

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Core/servers/sherd_pref.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meta/meta.dart';
 
@@ -21,6 +22,7 @@ class LogInCubit extends Cubit<LogInState> {
         email: email,
         password: password,
       );
+       await SherdPrefHelper().setUserEmail(email);
       
       emit(LogInSuccess());
       showSnackBar(context, 'Login successfully');

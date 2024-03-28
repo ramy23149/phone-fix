@@ -62,7 +62,7 @@ class _WalletViewBodyState extends State<WalletViewBody> {
                   final userData =
                       snapshot.data!.data() as Map<String, dynamic>;
                   final totalMoney = userData['Wallet'];
-                  return CustomWalletContaner(totalMony: totalMoney);
+                  return CustomWalletContaner(totalMony: totalMoney??0);
                 }
               },
             ),

@@ -35,7 +35,8 @@ class SignUpCubit extends Cubit<SignUpState> {
         'email': email,
         'name': name,
         'uid': userCredential.user!.uid,
-        'Wallet': 0
+        'Wallet': 0,
+        'image':''
       };
     await  DataBaseMethouds().addUserDetails(addUserInfo, userCredential.user!.uid);
     await SherdPrefHelper().setUserEmail(email);

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../Core/text_styles/Styles.dart';
 
-class UserInfo extends StatelessWidget {
-  const UserInfo(
+class UserInformatoin extends StatelessWidget {
+  const UserInformatoin(
       {super.key,
       required this.icon,
       required this.title,
