@@ -46,7 +46,9 @@ class _WalletViewBodyState extends State<WalletViewBody> {
         inAsyncCall: isLoading,
         child: Column(
           children: [
-            const CustomAppBar(),
+            const CustomAppBar(
+              title: 'Wallet',
+            ),
             const SizedBox(height: 20),
             FutureBuilder<DocumentSnapshot>(
               future: FirebaseFirestore.instance

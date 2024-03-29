@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/featurs/order/views/widgets/order_view_body.dart';
 
 class OrderView extends StatelessWidget {
   const OrderView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Image.asset('assets/images/screen2.png'));
+    return SafeArea(child: 
+    Scaffold(
+      body: OrderViewBody(),
+    ));
   }
 }

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../text_styles/Styles.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
-
+  const CustomAppBar({super.key, required this.title});
+  final String title;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -14,8 +14,8 @@ class CustomAppBar extends StatelessWidget {
         elevation: 2,
         child: Transform.translate(
           offset: const Offset(0, 8),
-          child: const Text(
-            'Wallet',
+          child:  Text(
+            title,
             style: Styles.textStyle25,
             textAlign: TextAlign.center,
           ),

@@ -9,6 +9,7 @@ import '../featurs/Profile/views/profile_view.dart';
 import '../featurs/admin/Presentation/views/admin_home.dart';
 import '../featurs/auth/presentation/views/login_view.dart';
 import '../featurs/auth/presentation/views/signUp_view.dart';
+import '../featurs/order/views/order_view.dart';
 
 abstract class AppRouter {
   static String kOnBording = '/';
@@ -32,7 +33,7 @@ abstract class AppRouter {
         path: kSignUpView,
         builder: (context, state) => const SignUpView(),
       ),
-      GoRoute(path: '/', builder: (context, state) => const OnBordingView()),
+      GoRoute(path: '/', builder: (context, state) => const OrderView()),
       GoRoute(
         path: kAdminHome,
         builder: (context, state) => const HomeAdmin(),
