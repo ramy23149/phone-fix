@@ -24,12 +24,14 @@ class FoodItem extends StatelessWidget {
                 height: 120,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: const Color(0xffA59EA5))),
+                    border: Border.all(color: const Color(0xffA59EA5),width: 2.5)),
+                    
+                    
                 child: const Center(
                   child: Text(
                     '7',
                     style: TextStyle(
-                        color: Color(0xffA59EA5), fontWeight: FontWeight.w500),
+                        color: Color(0xff9C959C), fontWeight: FontWeight.w500),
                   ),
                 ),
               ),
