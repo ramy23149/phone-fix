@@ -6,7 +6,7 @@ class OrderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: 
+    return const SafeArea(child: 
     Scaffold(
       body: OrderViewBody(),
     ));

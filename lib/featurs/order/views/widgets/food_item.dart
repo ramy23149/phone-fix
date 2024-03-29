@@ -1,15 +1,21 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../../Core/text_styles/Styles.dart';
+import '../../../../Core/widgets/custom_loadingIndecator.dart';
 
 class FoodItem extends StatelessWidget {
-  const FoodItem({super.key});
+  const FoodItem({super.key, required this.count, required this.image, required this.name, required this.price});
+  final int count;
+  final String image;
+  final String name;
+  final int price;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 120,
-      padding: const EdgeInsets.only(bottom: 10,right: 15.0,left: 15.0),
+      padding: const EdgeInsets.only(bottom: 10, right: 15.0, left: 15.0),
       child: Material(
         borderRadius: BorderRadius.circular(16),
         elevation: 7,
@@ -24,13 +30,12 @@ class FoodItem extends StatelessWidget {
                 height: 120,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: const Color(0xffA59EA5),width: 2.5)),
-                    
-                    
-                child: const Center(
+                    border:
+                        Border.all(color: const Color(0xffA59EA5), width: 2.5)),
+                child:  Center(
                   child: Text(
-                    '7',
-                    style: TextStyle(
+                    '$count',
+                    style: const TextStyle(
                         color: Color(0xff9C959C), fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -41,12 +46,27 @@ class FoodItem extends StatelessWidget {
               Flexible(
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.asset('assets/images/food.jpg', height: 100)),
+                    child: CachedNetworkImage(
+                        height: 100,
+                        progressIndicatorBuilder: (context, url, progress) {
+                          return const CustomLoadingIndecator();
+                        },
+                        imageUrl: image,
+                      fit: BoxFit.cover,
+                        errorWidget: (context, url, error) {
+                          
+                          return const Icon(
+                            Icons.error,
+                            color: Colors.red,
+                          );
+                        },
+                        //BoxFit.cover
+                      ),),
               ),
               const SizedBox(
                 width: 13,
               ),
-              const Expanded(
+               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,11 +74,11 @@ class FoodItem extends StatelessWidget {
                     Text(
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      'Food',
+                      name,
                       style: Styles.textStyle20Extra,
                     ),
                     Text(
-                      '\$200',
+                      '\$$price',
                       style: Styles.textStyle20Extra,
                     ),
                   ],

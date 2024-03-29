@@ -33,7 +33,7 @@ abstract class AppRouter {
         path: kSignUpView,
         builder: (context, state) => const SignUpView(),
       ),
-      GoRoute(path: '/', builder: (context, state) => const OrderView()),
+      GoRoute(path: '/', builder: (context, state) => const OnBordingView()),
       GoRoute(
         path: kAdminHome,
         builder: (context, state) => const HomeAdmin(),

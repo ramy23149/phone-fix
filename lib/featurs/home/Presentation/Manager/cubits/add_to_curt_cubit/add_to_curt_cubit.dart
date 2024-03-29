@@ -13,7 +13,8 @@ class AddToCurtCubit extends Cubit<AddToCurtState> {
       'name': name,
       'quanter': count,
       'totalPrice': totalPrice,
-      'image':image
+      'image':image,
+      'date':DateTime.now()
     };
     final String id = FirebaseAuth.instance.currentUser!.uid;
 

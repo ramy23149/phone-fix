@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -20,18 +22,28 @@ class DataBaseMethouds {
   Future addToCurt(Map<String, dynamic> userData, String uId) async {
     return await FirebaseFirestore.instance
         .collection('users')
-        .doc(uId).collection('curt')
+        .doc(uId)
+        .collection('curt')
         .add(userData);
   }
 
-Future<void> logOut()async{
+  Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
   }
 
   Future<void> deleteUser() async {
-      await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).delete();
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .delete();
     await FirebaseAuth.instance.currentUser!.delete();
+  }
 
-
+  Future<Stream<QuerySnapshot>> getCart() async {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('curt').orderBy('date', descending: true)
+        .snapshots();
   }
 }
