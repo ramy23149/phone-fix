@@ -1,15 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_delivery_app/Core/widgets/bottomNav_bar.dart';
-import 'package:food_delivery_app/featurs/admin/Presentation/views/admin_view.dart';
 import 'package:food_delivery_app/featurs/auth/presentation/views/password_recavory.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/food_detalis_view.dart';
 import 'package:food_delivery_app/featurs/on_boarding/presentation/views/on_bording_view.dart';
 import 'package:go_router/go_router.dart';
 
-import '../featurs/Profile/views/profile_view.dart';
 import '../featurs/admin/Presentation/views/admin_home.dart';
+import '../featurs/admin/Presentation/views/admin_view.dart';
 import '../featurs/auth/presentation/views/login_view.dart';
 import '../featurs/auth/presentation/views/signUp_view.dart';
-import '../featurs/order/views/order_view.dart';
 
 abstract class AppRouter {
   static String kOnBording = '/';
@@ -29,11 +28,23 @@ abstract class AppRouter {
           return const LogInView();
         },
       ),
+    
       GoRoute(
         path: kSignUpView,
         builder: (context, state) => const SignUpView(),
       ),
-      GoRoute(path: '/', builder: (context, state) => const OnBordingView()),
+        GoRoute(
+        path: kAdminView,
+         builder: (context, state) => const AdminView()),
+      GoRoute(
+          path: '/',
+          builder: (context, state) {
+            if (FirebaseAuth.instance.currentUser == null) {
+              return const OnBordingView();
+            } else {
+              return const BottomNavBar();
+            }
+          }),
       GoRoute(
         path: kAdminHome,
         builder: (context, state) => const HomeAdmin(),
@@ -49,8 +60,9 @@ abstract class AppRouter {
       GoRoute(
           path: kfoodDetalis,
           builder: (context, state) {
-              final Map<String, dynamic> data = state.extra! as Map<String, dynamic>;
-            return  FoodDetalisView(
+            final Map<String, dynamic> data =
+                state.extra! as Map<String, dynamic>;
+            return FoodDetalisView(
               name: data['name'],
               imageUrl: data['image'],
               desc: data['detalis'],

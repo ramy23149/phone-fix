@@ -39,7 +39,7 @@ class AddMonyCubit extends Cubit<AddMonyState> {
     );
     SherdPrefHelper().setUserWallet(newWalletBalance);
   emit(AddMonySuccess());
-        showAlertDialog(context, "Your payment was successful.");
+        showAlertDialog(context, "Your payment was successful.",const Icon(Icons.done_outline_rounded),Colors.green);
       },
     );
   }

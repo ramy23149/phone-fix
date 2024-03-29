@@ -72,15 +72,15 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                       icon: const Icon(Icons.person),
                       title: 'Email',
                       subtitle: email!),
-                  // UserAction(
-                  //   okBtnText: 'show',
-                  //   onOk: ()async {
-                    
-                  //   },
-                  //   dialogTitle: 'Terms and Conditions',
-                  //   title: 'Terms and Conditions',
-                  //   icon: Icon(Icons.verified_user),
-                  // ),
+                  UserAction(
+                    okBtnText: 'Yes',
+                    onOk: () {
+                      context.push(AppRouter.kAdminView);
+                    },
+                    dialogTitle: 'Are You Admin ?',
+                    title: 'Start as Admin',
+                    icon: const Icon(Icons.admin_panel_settings_rounded),
+                  ),
                   UserAction(
                     onCancel: () {},
                     title: 'Delete Account',

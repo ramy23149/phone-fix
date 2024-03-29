@@ -27,7 +27,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       await FirebaseAuth.instance.currentUser!
           .sendEmailVerification()
           .whenComplete(
-            () => showAlertDialog(context, 'Verify your email'),
+            () => showAlertDialog(context, 'Verify your email',const Icon(Icons.notification_add),Colors.yellow),
           );
 
             emit(SignUpSuccess());
