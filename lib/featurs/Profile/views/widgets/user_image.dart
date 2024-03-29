@@ -85,7 +85,7 @@ class _UserImageState extends State<UserImage> {
           radius: 60,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(60),
-            child: imageUrl != null && imageUrl!.isNotEmpty
+            child: imageUrl != null && imageUrl !=''
                 ? Image.network(
                     imageUrl!,
                     fit: BoxFit.fill,

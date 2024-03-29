@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
+import 'package:food_delivery_app/Core/helper/custom_snakBar.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/Core/widgets/Costum_text_feld.dart';
 import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
@@ -77,6 +78,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                       if (state is SignUpSuccess) {
                         //showSnackBar(context, 'Account successfully created,login now');
                         context.go(AppRouter.kBottomNavBar);
+                        showSnackBar(context, 'Welcome');
                       }
                     },
                     builder: (context, state) {
