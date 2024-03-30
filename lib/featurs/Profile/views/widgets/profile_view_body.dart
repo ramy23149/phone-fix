@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
@@ -26,13 +25,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
 
   getSherdPref() async {
     email = await SherdPrefHelper().getUserEmail();
-    name = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .get()
-        .then((value) {
-      return value.data()!['name'];
-    });
+    name = await SherdPrefHelper().getUserName();
     setState(() {});
   }
 
@@ -74,6 +67,8 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                       subtitle: email!),
                   UserAction(
                     okBtnText: 'Yes',
+                    onCancel: () {},
+                    
                     onOk: () {
                       context.push(AppRouter.kAdminView);
                     },

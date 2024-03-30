@@ -6,3 +6,5 @@ sealed class AddToCurtState {}
 final class AddToCurtInitial extends AddToCurtState {}
 
 final class AddToCurtSuccess extends AddToCurtState{}
+
+final class AddToCartLoading extends AddToCurtState{}

@@ -56,7 +56,7 @@ class _UperListViewState extends State<UperListView> {
             return const CustomLoadingIndecator();
           } else {
             print(snapshot.error);
-            return Text(snapshot.error.toString());
+            return Center(child: Text('There was an ${snapshot.error} error'));
           }
         });
   }

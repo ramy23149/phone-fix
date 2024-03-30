@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:food_delivery_app/Core/servers/data_base_methouds.dart';
 import 'package:meta/meta.dart';
 
 part 'paymony_state.dart';
@@ -28,7 +29,10 @@ class PaymonyCubit extends Cubit<PaymonyState> {
         'Wallet': newWalletBalance
       },
     
-    );  emit(PaymonySuccess());
+    );
+      DataBaseMethouds().deleteCurt(documentId);
+
+      emit(PaymonySuccess());
         }else{
           emit(PaymonyError());
         }

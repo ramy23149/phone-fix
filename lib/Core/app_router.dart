@@ -9,6 +9,7 @@ import '../featurs/admin/Presentation/views/admin_home.dart';
 import '../featurs/admin/Presentation/views/admin_view.dart';
 import '../featurs/auth/presentation/views/login_view.dart';
 import '../featurs/auth/presentation/views/signUp_view.dart';
+import '../featurs/order/views/order_view.dart';
 
 abstract class AppRouter {
   static String kOnBording = '/';
@@ -19,6 +20,7 @@ abstract class AppRouter {
   static String kPasswordRecavory = '/PasswordRecavory';
   static String kAdminView = '/AdminView';
   static String kAdminHome = '/AdminHome';
+  static String kCartView = '/CartView';
 
   static final router = GoRouter(
     routes: <RouteBase>[
@@ -36,6 +38,7 @@ abstract class AppRouter {
         GoRoute(
         path: kAdminView,
          builder: (context, state) => const AdminView()),
+         GoRoute(path: kCartView, builder: (context, state) => const OrderView()),
       GoRoute(
           path: '/',
           builder: (context, state) {

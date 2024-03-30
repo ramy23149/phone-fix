@@ -43,7 +43,31 @@ class DataBaseMethouds {
     return FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection('curt').orderBy('date', descending: true)
+        .collection('curt')
+        .orderBy('date', descending: true)
         .snapshots();
   }
+
+  Future deleteCurt(String uId) async {
+    CollectionReference collection = FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId)
+        .collection('curt');
+
+    await collection.get().then((snapshot) {
+      for (DocumentSnapshot doc in snapshot.docs) {
+        doc.reference.delete();
+      }
+    });
+  }
+
+  Future deleteItemFromCurt(String id) async {
+    String uId = FirebaseAuth.instance.currentUser!.uid;
+      FirebaseFirestore.instance
+        .collection('users')
+        .doc(uId)
+        .collection('curt').doc(id).delete();
+  
+  }
+
 }

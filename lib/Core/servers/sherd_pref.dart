@@ -13,9 +13,9 @@ class SherdPrefHelper {
     return prefs.setString(userEmail, getUserEmail);
   }
 
-  Future<bool> setUserName(String getUserName) async {
+  Future<bool> setUserName(String? getUserName) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString(userName, getUserName);
+    return prefs.setString(userName, getUserName??'');
   }
 
   Future<bool> setUserUID(String getUserUID) async {

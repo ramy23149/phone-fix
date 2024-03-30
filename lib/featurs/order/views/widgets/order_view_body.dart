@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/Core/helper/Costom_alert_dialog.dart';
 import 'package:food_delivery_app/Core/widgets/custom_appbar.dart';
@@ -20,14 +19,17 @@ class OrderViewBody extends StatefulWidget {
 class _OrderViewBodyState extends State<OrderViewBody> {
   int total = 0;
   bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PaymonyCubit, PaymonyState>(
       listener: (context, state) {
         if (state is PaymonySuccess) {
-          showAlertDialog(context, "You Are Payed $total USD",const Icon(Icons.done_outline_rounded),Colors.green);
-        }else if (state is PaymonyError) {
-          showAlertDialog(context, "you don't have enough money",const Icon(Icons.error),Colors.red);
+          showAlertDialog(context, "You Are Payed $total USD",
+              const Icon(Icons.done_outline_rounded), Colors.green);
+        } else if (state is PaymonyError) {
+          showAlertDialog(context, "you don't have enough money",
+              const Icon(Icons.error), Colors.red);
         }
       },
       builder: (context, state) {
@@ -54,6 +56,13 @@ class _OrderViewBodyState extends State<OrderViewBody> {
                 right: 0,
                 left: 0,
                 child: OrderListView(
+                  onClear: () {
+                    WidgetsBinding.instance!.addPostFrameCallback((_) {
+                      setState(() {
+                        total = 0;
+                      });
+                    });
+                  },
                   onAdd: (int totalMoney) {
                     WidgetsBinding.instance!.addPostFrameCallback((_) {
                       setState(() {

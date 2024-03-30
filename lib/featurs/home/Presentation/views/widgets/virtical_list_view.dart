@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/servers/data_base_methouds.dart';
-import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 
 import 'custom_virtical_list_item.dart';
 
@@ -59,10 +58,10 @@ class _LowerListViewState extends State<LowerListView> {
                   );
                 });
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CustomLoadingIndecator();
+            return const SizedBox();
           } else {
             print(snapshot.error);
-            return Text('there was an error ${snapshot.error}');
+            return Center(child: Text('there was an error ${snapshot.error} error'));
           }
         });
   }

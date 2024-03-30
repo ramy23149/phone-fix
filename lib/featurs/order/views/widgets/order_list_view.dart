@@ -8,9 +8,10 @@ import '../../../../Core/servers/data_base_methouds.dart';
 class OrderListView extends StatefulWidget {
   const OrderListView({
     super.key,
-    required this.onAdd,
+    required this.onAdd, required this.onClear,
   });
   final void Function(int) onAdd;
+  final void Function() onClear;
 
   @override
   State<OrderListView> createState() => _OrderListViewState();
@@ -39,28 +40,36 @@ class _OrderListViewState extends State<OrderListView> {
           if (snapshot.hasData &&
               snapshot.data!.docs.isNotEmpty &&
               snapshot.data != null) {
+              double totalPrices = 0;
+// Initialize total price outside the loop
+            for (var ds in snapshot.data!.docs) {
+              totalPrices += ds['totalPrice'];
+            }
+            widget.onAdd(totalPrices.toInt()); // Add total price once here
+
             return ListView.builder(
                 itemCount: snapshot.data?.docs.length,
                 itemBuilder: (context, index) {
                   var ds = snapshot.data?.docs[index];
-                  double totalPrices = 0;
-                  for (var ds in snapshot.data!.docs) {
-                    totalPrices += ds['totalPrice'];
-                    widget.onAdd(totalPrices.toInt());
-                  }
+                  // double totalPrices = 0;
+                  // for (var ds in snapshot.data!.docs) {
+                  //   totalPrices += ds['totalPrice'];
+                  //   widget.onAdd(totalPrices.toInt()); //===================
+                  // }
                   return FoodItem(
                     image: ds!['image'],
                     name: ds['name'],
                     price: ds['totalPrice'],
                     count: ds['quanter'],
+                    id: ds.id,
                   );
-                  
                 });
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const CustomLoadingIndecator();
           } else if (snapshot.hasError) {
             return const Text('some thing went wrong');
           } else {
+            widget.onClear();
             return Image.asset('assets/images/cart.png');
           }
         });

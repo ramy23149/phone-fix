@@ -5,6 +5,7 @@ void showSnackBar(BuildContext context, String massege) {
       SnackBar(
         backgroundColor: Colors.orangeAccent,
         content: Text(massege),
+        duration: const Duration(seconds: 2),
       ),
     );
   }

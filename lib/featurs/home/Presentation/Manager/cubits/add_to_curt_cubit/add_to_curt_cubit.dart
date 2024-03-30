@@ -8,19 +8,19 @@ part 'add_to_curt_state.dart';
 class AddToCurtCubit extends Cubit<AddToCurtState> {
   AddToCurtCubit() : super(AddToCurtInitial());
 
-  addToCurt(String name, int count, int totalPrice,String image) async {
+  addToCurt(String name, int count, int totalPrice, String image) async {
+    emit(AddToCartLoading());
     final Map<String, dynamic> addFoodToCurt = {
       'name': name,
       'quanter': count,
       'totalPrice': totalPrice,
-      'image':image,
-      'date':DateTime.now()
+      'image': image,
+      'date': DateTime.now()
     };
     final String id = FirebaseAuth.instance.currentUser!.uid;
 
     await DataBaseMethouds().addToCurt(addFoodToCurt, id);
 
-    
     emit(AddToCurtSuccess());
   }
 }
