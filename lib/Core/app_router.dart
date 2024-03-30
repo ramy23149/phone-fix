@@ -23,6 +23,7 @@ abstract class AppRouter {
   static String kCartView = '/CartView';
 
   static final router = GoRouter(
+    initialLocation: kOnBording,
     routes: <RouteBase>[
       GoRoute(
         path: kLogInView,
@@ -39,15 +40,24 @@ abstract class AppRouter {
         path: kAdminView,
          builder: (context, state) => const AdminView()),
          GoRoute(path: kCartView, builder: (context, state) => const OrderView()),
-      GoRoute(
-          path: '/',
-          builder: (context, state) {
-            if (FirebaseAuth.instance.currentUser == null) {
-              return const OnBordingView();
-            } else {
-              return const BottomNavBar();
-            }
-          }),
+       GoRoute(
+      path: kOnBording, // Route for OnBordingView
+      builder: (context, state) {
+        if (FirebaseAuth.instance.currentUser == null) {
+          return const OnBordingView();
+        } else {
+          return const BottomNavBar();}
+      },
+    ),
+     GoRoute(
+      path: kBottomNavBar, // Route for BottomNavBar
+      builder: (context, state) {
+        if (FirebaseAuth.instance.currentUser != null) {
+          return const BottomNavBar();
+        } else {
+          return const OnBordingView();}
+      },
+    ),
       GoRoute(
         path: kAdminHome,
         builder: (context, state) => const HomeAdmin(),

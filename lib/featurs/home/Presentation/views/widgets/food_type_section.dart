@@ -14,7 +14,7 @@ class FoodTypeSection extends StatefulWidget {
 }
 
 class _FoodTypeSectionState extends State<FoodTypeSection> {
-    String foodImage = '';
+    String foodImage = 'assets/images/ice-cream.png';
 
   @override
   Widget build(BuildContext context) {
