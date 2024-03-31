@@ -25,8 +25,6 @@ class LogInCubit extends Cubit<LogInState> {
        await SherdPrefHelper().setUserEmail(email);
       
       emit(LogInSuccess());
-      showSnackBar(context, 'Login successfully');
-      context.go(AppRouter.kBottomNavBar);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         showSnackBar(context, 'No user found for that email.');

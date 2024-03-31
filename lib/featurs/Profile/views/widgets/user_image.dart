@@ -46,6 +46,7 @@ class _UserImageState extends State<UserImage> {
           .collection('users')
           .doc(address)
           .update({'image': url});
+      setState(() {});
     }
   }
 
@@ -65,7 +66,6 @@ class _UserImageState extends State<UserImage> {
   void initState() {
     super.initState();
     loadImage();
-    setState(() {});
   }
 
   @override

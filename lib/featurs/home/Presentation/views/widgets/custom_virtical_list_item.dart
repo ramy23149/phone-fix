@@ -23,6 +23,7 @@ class CustomVirticalListItem extends StatelessWidget {
      context.push(AppRouter.kfoodDetalis,extra: {'image': imageUrl, 'detalis': desc, 'price': price, 'name': foodName});
       },
       child: Container(
+        margin: const EdgeInsets.all(10),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * .2,
         padding: const EdgeInsets.only(right: 10,bottom: 10),
@@ -30,7 +31,7 @@ class CustomVirticalListItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           elevation: 7,
           child: Container(
-            margin: const EdgeInsets.all(14),
+            margin: const EdgeInsets.all(10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -59,29 +60,29 @@ class CustomVirticalListItem extends StatelessWidget {
                 const SizedBox(
                   width: 13,
                 ),
-                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        foodName,
-                        style: Styles.textStyle20,
-                      ),
-                      Text(
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        desc,
-                        style: Styles.textStyle14,
-                      ),
-                      Text(
-                        '\$$price',
-                        style: Styles.textStyle20,
-                      ),
-                    ],
-                  ),
-                )
+                 Flexible(
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Text(
+                         maxLines: 1,
+                         overflow: TextOverflow.ellipsis,
+                         foodName,
+                         style: Styles.textStyle20,
+                       ),
+                       Text(
+                         maxLines: 2,
+                         overflow: TextOverflow.ellipsis,
+                         desc,
+                         style: Styles.textStyle14,
+                       ),
+                       Text(
+                         '\$$price',
+                         style: Styles.textStyle20,
+                       ),
+                     ],
+                   ),
+                 )
               ],
             ),
           ),
