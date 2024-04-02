@@ -41,21 +41,24 @@ class CustomUperListViewItem extends StatelessWidget {
                       alignment: Alignment.center,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: CachedNetworkImage(
-                          height: 150,
-                          width: 150,
-                          progressIndicatorBuilder: (context, url, progress) {
-                            return const CustomLoadingIndecator();
-                          },
-                          imageUrl: imageUrl,
-                          fit: BoxFit.cover,
-                          errorWidget: (context, url, error) {
-                            return const Icon(
-                              Icons.error,
-                              color: Colors.red,
-                            );
-                          },
-                          //BoxFit.cover
+                        child: Hero(
+                          tag: imageUrl,
+                          child: CachedNetworkImage(
+                            height: 150,
+                            width: 150,
+                            progressIndicatorBuilder: (context, url, progress) {
+                              return const CustomLoadingIndecator();
+                            },
+                            imageUrl: imageUrl,
+                            fit: BoxFit.cover,
+                            errorWidget: (context, url, error) {
+                              return const Icon(
+                                Icons.error,
+                                color: Colors.red,
+                              );
+                            },
+                            //BoxFit.cover
+                          ),
                         ),
                       ),
                     ),

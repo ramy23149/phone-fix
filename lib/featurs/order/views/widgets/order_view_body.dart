@@ -30,6 +30,9 @@ class _OrderViewBodyState extends State<OrderViewBody> {
         } else if (state is PaymonyError) {
           showAlertDialog(context, "you don't have enough money",
               const Icon(Icons.error), Colors.red);
+        } else if (state is PayZeroError) {
+            showAlertDialog(context, "Failed operation",
+              const Icon(Icons.error), Colors.red);
         }
       },
       builder: (context, state) {

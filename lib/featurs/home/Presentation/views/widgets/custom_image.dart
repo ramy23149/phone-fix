@@ -12,21 +12,24 @@ class CustomImage extends StatelessWidget {
       alignment: Alignment.center,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
-        child: CachedNetworkImage(
-          height: MediaQuery.of(context).size.height * .45,
-          width: MediaQuery.of(context).size.width,
-          progressIndicatorBuilder: (context, url, progress) {
-            return const CustomLoadingIndecator();
-          },
-          imageUrl: image,
-          fit: BoxFit.cover,
-          errorWidget: (context, url, error) {
-            return const Icon(
-              Icons.error,
-              color: Colors.red,
-            );
-          },
-          //BoxFit.cover
+        child: Hero(
+          tag: image,
+          child: CachedNetworkImage(
+            height: MediaQuery.of(context).size.height * .45,
+            width: MediaQuery.of(context).size.width,
+            progressIndicatorBuilder: (context, url, progress) {
+              return const CustomLoadingIndecator();
+            },
+            imageUrl: image,
+            fit: BoxFit.cover,
+            errorWidget: (context, url, error) {
+              return const Icon(
+                Icons.error,
+                color: Colors.red,
+              );
+            },
+            //BoxFit.cover
+          ),
         ),
       ),
     );

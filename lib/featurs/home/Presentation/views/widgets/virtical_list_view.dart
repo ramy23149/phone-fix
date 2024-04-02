@@ -52,7 +52,7 @@ class _LowerListViewState extends State<LowerListView> {
                   var ds = snapshot.data?.docs[index];
                   return CustomVirticalListItem(
                     foodName: ds!['name'],
-                    imageUrl: ds['image'],
+                    imageUrla: ds['image'],
                     price: ds['price'],
                     desc: ds['detalis'],
                   );

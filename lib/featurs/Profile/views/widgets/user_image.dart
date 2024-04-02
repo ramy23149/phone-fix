@@ -94,7 +94,7 @@ class _UserImageState extends State<UserImage> {
                     loadingBuilder: (BuildContext context, Widget child,
                         ImageChunkEvent? loadingProgress) {
                       if (loadingProgress == null) {
-                        return child; // Return the loaded image if loading is complete
+                        return child; 
                       } else {
                         return Center(
                           child: CircularProgressIndicator(
@@ -103,14 +103,14 @@ class _UserImageState extends State<UserImage> {
                                     loadingProgress.expectedTotalBytes!
                                 : null,
                           ),
-                        ); // Return CircularProgressIndicator if the image is still loading
+                        ); 
                       }
                     },
                   )
                 : Image.asset(
                     'assets/images/profile.jpg',
                     fit: BoxFit.cover,
-                  ), // Show default image if imageUrl is null
+                  ),
           ),
         ),
       ),

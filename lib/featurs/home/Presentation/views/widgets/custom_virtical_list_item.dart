@@ -9,8 +9,8 @@ import 'package:go_router/go_router.dart';
 import '../../../../../Core/text_styles/Styles.dart';
 
 class CustomVirticalListItem extends StatelessWidget {
-  const CustomVirticalListItem({super.key, required this.imageUrl, required this.foodName, required this.price, required this.desc});
-    final String imageUrl;
+  const CustomVirticalListItem({super.key, required this.imageUrla, required this.foodName, required this.price, required this.desc});
+    final String imageUrla;
   final String foodName;
   final String price;
   final String desc;
@@ -20,7 +20,7 @@ class CustomVirticalListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-     context.push(AppRouter.kfoodDetalis,extra: {'image': imageUrl, 'detalis': desc, 'price': price, 'name': foodName});
+     context.push(AppRouter.kfoodDetalis,extra: {'image': imageUrla, 'detalis': desc, 'price': price, 'name': foodName});
       },
       child: Container(
         margin: const EdgeInsets.all(10),
@@ -44,7 +44,7 @@ class CustomVirticalListItem extends StatelessWidget {
                         progressIndicatorBuilder: (context, url, progress) {
                           return const CustomLoadingIndecator();
                         },
-                        imageUrl: imageUrl,
+                        imageUrl: imageUrla,
                       fit: BoxFit.cover,
                         errorWidget: (context, url, error) {
                           

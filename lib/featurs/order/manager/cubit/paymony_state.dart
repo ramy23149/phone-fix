@@ -10,3 +10,4 @@ final class PaymonyLoading extends PaymonyState {}
 final class PaymonySuccess extends PaymonyState {}
 
 final class PaymonyError extends PaymonyState {}
+final class PayZeroError extends PaymonyState{}

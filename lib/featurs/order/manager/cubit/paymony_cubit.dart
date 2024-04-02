@@ -18,28 +18,22 @@ class PaymonyCubit extends Cubit<PaymonyState> {
         .collection('users')
         .doc(documentId)
         .get();
-        int currentWallet = snapshot.data()!['Wallet'];
-        if(currentWallet >= totalPrice){
-       int   newWalletBalance = currentWallet - totalPrice;
-           FirebaseFirestore.instance
-        .collection('users')
-        .doc(documentId)
-        .update(
-      {
-        'Wallet': newWalletBalance
-      },
-    
-    );
-      DataBaseMethouds().deleteCurt(documentId);
+    int currentWallet = snapshot.data()!['Wallet'];
 
-      emit(PaymonySuccess());
-        }else{
-          emit(PaymonyError());
-        }
+    if (totalPrice != 0) {
+      if (currentWallet >= totalPrice) {
+        int newWalletBalance = currentWallet - totalPrice;
+        FirebaseFirestore.instance.collection('users').doc(documentId).update(
+          {'Wallet': newWalletBalance},
+        );
+        DataBaseMethouds().deleteCurt(documentId);
 
-
-  
-    
-
+        emit(PaymonySuccess());
+      } else {
+        emit(PaymonyError());
+      }
+    } else {
+      emit(PayZeroError());
+    }
   }
 }
