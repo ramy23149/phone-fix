@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
-import 'package:food_delivery_app/Core/widgets/Costum_text_feld.dart';
 import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
 import 'package:food_delivery_app/Core/helper/custom_snakBar.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../../../Core/widgets/custom_text_feild.dart';
 
 class PasswordRecavoryBody extends StatefulWidget {
   const PasswordRecavoryBody({super.key});
@@ -71,10 +72,11 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: CustomTextField(
-                              controller: emailController,
-                              hintColor: kWhite,
-                              hint: 'Email',
-                              icon: Icon(Icons.person_outline))),
+                              textEditingController: emailController,
+                            //  hintColor: kWhite,
+                              hinttext: 'Email',
+                            //  icon: Icon(Icons.person_outline)
+                             )),
                       const SizedBox(
                         height: 40.0,
                       ),

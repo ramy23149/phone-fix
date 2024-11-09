@@ -1,0 +1,1 @@
+enum UserRoleEnum { user, storeOwner }

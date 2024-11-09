@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../../Core/app_router.dart';
+import '../../../../../Core/constats.dart';
+import '../../../../../Core/text_styles/Styles.dart';
+
+class UserRoleContaner extends StatelessWidget {
+  const UserRoleContaner({
+    super.key,
+    required this.icon, required this.roleName,
+  });
+  final IconData icon;
+  final String roleName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        InkWell(
+          onTap: () {
+            context.push(AppRouter.kSignUpView);
+          },
+          child: Container(
+            height: MediaQuery.of(context).size.height / 3,
+            width: MediaQuery.of(context).size.width / 2.2,
+            decoration: BoxDecoration(
+                color: kWhite, borderRadius: BorderRadius.circular(16)),
+            child: Icon(
+              icon,
+              size: 100,
+            ),
+          ),
+        ),
+        Text(roleName,style: Styles.textStyle20,)
+      ],
+    );
+  }
+}

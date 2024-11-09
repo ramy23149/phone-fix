@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+  import 'package:flutter/cupertino.dart';
 import 'package:food_delivery_app/featurs/on_boarding/presentation/views/widgets/onBording_view_item.dart';
 
 class OnBordingPageView extends StatelessWidget {

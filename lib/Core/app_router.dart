@@ -9,6 +9,7 @@ import '../featurs/admin/Presentation/views/admin_home.dart';
 import '../featurs/admin/Presentation/views/admin_view.dart';
 import '../featurs/auth/presentation/views/login_view.dart';
 import '../featurs/auth/presentation/views/signUp_view.dart';
+import '../featurs/auth/presentation/views/slect_role_view.dart';
 import '../featurs/order/views/order_view.dart';
 
 abstract class AppRouter {
@@ -21,7 +22,7 @@ abstract class AppRouter {
   static String kAdminView = '/AdminView';
   static String kAdminHome = '/AdminHome';
   static String kCartView = '/CartView';
-
+  static String kSelectRoleView = '/SelectRoleView';
   static final router = GoRouter(
     initialLocation: kOnBording,
     routes: <RouteBase>[
@@ -31,33 +32,32 @@ abstract class AppRouter {
           return const LogInView();
         },
       ),
-    
       GoRoute(
         path: kSignUpView,
         builder: (context, state) => const SignUpView(),
       ),
-        GoRoute(
-        path: kAdminView,
-         builder: (context, state) => const AdminView()),
-         GoRoute(path: kCartView, builder: (context, state) => const OrderView()),
-       GoRoute(
-      path: kOnBording, // Route for OnBordingView
-      builder: (context, state) {
-        if (FirebaseAuth.instance.currentUser == null) {
-          return const OnBordingView();
-        } else {
-          return const BottomNavBar();}
-      },
-    ),
-     GoRoute(
-      path: kBottomNavBar, // Route for BottomNavBar
-      builder: (context, state) {
-        if (FirebaseAuth.instance.currentUser != null) {
-          return const BottomNavBar();
-        } else {
-          return const OnBordingView();}
-      },
-    ),
+      GoRoute(path: kAdminView, builder: (context, state) => const AdminView()),
+      GoRoute(path: kCartView, builder: (context, state) => const OrderView()),
+      GoRoute(
+        path: kOnBording, // Route for OnBordingView
+        builder: (context, state) {
+          if (FirebaseAuth.instance.currentUser == null) {
+            return const OnBordingView();
+          } else {
+            return const BottomNavBar();
+          }
+        },
+      ),
+      GoRoute(
+        path: kBottomNavBar, // Route for BottomNavBar
+        builder: (context, state) {
+          if (FirebaseAuth.instance.currentUser != null) {
+            return const BottomNavBar();
+          } else {
+            return const OnBordingView();
+          }
+        },
+      ),
       GoRoute(
         path: kAdminHome,
         builder: (context, state) => const HomeAdmin(),
@@ -81,7 +81,12 @@ abstract class AppRouter {
               desc: data['detalis'],
               price: data['price'],
             );
-          })
+          }),
+
+    GoRoute(
+      path: kSelectRoleView,
+      builder: (context, state) => const SlectRoleView(),
+    )
     ],
   );
 }

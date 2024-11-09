@@ -5,7 +5,6 @@ import 'package:food_delivery_app/Core/helper/Costom_alert_dialog.dart';
 import 'package:food_delivery_app/Core/widgets/custom_appbar.dart';
 import 'package:food_delivery_app/featurs/order/manager/cubit/paymony_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
 import 'check_out_box.dart';
 import 'order_list_view.dart';
 
@@ -60,14 +59,14 @@ class _OrderViewBodyState extends State<OrderViewBody> {
                 left: 0,
                 child: OrderListView(
                   onClear: () {
-                    WidgetsBinding.instance!.addPostFrameCallback((_) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
                       setState(() {
                         total = 0;
                       });
                     });
                   },
                   onAdd: (int totalMoney) {
-                    WidgetsBinding.instance!.addPostFrameCallback((_) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
                       setState(() {
                         total = totalMoney;
                       });

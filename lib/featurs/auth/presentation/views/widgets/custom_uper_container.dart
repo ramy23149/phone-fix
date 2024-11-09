@@ -14,7 +14,7 @@ class CustomUperContainer extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomLeft,
-                colors: [kRed, Color(0xffF84A1E)],
+                colors: [kMainAppColor, Color(0xffF84A1E)],
               ),
             ),
           );

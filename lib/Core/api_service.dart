@@ -8,10 +8,10 @@ class ApiService {
 
   final _baseUrl = 'https://api.stripe.com//v1/payment_intents';
   Future<String> post({required int amount, required String currency}) async {
-    Response response = await _dio.post('$_baseUrl',
+    Response response = await _dio.post(_baseUrl,
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${kSecretkey}',
+            'Authorization': 'Bearer $kSecretkey',
             'Content-Type': 'application/x-www-form-urlencoded',
           }
         ),

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
-import 'package:food_delivery_app/Core/widgets/Costum_text_feld.dart';
 import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
 import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:food_delivery_app/featurs/auth/presentation/manager/cubits/logIn_cubit/log_in_cubit.dart';
@@ -11,6 +10,7 @@ import 'package:food_delivery_app/featurs/auth/presentation/views/widgets/user_s
 import 'package:go_router/go_router.dart';
 
 import '../../../../../Core/helper/custom_snakBar.dart';
+import '../../../../../Core/widgets/custom_text_feild.dart';
 import 'custom_uper_container.dart';
 
 class LogInViewBody extends StatefulWidget {
@@ -50,19 +50,19 @@ class _LogInViewBodyState extends State<LogInViewBody> {
               question: 'Don\'t have an account?',
               ansswer: 'Sign up',
               onPressed: () {
-                context.push(AppRouter.kSignUpView);
+                context.push(AppRouter.kSelectRoleView);
               },
             ),
-            Positioned(
-              right: 0,
-              left: 0,
-              top: 10,
-              child: Image.asset(
-                'assets/images/logo (2).png',
-                width: MediaQuery.of(context).size.width * .7,
-                height: 50,
-              ),
-            ),
+            // Positioned(
+            //   right: 0,
+            //   left: 0,
+            //   top: 10,
+            //   child: Image.asset(
+            //     kAppLogo,
+            //     width: MediaQuery.of(context).size.width * .7,
+            //     height: 50,
+            //   ),
+            // ),
             Positioned(
               right: 20,
               left: 20,
@@ -90,16 +90,16 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                                       style: Styles.textStyle25,
                                     ),
                                     CustomTextField(
-                                      controller: emailController,
-                                      hint: 'Email',
-                                      icon: const Icon(Icons.email_outlined),
+                                      textEditingController: emailController,
+                                      hinttext: 'Email',
+                                      //icon: const Icon(Icons.email_outlined),
                                     ),
                                     const Spacer(),
                                     CustomTextField(
-                                      controller: passwordController,
+                                      textEditingController: passwordController,
                                       obscureText: true,
-                                      hint: 'Password',
-                                      icon: const Icon(Icons.password_outlined),
+                                      hinttext: 'Password',
+                                    //  icon: const Icon(Icons.password_outlined),
                                     ),
                                     const SizedBox(
                                       height: 15,
@@ -131,7 +131,7 @@ class _LogInViewBodyState extends State<LogInViewBody> {
                                         }
                                       },
                                       text: 'LOGIN',
-                                      backgroundColor: kRed,
+                                      backgroundColor: kMainAppColor,
                                       textColor: kWhite,
                                       borderRadius: BorderRadius.circular(90),
                                     ),

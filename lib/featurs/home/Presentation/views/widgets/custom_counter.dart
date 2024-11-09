@@ -37,11 +37,11 @@ class _CustomCounterState extends State<CustomCounter> {
             onPressed: _decrementCounter,
             fillColor: Colors.black,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8), // Make it square
+              borderRadius: BorderRadius.circular(8), 
             ),
             constraints: const BoxConstraints.tightFor(
-              width: 30, // Set width
-              height: 30, // Set height
+              width: 30, 
+              height: 30, 
             ),
             child: const Icon(
               Icons.remove,
@@ -58,11 +58,11 @@ class _CustomCounterState extends State<CustomCounter> {
             onPressed: _incrementCounter,
             fillColor: Colors.black,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8), // Make it square
+              borderRadius: BorderRadius.circular(8), 
             ),
             constraints: const BoxConstraints.tightFor(
-              width: 30.0, // Set width
-              height: 30.0, // Set height
+              width: 30.0, 
+              height: 30.0, 
             ),
             child: const Icon(
               Icons.add,

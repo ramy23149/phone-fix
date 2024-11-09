@@ -71,7 +71,7 @@ class _OnBordingVoewBodyState extends State<OnBordingViewBody> {
                       },
                 width: MediaQuery.of(context).size.width * .8,
                 text: pageIndex == 2 ? 'Start' : 'Next',
-                backgroundColor: kRed,
+                backgroundColor: kMainAppColor,
                 textColor: Colors.white,
               ))
         ],
