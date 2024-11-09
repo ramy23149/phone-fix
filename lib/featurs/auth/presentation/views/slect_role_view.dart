@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
+import 'package:food_delivery_app/featurs/auth/data/enums/user_role_enum.dart';
 import 'widgets/User_role_contaner.dart';
 
 class SlectRoleView extends StatelessWidget {
@@ -28,11 +29,11 @@ class SlectRoleView extends StatelessWidget {
         children: [
           UserRoleContaner(
             icon: Icons.person,
-            roleName: 'مستخدم',
+            role: UserRoleEnum.user,
           ),
           UserRoleContaner(
             icon: Icons.store,
-            roleName: 'صاحب محل',
+            role: UserRoleEnum.storeOwner,
           )
         ],
       ),

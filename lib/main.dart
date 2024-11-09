@@ -7,7 +7,9 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/observer.dart';
+import 'package:provider/provider.dart';
 
+import 'featurs/auth/presentation/manager/providers/auth_provider.dart';
 import 'firebase_options.dart';
 
 
@@ -39,10 +41,13 @@ class DelivaryApp extends StatelessWidget {
       print('User is signed in!=========================');
     }
   });
-    return SafeArea(
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        routerConfig: AppRouter.router,
+    return ChangeNotifierProvider<AuthUserProvider>(
+      create: (context) => AuthUserProvider(),
+      child: SafeArea(
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routerConfig: AppRouter.router,
+        ),
       ),
     );
   }

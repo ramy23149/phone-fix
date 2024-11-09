@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_app/Core/constats.dart';
+import 'package:food_delivery_app/Core/text_styles/Styles.dart';
+import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
+import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../../Core/app_router.dart';
-import '../../../../../Core/constats.dart';
-import '../../../../../Core/helper/custom_snakBar.dart';
-import '../../../../../Core/text_styles/Styles.dart';
-import '../../../../../Core/widgets/custom_bottom.dart';
-import '../../../../../Core/widgets/custom_loadingIndecator.dart';
 import '../../../../../Core/widgets/custom_text_feild.dart';
-import '../../manager/cubits/signUp_cubit/sign_up_cubit.dart';
+import '../../manager/cubits/logIn_cubit/log_in_cubit.dart';
 
-class SignUpUserDataContaner extends StatelessWidget {
-  const SignUpUserDataContaner({
+class LogInContanier extends StatelessWidget {
+  const LogInContanier({
     super.key,
-    required this.fromKey,
-    required this.nameController,
+    required this.formKey,
     required this.emailController,
     required this.passwordController,
   });
 
-  final GlobalKey<FormState> fromKey;
-  final TextEditingController nameController;
+  final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
   final TextEditingController passwordController;
 
@@ -35,39 +31,27 @@ class SignUpUserDataContaner extends StatelessWidget {
             borderRadius: BorderRadius.circular(17), color: kWhite),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: BlocConsumer<SignUpCubit, SignUpState>(
-            listener: (context, state) {
-              if (state is SignUpSuccess) {
-                //showSnackBar(context, 'Account successfully created,login now');
-                context.go(AppRouter.kBottomNavBar);
-                showSnackBar(context, 'Welcome');
-              }
-            },
+          child: BlocBuilder<LogInCubit, LogInState>(
             builder: (context, state) {
-              return state is SignUpLoading
+              return state is LogInLoading
                   ? const CustomLoadingIndecator()
                   : SingleChildScrollView(
                     child: Form(
-                        key: fromKey,
+                        key: formKey,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                           const SizedBox(height: 10,),
                             const Text(
-                              'Sign up',
+                              'تسجيل الدخول',
                               style: Styles.textStyle25,
-                            ),
-                          const SizedBox(height: 15,),
-                             CustomTextField(
-                              textEditingController: nameController,
-                              hinttext: 'Name',
-                              //icon: const Icon(Icons.person_outline),
                             ),
                             const SizedBox(height: 20,),
                             CustomTextField(
                               textEditingController: emailController,
                               hinttext: 'Email',
-                            //  icon: const Icon(Icons.email_outlined),
+                              //icon: const Icon(Icons.email_outlined),
                             ),
                             const SizedBox(height: 15,),
                             CustomTextField(
@@ -76,25 +60,39 @@ class SignUpUserDataContaner extends StatelessWidget {
                               hinttext: 'Password',
                             //  icon: const Icon(Icons.password_outlined),
                             ),
-                          const SizedBox(height: 25,),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              child: GestureDetector(
+                                onTap: () => context
+                                    .push(AppRouter.kPasswordRecavory),
+                                child: const Text(
+                                  'Forget password?',
+                                  style: Styles.textStyle18,
+                                  textAlign: TextAlign.right,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 20,),
                             CustomBotton(
                               onPressed: () {
-                                if (fromKey.currentState!.validate()) {
-                                  BlocProvider.of<SignUpCubit>(context)
-                                      .signUpUser(
-                                        name: nameController.text,
+                                if (formKey.currentState!.validate()) {
+                                  BlocProvider.of<LogInCubit>(context)
+                                      .loginUser(
                                           email: emailController.text,
                                           password:
                                               passwordController.text,
                                           context: context);
                                 }
                               },
-                              text: 'SIGN UP',
+                              text: 'LOGIN',
                               backgroundColor: kMainAppColor,
                               textColor: kWhite,
                               borderRadius: BorderRadius.circular(90),
                             ),
-                            const SizedBox(height: 15,),
+                            const SizedBox(height: 10,),
                           ],
                         ),
                       ),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_app/featurs/auth/data/enums/user_role_enum.dart';
+import 'package:food_delivery_app/featurs/auth/presentation/manager/providers/auth_provider.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../Core/app_router.dart';
@@ -8,10 +11,11 @@ import '../../../../../Core/text_styles/Styles.dart';
 class UserRoleContaner extends StatelessWidget {
   const UserRoleContaner({
     super.key,
-    required this.icon, required this.roleName,
+    required this.icon,
+    required this.role,
   });
   final IconData icon;
-  final String roleName;
+  final UserRoleEnum role;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +24,8 @@ class UserRoleContaner extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
+            context.read<AuthUserProvider>().userRoleEnum = role;
+
             context.push(AppRouter.kSignUpView);
           },
           child: Container(
@@ -33,7 +39,10 @@ class UserRoleContaner extends StatelessWidget {
             ),
           ),
         ),
-        Text(roleName,style: Styles.textStyle20,)
+        Text(
+          role.getDisplayName,
+          style: Styles.textStyle20,
+        )
       ],
     );
   }

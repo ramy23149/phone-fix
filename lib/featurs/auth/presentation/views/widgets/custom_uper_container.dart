@@ -7,16 +7,23 @@ class CustomUperContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-            height: MediaQuery.of(context).size.height / 2.6,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomLeft,
-                colors: [kMainAppColor, Color(0xffF84A1E)],
+    return Stack(
+      children: [
+        Container(
+                height: MediaQuery.of(context).size.height / 2.4,
+                width: MediaQuery.of(context).size.width,
+              //margin: const EdgeInsets.only(bottom: 18),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomLeft,
+                    colors: [kMainAppColor, Color(0xffF84A1E)],
+                  ),
+                ),
               ),
-            ),
-          );
+        
+        
+      ],
+    );
   }
 }
