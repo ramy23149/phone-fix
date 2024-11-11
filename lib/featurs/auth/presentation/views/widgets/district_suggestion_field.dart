@@ -63,6 +63,8 @@ class _DistrictSuggestionFieldState extends State<DistrictSuggestionField> {
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'هذا الحقل مطلوب';
+            }else if (!kSortedNeighborhoods.contains(value)) {
+              return 'المنطقه غير صحيحة';
             }
             return null;
           },

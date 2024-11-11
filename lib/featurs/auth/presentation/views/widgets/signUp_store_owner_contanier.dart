@@ -84,11 +84,16 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
                     hinttext: 'اسم المحل',
                   ),
                   const SizedBox(height: 20),
-                  CustomTextField(
-                      textEditingController: phoneController,
-                      hinttext: 'رقم التليفون',
-                      keyboardType: TextInputType.phone,
-                      validator: (value) => validateEgyptianPhoneNumber(value)),
+                CustomTextField(
+                    textEditingController: phoneController,
+                    hinttext: 'رقم الهاتف',
+                    prefix: const Text(
+                      "+20",
+                    ),
+                    keyboardType: TextInputType.phone,
+                    maxLength: 10,
+                    validator: (value) => validateEgyptianPhoneNumber(value),
+                  ),
                   const SizedBox(height: 20),
                   DistrictSuggestionField(
                     controller: areaController,

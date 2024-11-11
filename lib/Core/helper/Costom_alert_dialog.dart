@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void showAlertDialog(BuildContext context,String content,Icon icon,Color color) {
+void showAlertDialog(BuildContext context,String content,Icon? icon,Color? color) {
     showDialog(
         context: context,
         builder: (BuildContext context) {

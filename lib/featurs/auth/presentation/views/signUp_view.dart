@@ -5,7 +5,7 @@ import 'package:food_delivery_app/featurs/auth/presentation/views/widgets/signUp
 import 'package:go_router/go_router.dart';
 
 import '../../../../Core/app_router.dart';
-import '../manager/cubits/signUp_cubit/sign_up_cubit.dart';
+import '../manager/cubits/phone_auth_cubit/phone_auth_cubit.dart';
 import 'widgets/user_state_question.dart';
 
 class SignUpView extends StatelessWidget {
@@ -14,7 +14,7 @@ class SignUpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignUpCubit(),
+      create: (context) => PhoneAuthCubit(),
       child:  SafeArea(
         child: Scaffold(
           backgroundColor: kWhite,

@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../featurs/admin/Presentation/views/admin_home.dart';
 import '../featurs/admin/Presentation/views/admin_view.dart';
 import '../featurs/auth/presentation/views/login_view.dart';
+import '../featurs/auth/presentation/views/otp_verification_view.dart';
 import '../featurs/auth/presentation/views/signUp_view.dart';
 import '../featurs/auth/presentation/views/slect_role_view.dart';
 import '../featurs/order/views/order_view.dart';
@@ -23,6 +24,8 @@ abstract class AppRouter {
   static String kAdminHome = '/AdminHome';
   static String kCartView = '/CartView';
   static String kSelectRoleView = '/SelectRoleView';
+  static String kVerifyView = '/VerifyView';
+
   static final router = GoRouter(
     initialLocation: kOnBording,
     routes: <RouteBase>[
@@ -86,7 +89,8 @@ abstract class AppRouter {
     GoRoute(
       path: kSelectRoleView,
       builder: (context, state) => const SlectRoleView(),
-    )
+    ),
+  //  GoRoute(path: kVerifyView, builder: (context, state) => const VerifyView()),
     ],
   );
 }

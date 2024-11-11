@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/featurs/auth/data/enums/user_role_enum.dart';
-import 'package:food_delivery_app/featurs/auth/presentation/manager/providers/auth_provider.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../Core/app_router.dart';
 import '../../../../../Core/constats.dart';
 import '../../../../../Core/text_styles/Styles.dart';
+import '../../manager/providers/auth_provider.dart';
 
 class UserRoleContaner extends StatelessWidget {
   const UserRoleContaner({

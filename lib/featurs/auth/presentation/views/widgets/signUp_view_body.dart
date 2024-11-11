@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/featurs/auth/data/enums/user_role_enum.dart';
-import 'package:food_delivery_app/featurs/auth/presentation/manager/providers/auth_provider.dart';
 import '../../../../../Core/constats.dart';
+import '../../manager/providers/auth_provider.dart';
 import 'custom_uper_container.dart';
 import 'signUp_store_owner_contanier.dart';
 import 'signUp_user_contanier_data.dart';
@@ -15,9 +15,10 @@ class SignInViewBody extends StatefulWidget {
 }
 
 class _SignInViewBodyState extends State<SignInViewBody> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  TextEditingController areaController = TextEditingController();
+  
 
   GlobalKey<FormState> fromKey = GlobalKey();
   late UserRoleEnum? userRoleEnum;
@@ -25,8 +26,9 @@ class _SignInViewBodyState extends State<SignInViewBody> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    emailController.dispose();
-    passwordController.dispose();
+    areaController.dispose();
+    nameController.dispose();
+    phoneNumberController.dispose();
   }
 
   @override
@@ -60,10 +62,10 @@ class _SignInViewBodyState extends State<SignInViewBody> {
           top: 100,
          bottom: 0,
           child: SignUpUserDataContaner(
+            areaController:areaController,
               fromKey: fromKey,
               nameController: nameController,
-              emailController: emailController,
-              passwordController: passwordController)
+              phoneNumberController: phoneNumberController)
         ):const Positioned(
           right: 10,
           left: 10,
