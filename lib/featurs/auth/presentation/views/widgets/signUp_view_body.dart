@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/featurs/auth/data/enums/user_role_enum.dart';
+import 'package:food_delivery_app/featurs/auth/presentation/manager/cubits/ceck_user_existeince_cubit/ceck_user_existeince_cubit.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../../Core/constats.dart';
+import '../../helper/exist_user_dialog.dart';
 import '../../manager/providers/auth_provider.dart';
 import 'custom_uper_container.dart';
 import 'signUp_store_owner_contanier.dart';
@@ -15,21 +18,8 @@ class SignInViewBody extends StatefulWidget {
 }
 
 class _SignInViewBodyState extends State<SignInViewBody> {
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController areaController = TextEditingController();
-  
+    late UserRoleEnum? userRoleEnum;
 
-  GlobalKey<FormState> fromKey = GlobalKey();
-  late UserRoleEnum? userRoleEnum;
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    areaController.dispose();
-    nameController.dispose();
-    phoneNumberController.dispose();
-  }
 
   @override
   void initState() {
@@ -41,38 +31,49 @@ class _SignInViewBodyState extends State<SignInViewBody> {
   @override
   Widget build(BuildContext context) {
     // return const CustomUperContainer();
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        const CustomUperContainer(),
-        Positioned(
-          top: 240,
-          child: Container(
-            height: 30,
+    return BlocConsumer<CheckUserExisteniceCubit, CheckUserExisteniceState>(
+      listener: (context, state) {
+        if (state is ThisUserAllreadyExist) {
+          showExistUserDialog(
+              context: context,
+              message: "يبدو انك لديك حساب بالفعل ابدا بتسجيل الدخول الان");
+        }
+      },
+      builder: (context, state) {
+        return ModalProgressHUD(
+          inAsyncCall: state is CheckUserExisteniceLoading,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              const CustomUperContainer(),
+              Positioned(
+                top: 240,
+                child: Container(
+                  height: 30,
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                    color: kWhite
-                  ),
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(16)),
+                      color: kWhite),
                 ),
-        ),
-     userRoleEnum==UserRoleEnum.user? Positioned(
-          right: 20,
-          left: 20,
-          top: 100,
-         bottom: 0,
-          child: SignUpUserDataContaner(
-            areaController:areaController,
-              fromKey: fromKey,
-              nameController: nameController,
-              phoneNumberController: phoneNumberController)
-        ):const Positioned(
-          right: 10,
-          left: 10,
-          top: 10,
-          bottom: 0,
-          child: SignUpStoreOwnerContanier()),
-      ],
+              ),
+              userRoleEnum == UserRoleEnum.user
+                  ? const Positioned(
+                      right: 20,
+                      left: 20,
+                      top: 100,
+                      bottom: 0,
+                      child: SignUpUserDataContaner())
+                  : const Positioned(
+                      right: 10,
+                      left: 10,
+                      top: 10,
+                      bottom: 0,
+                      child: SignUpStoreOwnerContanier()),
+            ],
+          ),
+        );
+      },
     );
   }
 }

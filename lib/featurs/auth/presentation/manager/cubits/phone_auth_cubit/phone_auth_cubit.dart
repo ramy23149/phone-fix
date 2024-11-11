@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../data/models/user_info_model.dart';
+import '../../../../data/models/verificatoin_data_model.dart';
 
 part 'phone_auth_state.dart';
 
@@ -76,7 +76,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
   Future<void> verifyOTP(
       {required BuildContext context,
       required String pin,
-      required UserInfoModel userInfo}) async {
+      required VerificatoinDataModel data}) async {
     log('Starting OTP verification with code: $pin and verificationId: $verificationcode');
     emit(PhoneAuthLoading());
     try {
@@ -88,13 +88,13 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
       if (userCredential.user != null) {
         log('User signed in successfully: ${userCredential.user}');
 
-        if (userInfo.newUser == true) {
+        if (data.isNew == true) {
           await FirebaseFirestore.instance
               .collection('users')
-              .doc('+20${userInfo.phone}')
+              .doc('+20${data.phone}')
               .set({
-            'phone': '+20${userInfo.phone}',
-            'name': userInfo.name,
+            'phone': '+20${data.phone}',
+            'name': data.data,//solve this issue
             'userId': userCredential.user!.uid
           });
         }

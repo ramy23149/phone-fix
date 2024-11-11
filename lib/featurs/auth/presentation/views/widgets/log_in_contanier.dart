@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
 import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
-import 'package:food_delivery_app/featurs/auth/presentation/manager/cubits/phone_auth_cubit/phone_auth_cubit.dart';
+import 'package:food_delivery_app/featurs/auth/data/models/verificatoin_data_model.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../Core/functions/validate_the_egyption_phone_number.dart';
 import '../../../../../Core/widgets/custom_text_feild.dart';
 import '../../manager/cubits/ceck_user_existeince_cubit/ceck_user_existeince_cubit.dart';
@@ -13,11 +15,12 @@ class LogInContanier extends StatelessWidget {
   const LogInContanier({
     super.key,
     required this.formKey,
-    required this.phoneController,
+    required this.phoneController, required this.passwordController,
   });
 
   final GlobalKey<FormState> formKey;
   final TextEditingController phoneController;
+  final TextEditingController passwordController;
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +36,12 @@ class LogInContanier extends StatelessWidget {
               BlocConsumer<CheckUserExisteniceCubit, CheckUserExisteniceState>(
             listener: (context, state) {
               if (state is ThisUserAllreadyExist) {
-              //  go to the otp page;
-                context
-                    .read<PhoneAuthCubit>()
-                    .verifyPhone(phone: phoneController.text, context: context);
+                context.push(AppRouter.kVerifyView,
+                    extra: VerificatoinDataModel(
+                        data: null,
+                        isForgotPasswordCase: false,
+                        phone: phoneController.text,
+                        isNew: false));
               }
             },
             builder: (context, state) {
@@ -83,8 +88,26 @@ class LogInContanier extends StatelessWidget {
                               },
                             ),
                             const SizedBox(
-                              height: 15,
+                              height: 13,
                             ),
+                            CustomTextField(
+                              hinttext: 'كلمه المرور',
+                              textEditingController: passwordController,
+                              obscureText: true,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: GestureDetector(
+                                onTap: () {
+                                  context.push(AppRouter.kPasswordRecavory);
+                                },
+                                child: const Text("هل نسيت كلمه المرور؟",style: Styles.textStyle16,),
+                              )
+                            ),
+                            const SizedBox(height: 7,),
                             CustomBotton(
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {

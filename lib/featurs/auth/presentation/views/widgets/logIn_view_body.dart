@@ -19,6 +19,7 @@ class LogInViewBody extends StatefulWidget {
 
 class _LogInViewBodyState extends State<LogInViewBody> {
   TextEditingController phoneController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
 
   @override
@@ -26,6 +27,7 @@ class _LogInViewBodyState extends State<LogInViewBody> {
     // TODO: implement dispose
     super.dispose();
     phoneController.dispose();
+    passwordController.dispose();
   }
 
   @override
@@ -58,6 +60,7 @@ class _LogInViewBodyState extends State<LogInViewBody> {
             top: 100,
             bottom: 50,
             child: LogInContanier(
+              passwordController: passwordController,
              formKey: formKey,
              phoneController: phoneController),
           ),

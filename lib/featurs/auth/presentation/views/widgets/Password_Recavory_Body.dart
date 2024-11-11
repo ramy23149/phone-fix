@@ -1,13 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
+import 'package:food_delivery_app/Core/widgets/Custom_text_bottom.dart';
 import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
-import 'package:food_delivery_app/Core/helper/custom_snakBar.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../Core/functions/validate_the_egyption_phone_number.dart';
 import '../../../../../Core/widgets/custom_text_feild.dart';
+import '../../../data/models/verificatoin_data_model.dart';
 
 class PasswordRecavoryBody extends StatefulWidget {
   const PasswordRecavoryBody({super.key});
@@ -17,17 +18,15 @@ class PasswordRecavoryBody extends StatefulWidget {
 }
 
 class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
-  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey();
-
-  String email = "";
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    emailController.dispose();
+    phoneController.dispose();
   }
 
   @override
@@ -40,7 +39,7 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
         Container(
           alignment: Alignment.topCenter,
           child: const Text(
-            "Password Recovery",
+            "استعادة كلمة المرور",
             style: TextStyle(
                 color: Colors.white,
                 fontSize: 30.0,
@@ -51,7 +50,7 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
           height: 10.0,
         ),
         Text(
-          "Enter your email",
+          "ادخل رقم هاتفك",
           style: Styles.textStyle20.copyWith(color: kWhite),
         ),
         Expanded(
@@ -64,30 +63,32 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                       const SizedBox(
                         height: 70,
                       ),
-                      Container(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Colors.white70, width: 2.0),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: CustomTextField(
-                              textEditingController: emailController,
-                            //  hintColor: kWhite,
-                              hinttext: 'Email',
-                            //  icon: Icon(Icons.person_outline)
-                             )),
+                      CustomTextField(
+                        textEditingController: phoneController,
+                        hinttext: 'رقم الهاتف',
+                        prefix: const Text(
+                          "🇪🇬 +20"
+                        ),
+                        keyboardType: TextInputType.phone,
+                        maxLength: 10,
+                        validator: (value) =>validateEgyptianPhoneNumber(value),
+                        
+                      ),
                       const SizedBox(
                         height: 40.0,
                       ),
                       CustomBotton(
-                        text: 'Send Email',
+                        text: 'التالي',
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            setState(() {
-                              email = emailController.text;
-                            });
-                            resetPassword();
+                            context.pushReplacement(
+                                AppRouter.kVerifyView,
+                                extra: VerificatoinDataModel(
+                                  data:null,
+                                  phone: phoneController.text,
+                                  isForgotPasswordCase: true,
+                                  isNew: false
+                                ));
                           }
                         },
                       ),
@@ -97,26 +98,18 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                        CustomTextButtom(text: "انشاء حساب", onPressed:  () {
+                              context.go(AppRouter.kSignUpView);
+                            },),
                           const Text(
-                            "Don't have an account?",
+                            "ليس لديك حساب؟",
                             style:
                                 TextStyle(fontSize: 18.0, color: Colors.white),
                           ),
                           const SizedBox(
                             width: 5.0,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              context.go(AppRouter.kSignUpView);
-                            },
-                            child: const Text(
-                              "Create",
-                              style: TextStyle(
-                                  color: Color.fromARGB(225, 184, 166, 6),
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          )
+                          
                         ],
                       )
                     ],
@@ -124,25 +117,5 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                 ))),
       ],
     );
-  }
-
-  resetPassword() async {
-    try {
-      if (email.isEmpty) {
-        showSnackBar(context, 'Please enter your email.');
-        return;
-      }
-
-      print('Sending password reset email to: $email');
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-     
-      showSnackBar(context, 'Password Reset Email has been sent !');
-    }on FirebaseAuthException catch (e) {
-       if (e.code == 'user-not-found') {
-        showSnackBar(context, 'No user found for that email.');
-      }else{  print('Error sending password reset email: $e');
-      showSnackBar(context, 'An error occurred. Please try again later.');}
-    
-    }
   }
 }

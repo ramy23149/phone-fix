@@ -18,7 +18,7 @@ showExistUserDialog({required BuildContext context, required String message}) {
                 context.pop();//close dialog
                 context.go(AppRouter.kLogInView);
               },
-              text: ''),
+              text: 'تسجيل الدخول'),
         ],
       );
     },

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../data/models/user_info_model.dart';
+import '../../data/models/verificatoin_data_model.dart';
 import '../manager/cubits/phone_auth_cubit/phone_auth_cubit.dart';
 import 'widgets/verify_view_body.dart';
 
 class VerifyView extends StatelessWidget {
-  const VerifyView({super.key, required this.userInfo});
-  final UserInfoModel userInfo;
+  const VerifyView({super.key, required this.data});
+  final VerificatoinDataModel data;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class VerifyView extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(),
           body: VerifyViewBody(
-          userInfo: userInfo,
+          data: data,
           ),
         ),
       ),

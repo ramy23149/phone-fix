@@ -11,14 +11,14 @@ import '../../../../../Core/helper/Costom_alert_dialog.dart';
 import '../../../../../Core/helper/custom_snakBar.dart';
 import '../../../../../Core/helper/custom_text_button.dart';
 import '../../../../../Core/text_styles/Styles.dart';
-import '../../../data/models/user_info_model.dart';
+import '../../../data/models/verificatoin_data_model.dart';
 import '../../helper/err_dialog.dart';
 import '../../manager/cubits/phone_auth_cubit/phone_auth_cubit.dart';
 import 'otp_text_field.dart';
 
 class VerifyViewBody extends StatefulWidget {
-  const VerifyViewBody({super.key, required this.userInfo});
-  final UserInfoModel userInfo;
+  const VerifyViewBody({super.key, required this.data});
+  final VerificatoinDataModel data;
 
   @override
   State<VerifyViewBody> createState() => _VerifyViewBodyState();
@@ -36,7 +36,7 @@ class _VerifyViewBodyState extends State<VerifyViewBody> {
     _startTimer();
     context.read<PhoneAuthCubit>().verifyPhone(
           context: context,
-          phone: widget.userInfo.phone,
+          phone: widget.data.phone,
         );
   }
 
@@ -94,7 +94,7 @@ class _VerifyViewBodyState extends State<VerifyViewBody> {
                   context.pop();
                   context.read<PhoneAuthCubit>().verifyPhone(
                         context: context,
-                        phone: widget.userInfo.phone,
+                        phone: widget.data.phone,
                       );
                   _startTimer(); // Start the timer again
                 },
@@ -123,14 +123,14 @@ class _VerifyViewBodyState extends State<VerifyViewBody> {
                       style: Styles.textStyle16,
                       children: [
                         TextSpan(
-                          text: '  20${widget.userInfo.phone}+',
+                          text: '  20${widget.data.phone}+',
                           style: Styles.textStyle14,
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 20),
-                  OtpTextField(userInfoModel: widget.userInfo),
+                  OtpTextField(data: widget.data),
                   const SizedBox(height: 15),
                   Directionality(
                     textDirection: TextDirection.ltr,
@@ -147,7 +147,7 @@ class _VerifyViewBodyState extends State<VerifyViewBody> {
                         : () {
                             context.read<PhoneAuthCubit>().verifyPhone(
                                   context: context,
-                                  phone: widget.userInfo.phone,
+                                  phone: widget.data.phone,
                                 );
                             _startTimer(); // Start the timer again
                           },

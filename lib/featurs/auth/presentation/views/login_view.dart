@@ -6,7 +6,6 @@ import 'package:food_delivery_app/featurs/auth/presentation/manager/cubits/ceck_
 import 'package:go_router/go_router.dart';
 
 import '../../../../Core/app_router.dart';
-import '../manager/cubits/phone_auth_cubit/phone_auth_cubit.dart';
 import 'widgets/logIn_view_body.dart';
 import 'widgets/user_state_question.dart';
 
@@ -15,28 +14,20 @@ class LogInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-            BlocProvider(
-          create: (context) => CheckUserExisteniceCubit(),
-    
+    return BlocProvider(
+      create: (context) => CheckUserExisteniceCubit(),
+      child: SafeArea(
+          child: Scaffold(
+        backgroundColor: kWhite,
+        body: const LogInViewBody(),
+        bottomNavigationBar: UserStateQuestion(
+          question: 'Don\'t have an account?',
+          ansswer: 'Sign up',
+          onPressed: () {
+            context.push(AppRouter.kSelectRoleView);
+          },
         ),
-            BlocProvider(
-                create: (context) => PhoneAuthCubit(),
-            ),
-        ],
-              child:  SafeArea(
-              child: Scaffold(
-                backgroundColor: kWhite,
-            body:const LogInViewBody(),
-            bottomNavigationBar:   UserStateQuestion(
-                  question: 'Don\'t have an account?',
-                  ansswer: 'Sign up',
-                  onPressed: () {
-                    context.push(AppRouter.kSelectRoleView);
-                  },
-                ),
-          )),
+      )),
     );
   }
 }

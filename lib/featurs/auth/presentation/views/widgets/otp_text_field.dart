@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/Core/constats.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../../data/models/user_info_model.dart';
+import '../../../data/models/verificatoin_data_model.dart';
 import '../../manager/cubits/phone_auth_cubit/phone_auth_cubit.dart';
 
 class OtpTextField extends StatelessWidget {
-  const OtpTextField({super.key, required this.userInfoModel});
-  final UserInfoModel userInfoModel;
+  const OtpTextField({super.key, required this.data});
+  final VerificatoinDataModel data;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class OtpTextField extends StatelessWidget {
         ),
         onCompleted: (pin) => context
             .read<PhoneAuthCubit>()
-            .verifyOTP(context: context, pin: pin, userInfo: userInfoModel),
+            .verifyOTP(context: context, pin: pin, data: data),
       ),
     );
   }

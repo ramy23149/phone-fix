@@ -7,10 +7,16 @@ class SherdPrefHelper {
   static String userUID = 'userUID';
   static String userWallet = 'userWallet';
   static String userImage ='user_image_path';
+  static String phoneNumber = 'phoneNumber';
 
   Future<bool> setUserEmail(String getUserEmail) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString(userEmail, getUserEmail);
+  }
+
+  Future<bool> setPhoneNumber(String getPhoneNumber) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(phoneNumber, getPhoneNumber);
   }
 
   Future<bool> setUserName(String? getUserName) async {
@@ -37,6 +43,11 @@ class SherdPrefHelper {
   Future<String?> getUserEmail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(userEmail);
+  }
+
+  Future<String?> getPhoneNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(phoneNumber);
   }
 
   Future<String?> getUserName() async {

@@ -10,35 +10,43 @@ class SlectRoleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kMainAppColor,
       appBar: AppBar(
         centerTitle: true,
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset(kAppLogo,height: 50,),
+            child: Image.asset(
+              kAppLogo,
+              height: 50,
+            ),
           ),
-        ] ,
+        ],
         title: const Text(
           'تصنيف المستخدم',
           style: Styles.textStyle18,
         ),
       ),
-      body: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          UserRoleContaner(
-            icon: Icons.person,
-            role: UserRoleEnum.user,
-          ),
-          UserRoleContaner(
-            icon: Icons.store,
-            role: UserRoleEnum.storeOwner,
-          )
-        ],
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              colors: [kMainAppColor, Colors.red],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter),
+        ),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            UserRoleContaner(
+              icon: Icons.person,
+              role: UserRoleEnum.user,
+            ),
+            UserRoleContaner(
+              icon: Icons.store,
+              role: UserRoleEnum.storeOwner,
+            )
+          ],
+        ),
       ),
     );
   }
 }
-
-

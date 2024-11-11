@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../featurs/admin/Presentation/views/admin_home.dart';
 import '../featurs/admin/Presentation/views/admin_view.dart';
+import '../featurs/auth/data/models/verificatoin_data_model.dart';
 import '../featurs/auth/presentation/views/login_view.dart';
 import '../featurs/auth/presentation/views/otp_verification_view.dart';
 import '../featurs/auth/presentation/views/signUp_view.dart';
@@ -85,12 +86,18 @@ abstract class AppRouter {
               price: data['price'],
             );
           }),
-
-    GoRoute(
-      path: kSelectRoleView,
-      builder: (context, state) => const SlectRoleView(),
-    ),
-  //  GoRoute(path: kVerifyView, builder: (context, state) => const VerifyView()),
+      GoRoute(
+        path: kSelectRoleView,
+        builder: (context, state) => const SlectRoleView(),
+      ),
+      GoRoute(
+          path: kVerifyView,
+          builder: (context, state) {
+            final data = state.extra as VerificatoinDataModel;
+            return VerifyView(
+              data: data,
+            );
+          }),
     ],
   );
 }
