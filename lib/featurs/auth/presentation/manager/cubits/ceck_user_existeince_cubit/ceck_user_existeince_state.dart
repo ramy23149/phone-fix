@@ -13,7 +13,12 @@ final class ThisIsNewUser extends CheckUserExisteniceState{
   ThisIsNewUser({required this.phone});
 }
 
-final class ThisUserAllreadyExist extends CheckUserExisteniceState{}
+final class ThisUserAllreadyExist extends CheckUserExisteniceState{
+final  DocumentSnapshot<Map<String, dynamic>> doc;
+
+  ThisUserAllreadyExist({required this.doc});
+  
+}
 
 final class CheckUserExisteniceError extends CheckUserExisteniceState{	
 final String error;

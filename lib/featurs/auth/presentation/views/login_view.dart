@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/featurs/auth/presentation/manager/cubits/ceck_user_existeince_cubit/ceck_user_existeince_cubit.dart';
+import 'package:food_delivery_app/featurs/auth/presentation/manager/cubits/check_password_cubit/check_password_cubit.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../Core/app_router.dart';
@@ -14,8 +15,15 @@ class LogInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CheckUserExisteniceCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CheckUserExisteniceCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CheckPasswordCubit(),
+        ),
+      ],
       child: SafeArea(
           child: Scaffold(
         backgroundColor: kWhite,

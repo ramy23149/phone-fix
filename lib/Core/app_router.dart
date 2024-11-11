@@ -7,7 +7,9 @@ import 'package:go_router/go_router.dart';
 
 import '../featurs/admin/Presentation/views/admin_home.dart';
 import '../featurs/admin/Presentation/views/admin_view.dart';
+import '../featurs/auth/data/models/update_passowrd_model.dart';
 import '../featurs/auth/data/models/verificatoin_data_model.dart';
+import '../featurs/auth/presentation/views/create_new_password_view.dart';
 import '../featurs/auth/presentation/views/login_view.dart';
 import '../featurs/auth/presentation/views/otp_verification_view.dart';
 import '../featurs/auth/presentation/views/signUp_view.dart';
@@ -26,6 +28,7 @@ abstract class AppRouter {
   static String kCartView = '/CartView';
   static String kSelectRoleView = '/SelectRoleView';
   static String kVerifyView = '/VerifyView';
+  static String kCreateNewPasswordView = '/CreateNewPasswordView';
 
   static final router = GoRouter(
     initialLocation: kOnBording,
@@ -98,6 +101,13 @@ abstract class AppRouter {
               data: data,
             );
           }),
+      GoRoute(
+          path: kCreateNewPasswordView,
+          builder: (context, state) {
+            final updatePassowrdModel = state.extra as UpdatePassowrdModel;
+            return CreateNewPasswordView(
+                updatePasswordModel: updatePassowrdModel);
+          })
     ],
   );
 }

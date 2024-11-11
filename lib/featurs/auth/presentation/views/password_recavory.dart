@@ -14,8 +14,8 @@ class PasswordRecavory extends StatelessWidget {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            kMainAppColor, // Start color
-            Colors.red, // End color
+            kMainAppColor,
+            Colors.red, 
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,

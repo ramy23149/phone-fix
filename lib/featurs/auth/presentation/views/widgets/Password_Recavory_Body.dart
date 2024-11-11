@@ -81,7 +81,7 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                         text: 'التالي',
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            context.pushReplacement(
+                            context.push(
                                 AppRouter.kVerifyView,
                                 extra: VerificatoinDataModel(
                                   data:null,
@@ -98,7 +98,8 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                        CustomTextButtom(text: "انشاء حساب", onPressed:  () {
+                        CustomTextButtom(text: "انشاء حساب",
+                         onPressed:  () {
                               context.go(AppRouter.kSignUpView);
                             },),
                           const Text(

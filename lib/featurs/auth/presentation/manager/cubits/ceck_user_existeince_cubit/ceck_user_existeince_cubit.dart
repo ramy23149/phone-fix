@@ -19,7 +19,9 @@ class CheckUserExisteniceCubit extends Cubit<CheckUserExisteniceState> {
       .doc('+20$phone')
       .get();
   if (doc.exists) {
-    emit(ThisUserAllreadyExist());
+    emit(ThisUserAllreadyExist(
+      doc:doc
+    ));
   } else {
     emit(ThisIsNewUser(
       phone: phone,
