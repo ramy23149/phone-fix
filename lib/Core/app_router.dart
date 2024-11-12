@@ -35,7 +35,7 @@ abstract class AppRouter {
     routes: <RouteBase>[
       GoRoute(
         path: kLogInView,
-        builder: (context, state) {
+        builder: (context, state) { 
           return const LogInView();
         },
       ),
@@ -48,11 +48,11 @@ abstract class AppRouter {
       GoRoute(
         path: kOnBording, // Route for OnBordingView
         builder: (context, state) {
-          if (FirebaseAuth.instance.currentUser == null) {
-            return const OnBordingView();
-          } else {
-            return const BottomNavBar();
-          }
+          // if (FirebaseAuth.instance.currentUser == null) {
+             return const OnBordingView();
+          // } else {
+          //  return const BottomNavBar();
+          //}
         },
       ),
       // GoRoute(

@@ -16,14 +16,14 @@ class _HomeViewState extends State<HomeView> {
   String? userName;
 
   Future<void> fetchUserName() async {
-    String uId = FirebaseAuth.instance.currentUser!.uid;
-    FirebaseFirestore.instance.collection('users').doc(uId).get().then((docs) {
+    String phoneNumber =await SherdPrefHelper().getPhoneNumber() ?? '';
+    FirebaseFirestore.instance.collection('stores').doc(phoneNumber).get().then((docs) {
       return docs.data()!['name'];
     }).then((value) {
       setState(() {
         userName = value;
       });
-      SherdPrefHelper().setUserName(userName);
+      SherdPrefHelper().setName(userName);
     });
   }
 
@@ -59,7 +59,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ],
         ),
-        body: HomeViewBody(),
+        body: const HomeViewBody(),
       ),
     );
   }

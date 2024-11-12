@@ -107,6 +107,11 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
             'password': userInfoModel.password
           });
           //sheredPrefs do not forgot to add
+          await SherdPrefHelper().setRole(UserRoleEnum.user);
+          await SherdPrefHelper().setName(userInfoModel.name);  
+          await SherdPrefHelper().setImage(userInfoModel.image);  
+          await SherdPrefHelper().setDistricte(userInfoModel.district);  
+
         }, (storeInfoModel) async {
           FirebaseFirestore.instance
               .collection('stores')
@@ -120,8 +125,15 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
             'type': storeInfoModel.storeType.getDisplayName,
             'password': storeInfoModel.password
           });
+          await SherdPrefHelper().setRole(UserRoleEnum.storeOwner);
+          await SherdPrefHelper().setName(storeInfoModel.storeName);
+          await SherdPrefHelper().setStoreType(storeInfoModel.storeType);
+          await SherdPrefHelper().setImage(storeInfoModel.storeLogoUrl);
+          await SherdPrefHelper().setDistricte(storeInfoModel.storeAddress);  
+
         });
         await SherdPrefHelper().setPhoneNumber("+20${data.phone}");
+        
         emit(PhoneAuthSuccess());
       }
       // if (userCredential.user != null) {

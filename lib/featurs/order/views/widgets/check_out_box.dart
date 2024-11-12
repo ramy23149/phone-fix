@@ -55,7 +55,7 @@ class ChekOutBox extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 width: MediaQuery.of(context).size.width,
                 textColor: kWhite,
-                backgroundColor: kBlack,
+                backgroundColor: kMainAppColor,
                 text: 'CheckOut'),
           ),
           const SizedBox(

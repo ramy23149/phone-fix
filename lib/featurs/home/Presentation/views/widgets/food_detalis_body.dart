@@ -133,7 +133,7 @@ class _FoodDetalisBodyState extends State<FoodDetalisBody> {
                         },
                         borderRadius: BorderRadius.circular(16),
                         textColor: kWhite,
-                        backgroundColor: kBlack,
+                        backgroundColor: kMainAppColor,
                         text: 'Add to cart  🛒')
                   ],
                 ),

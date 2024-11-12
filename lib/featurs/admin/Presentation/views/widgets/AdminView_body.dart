@@ -114,7 +114,7 @@ class _AdminViewBodyState extends State<AdminViewBody> {
                                   }
                                 },
                                 text: 'LOGIN',
-                                backgroundColor: kBlack,
+                                backgroundColor: kMainAppColor,
                                 textColor: kWhite,
                                 borderRadius: BorderRadius.circular(10),
                               ),

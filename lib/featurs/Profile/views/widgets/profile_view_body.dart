@@ -24,7 +24,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
   String uid = FirebaseAuth.instance.currentUser!.uid;
 
   getSherdPref() async {
-    email = await SherdPrefHelper().getUserEmail();
+  //  email = await SherdPrefHelper().getUserEmail();
     name = await SherdPrefHelper().getUserName();
     setState(() {});
   }
