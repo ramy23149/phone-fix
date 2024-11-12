@@ -6,12 +6,12 @@ import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/helper/Costom_alert_dialog.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/Core/widgets/custom_text_feild.dart';
-import 'package:food_delivery_app/featurs/auth/presentation/manager/cubits/update_password_cubit/update_password_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../../Core/widgets/custom_bottom.dart';
 import '../../../data/models/update_passowrd_model.dart';
+import '../../manager/cubits/cubit/update_password_cubit.dart';
 
 class CreateNewPasswordViewBody extends StatefulWidget {
   const CreateNewPasswordViewBody({super.key, required this.updatePassowrdModel});

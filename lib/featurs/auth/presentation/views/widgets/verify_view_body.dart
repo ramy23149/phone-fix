@@ -2,6 +2,7 @@ import 'dart:async'; // Import this for the Timer class
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
 
 import 'package:go_router/go_router.dart';
@@ -70,10 +71,12 @@ class _VerifyViewBodyState extends State<VerifyViewBody> {
         return BlocListener<PhoneAuthCubit, PhoneAuthState>(
           listener: (context, state) {
             if (state is PhoneAuthSuccess) {
-           showSnackBar(context,"تم التحقق بنجاح");
-
+              showSnackBar(context, "تم التحقق بنجاح");
+              context.go(AppRouter.kBottomNavBar);
+            }else if(state is GoToResetPasswordView){
+              context.go(AppRouter.kCreateNewPasswordView,extra: state.updatePassowrdModel);
             } else if (state is PhoneAuthError) {
-              showAlertDialog(context,state.error,null,null);
+              showAlertDialog(context, state.error, null, null);
               _timer?.cancel();
             } else if (state is InvalidPhoneNumber) {
               reTryDialog(
@@ -123,8 +126,8 @@ class _VerifyViewBodyState extends State<VerifyViewBody> {
                       style: Styles.textStyle16,
                       children: [
                         TextSpan(
-                          text: '  20${widget.data.phone}+',
-                          style: Styles.textStyle14,
+                          text: '  0${widget.data.phone}',
+                          style: Styles.textStyle14.copyWith(color: Colors.black),
                         ),
                       ],
                     ),
@@ -145,6 +148,7 @@ class _VerifyViewBodyState extends State<VerifyViewBody> {
                     onPressed: _isButtonDisabled
                         ? null
                         : () {
+
                             context.read<PhoneAuthCubit>().verifyPhone(
                                   context: context,
                                   phone: widget.data.phone,
@@ -155,7 +159,7 @@ class _VerifyViewBodyState extends State<VerifyViewBody> {
                     textStyle: TextStyle(
                       decoration: TextDecoration.underline,
                       color: _isButtonDisabled
-                          ? Colors.grey.withOpacity(0.5)
+                          ? Colors.black.withOpacity(0.5)
                           : kMainAppColor,
                     ),
                   ),

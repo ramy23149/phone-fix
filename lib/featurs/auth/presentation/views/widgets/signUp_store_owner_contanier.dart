@@ -12,6 +12,7 @@ import 'package:food_delivery_app/featurs/auth/data/models/verificatoin_data_mod
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../../Core/widgets/custom_text_feild.dart';
+import '../../../data/enums/user_role_enum.dart';
 import '../../manager/cubits/ceck_user_existeince_cubit/ceck_user_existeince_cubit.dart';
 import 'district_suggestion_field.dart';
 
@@ -29,6 +30,7 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController areaController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   XFile? storeLogo;
   bool sellsSpareParts = false;
   String hint = 'اختار نوع النشاط';
@@ -43,7 +45,16 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
       storeLogo = pickedFile;
     });
   }
-
+@override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    nameController.dispose();
+    phoneController.dispose();
+    addressController.dispose();
+    areaController.dispose();
+    passwordController.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocListener<CheckUserExisteniceCubit, CheckUserExisteniceState>(
@@ -52,10 +63,11 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
           context.push(AppRouter.kVerifyView,
               extra: VerificatoinDataModel(
                   data: dartz.Right(StoreInfoModel(
+                    password: passwordController.text,
                       storeName: nameController.text,
                       storeAddress: addressController.text,
                       storePhoneNumber: phoneController.text,
-                      storeLogoUrl: storeLogo!.path,
+                      storeLogoUrl: storeLogo==null?'':storeLogo!.path,
                       storeType: storeType!,)),
                   isForgotPasswordCase: false,
                   phone: phoneController.text,
@@ -120,36 +132,53 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
                       validator: (value) => validateEgyptianPhoneNumber(value),
                     ),
                     const SizedBox(height: 20),
+                      CustomTextField(
+                          textEditingController: passwordController,
+                          hinttext: 'كلمة المرور',
+                          obscureText: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'يجب ادخال كلمة المرور';
+                            }else if (value.length < 6) {
+                              return 'كلمة المرور يجب ان تكون على الاقل 6 حروف';
+                            }
+                            return null;
+                          },
+                        ),
+                    const SizedBox(height: 20),
                     DistrictSuggestionField(
                       controller: areaController,
                     ),
-                    const SizedBox(height: 20),
-                    DropdownButton(
-                        hint: Text(hint),
-                        items: const [
-                          DropdownMenuItem(
-                            value: StoreTypeEnum.phoneAccessories,
-                            child: Text('اكسسوارات هاتف'),
-                          ),
-                          DropdownMenuItem(
-                            value: StoreTypeEnum.phoneSpareParts,
-                            child: Text('قطع غيار الهاتف'),
-                          )
-                        ],
-                        onChanged: (value) {
-                          if (value != null) {
-                            setState(() {
-                              hint = value.name;
-                            });
-                            storeType = value;
-                          }
-                        }),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: DropdownButton(
+                          hint: Text(hint),
+                          items: const [
+                            DropdownMenuItem(
+                              value: StoreTypeEnum.phoneAccessories,
+                              child: Text('اكسسوارات هاتف'),
+                            ),
+                            DropdownMenuItem(
+                              value: StoreTypeEnum.phoneSpareParts,
+                              child: Text('قطع غيار الهاتف'),
+                            )
+                          ],
+                          onChanged: (value) {
+                            if (value != null) {
+                              setState(() {
+                                hint = value.getDisplayName;
+                              });
+                              storeType = value;
+                            }
+                          }),
+                    ),
                     const SizedBox(height: 40),
                     CustomBotton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()&&storeType!=null) {
                           BlocProvider.of<CheckUserExisteniceCubit>(context)
                               .checkUserExistence(
+                            role: UserRoleEnum.storeOwner,
                             phone: phoneController.text,
                           );
                         }

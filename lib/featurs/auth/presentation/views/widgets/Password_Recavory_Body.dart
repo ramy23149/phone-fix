@@ -100,7 +100,7 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                         children: [
                         CustomTextButtom(text: "انشاء حساب",
                          onPressed:  () {
-                              context.go(AppRouter.kSignUpView);
+                              context.push(AppRouter.kSelectRoleView);
                             },),
                           const Text(
                             "ليس لديك حساب؟",

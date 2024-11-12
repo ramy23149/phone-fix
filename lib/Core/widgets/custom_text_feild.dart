@@ -47,6 +47,7 @@ class CustomTextField extends StatelessWidget {
         textAlign: TextAlign.center,
         onSaved: onSaved,
         decoration: InputDecoration(
+          counterText: '',
           prefix: prefix,
           labelText: hinttext,
           floatingLabelBehavior: FloatingLabelBehavior.auto,

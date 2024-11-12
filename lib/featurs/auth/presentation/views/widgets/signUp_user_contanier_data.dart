@@ -12,6 +12,7 @@ import '../../../../../Core/functions/validate_the_egyption_phone_number.dart';
 import '../../../../../Core/text_styles/Styles.dart';
 import '../../../../../Core/widgets/custom_bottom.dart';
 import '../../../../../Core/widgets/custom_text_feild.dart';
+import '../../../data/enums/user_role_enum.dart';
 
 class SignUpUserDataContaner extends StatefulWidget {
   const SignUpUserDataContaner({
@@ -26,6 +27,7 @@ class _SignUpUserDataContanerState extends State<SignUpUserDataContaner> {
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController areaController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   GlobalKey<FormState> fromKey = GlobalKey();
 
@@ -36,6 +38,7 @@ class _SignUpUserDataContanerState extends State<SignUpUserDataContaner> {
     areaController.dispose();
     nameController.dispose();
     phoneNumberController.dispose();
+    passwordController.dispose();
   }
 
   @override
@@ -46,6 +49,8 @@ class _SignUpUserDataContanerState extends State<SignUpUserDataContaner> {
           context.push(AppRouter.kVerifyView,
               extra: VerificatoinDataModel(
                   data: dartz.Left(UserInfoModel(
+                      password: passwordController.text,
+                      image: '',
                       phone: phoneNumberController.text,
                       name: nameController.text,
                       district: areaController.text)),
@@ -62,11 +67,8 @@ class _SignUpUserDataContanerState extends State<SignUpUserDataContaner> {
               borderRadius: BorderRadius.circular(17), color: kWhite),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: BlocConsumer<CheckUserExisteniceCubit,
-                CheckUserExisteniceState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                return SingleChildScrollView(
+            child:
+                 SingleChildScrollView(
                   child: Form(
                     key: fromKey,
                     child: Column(
@@ -94,12 +96,28 @@ class _SignUpUserDataContanerState extends State<SignUpUserDataContaner> {
                           textEditingController: phoneNumberController,
                           hinttext: 'رقم الهاتف',
                           prefix: const Text(
-                            "+20",
+                            "🇪🇬 +20",
                           ),
                           keyboardType: TextInputType.phone,
                           maxLength: 10,
                           validator: (value) =>
                               validateEgyptianPhoneNumber(value),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        CustomTextField(
+                          textEditingController: passwordController,
+                          hinttext: 'كلمة المرور',
+                          obscureText: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'يجب ادخال كلمة المرور';
+                            }else if (value.length < 6) {
+                              return 'كلمة المرور يجب ان تكون على الاقل 6 حروف';
+                            }
+                            return null;
+                          },
                         ),
                         const SizedBox(
                           height: 15,
@@ -115,6 +133,7 @@ class _SignUpUserDataContanerState extends State<SignUpUserDataContaner> {
                             if (fromKey.currentState!.validate()) {
                               BlocProvider.of<CheckUserExisteniceCubit>(context)
                                   .checkUserExistence(
+                                role: UserRoleEnum.user,
                                 phone: phoneNumberController.text,
                               );
                             }
@@ -130,9 +149,8 @@ class _SignUpUserDataContanerState extends State<SignUpUserDataContaner> {
                       ],
                     ),
                   ),
-                );
-              },
-            ),
+                )
+
           ),
         ),
       ),

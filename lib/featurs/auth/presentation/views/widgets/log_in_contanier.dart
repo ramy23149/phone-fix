@@ -26,15 +26,20 @@ class LogInContanier extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CheckPasswordCubit, CheckPasswordState>(
-      builder: (context, checkPasswordState) {
+    return BlocListener<CheckPasswordCubit, CheckPasswordState>(
+      listener: (context, checkPasswordState) {
         if(checkPasswordState is TruePassword){
           context.go(AppRouter.kBottomNavBar);
-        }else if (checkPasswordState is CheckPasswordError) {
+        }else if(checkPasswordState is WrongPassword){
+          showAlertDialog(context, checkPasswordState.message,
+           const Icon(Icons.error), Colors.red);
+        }
+        else if (checkPasswordState is CheckPasswordError) {
           showAlertDialog(context, checkPasswordState.error,
            const Icon(Icons.error), Colors.red);
         }
-        return Material(
+          },
+        child:  Material(
           borderRadius: BorderRadius.circular(17),
           elevation: 5.0,
           child: Container(
@@ -86,13 +91,6 @@ class LogInContanier extends StatelessWidget {
                                     if (errorMessage != null) {
                                       return errorMessage;
                                     }
-    
-                                    if (state is ThisIsNewUser) {
-                                      return 'هذا الحساب غير موجود ! ابدا بانشاء حسابك الان';
-                                    }else if (checkPasswordState is WrongPassword) {
-                                      return checkPasswordState.message;
-                                    }
-    
                                     return null;
                                   },
                                 ),
@@ -128,7 +126,8 @@ class LogInContanier extends StatelessWidget {
                                       context
                                           .read<CheckUserExisteniceCubit>()
                                           .checkUserExistence(
-                                              phone: phoneController.text);
+                                            role: null,
+                                            phone: phoneController.text);
                                     }
                                   },
                                   text: 'تسجيل الدخول',
@@ -147,8 +146,8 @@ class LogInContanier extends StatelessWidget {
               ),
             ),
           ),
-        );
-      },
+        )
+    
     );
   }
 }

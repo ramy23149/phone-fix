@@ -35,3 +35,9 @@ class InvalidOtpError extends PhoneAuthState {
   final String error;
   InvalidOtpError({required this.error});
 }
+
+class GoToResetPasswordView extends PhoneAuthState {
+final  UpdatePassowrdModel updatePassowrdModel;
+
+  GoToResetPasswordView({required this.updatePassowrdModel});
+}

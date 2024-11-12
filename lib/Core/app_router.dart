@@ -55,16 +55,16 @@ abstract class AppRouter {
           }
         },
       ),
-      GoRoute(
-        path: kBottomNavBar, // Route for BottomNavBar
-        builder: (context, state) {
-          if (FirebaseAuth.instance.currentUser != null) {
-            return const BottomNavBar();
-          } else {
-            return const OnBordingView();
-          }
-        },
-      ),
+      // GoRoute(
+      //   path: kBottomNavBar, // Route for BottomNavBar
+      //   builder: (context, state) {
+      //     if (FirebaseAuth.instance.currentUser != null) {
+      //       return const BottomNavBar();
+      //     } else {
+      //       return const OnBordingView();
+      //     }
+      //   },
+      // ),
       GoRoute(
         path: kAdminHome,
         builder: (context, state) => const HomeAdmin(),

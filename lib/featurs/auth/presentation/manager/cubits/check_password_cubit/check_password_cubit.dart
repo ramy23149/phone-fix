@@ -23,4 +23,8 @@ class CheckPasswordCubit extends Cubit<CheckPasswordState> {
       emit(CheckPasswordError(error:  e.toString()));
     }
   }
+  void resetState(){
+    emit(CheckPasswordInitial());
+  }
 }
+
