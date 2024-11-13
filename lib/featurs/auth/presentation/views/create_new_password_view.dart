@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../Core/constats.dart';
 import '../../data/models/update_passowrd_model.dart';
-import '../manager/cubits/cubit/update_password_cubit.dart';
+import '../manager/cubits/update_password_cubit/update_password_cubit.dart';
 import 'widgets/create_new_password_view_body.dart';
 
 class CreateNewPasswordView extends StatelessWidget {

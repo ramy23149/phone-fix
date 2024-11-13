@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:food_delivery_app/observer.dart';
 import 'package:provider/provider.dart';
 
@@ -41,8 +42,14 @@ class DelivaryApp extends StatelessWidget {
       print('User is signed in!=========================');
     }
   });
-    return ChangeNotifierProvider<AuthUserProvider>(
-      create: (context) => AuthUserProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthUserProvider>(
+          create: (context) => AuthUserProvider(),
+        ),
+        ChangeNotifierProvider<CustomerDataProvider>(
+          create: (context) => CustomerDataProvider())
+      ],
       child: SafeArea(
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

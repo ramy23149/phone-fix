@@ -11,7 +11,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../../Core/widgets/custom_bottom.dart';
 import '../../../data/models/update_passowrd_model.dart';
-import '../../manager/cubits/cubit/update_password_cubit.dart';
+import '../../manager/cubits/update_password_cubit/update_password_cubit.dart';
 
 class CreateNewPasswordViewBody extends StatefulWidget {
   const CreateNewPasswordViewBody({super.key, required this.updatePassowrdModel});

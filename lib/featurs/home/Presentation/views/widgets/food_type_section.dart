@@ -14,7 +14,7 @@ class FoodTypeSection extends StatefulWidget {
 }
 
 class _FoodTypeSectionState extends State<FoodTypeSection> {
-    String foodImage = 'assets/images/ice-cream.png';
+    String foodImage = 'assets/images/covers.png';
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class _FoodTypeSectionState extends State<FoodTypeSection> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomFoodTypeItem(
-                  isSelected: foodImage == 'assets/images/ice-cream.png',
+                  isSelected: foodImage == 'assets/images/covers.png',
                   onFoodSelected: (selectedIceCream) {
                     setState(() {
                       foodImage = selectedIceCream;
@@ -32,10 +32,10 @@ class _FoodTypeSectionState extends State<FoodTypeSection> {
                     });
                     
                   },
-                  imageName: 'assets/images/ice-cream.png',
+                  imageName: 'assets/images/covers.png',
                 ),
                 CustomFoodTypeItem(
-                  isSelected: foodImage == 'assets/images/pizza.png',
+                  isSelected: foodImage == 'assets/images/phone_charger.png',
                   onFoodSelected: (selectedPizza) {
                     setState(() {
                       foodImage = selectedPizza;
@@ -43,10 +43,10 @@ class _FoodTypeSectionState extends State<FoodTypeSection> {
                     });
                   
                   },
-                  imageName: 'assets/images/pizza.png',
+                  imageName: 'assets/images/phone_charger.png',
                 ),
                 CustomFoodTypeItem(
-                  isSelected: foodImage == 'assets/images/salad.png',
+                  isSelected: foodImage == 'assets/images/head_phone.png',
                   onFoodSelected: (selectedSalad) {
                     setState(() {
                       foodImage = selectedSalad;
@@ -54,10 +54,10 @@ class _FoodTypeSectionState extends State<FoodTypeSection> {
                     });
                     
                   },
-                  imageName: 'assets/images/salad.png',
+                  imageName: 'assets/images/head_phone.png',
                 ),
                 CustomFoodTypeItem(
-                  isSelected: foodImage == 'assets/images/burger.png',
+                  isSelected: foodImage == 'assets/images/genral_phone_accessories.webp',
                   onFoodSelected: (selectedBurger) {
                     setState(() {
                       foodImage = selectedBurger;
@@ -65,7 +65,7 @@ class _FoodTypeSectionState extends State<FoodTypeSection> {
                     });
                   
                   },
-                  imageName: 'assets/images/burger.png',
+                  imageName: 'assets/images/genral_phone_accessories.webp',
                 ),
               ],
             ),

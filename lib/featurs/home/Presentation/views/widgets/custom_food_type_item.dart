@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Core/constats.dart';
 
 class CustomFoodTypeItem extends StatelessWidget {
   const CustomFoodTypeItem(
@@ -18,8 +19,12 @@ class CustomFoodTypeItem extends StatelessWidget {
       onTap: () {
         onFoodSelected(imageName);
       },
-      child: SizedBox(
+      child: Container(
+        decoration: BoxDecoration( 
+           color: isSelected ? kMainAppColor : Colors.black,
+          borderRadius: BorderRadius.circular(10),),
         height: 70,
+        width: 70,
         child: Card(
           color: isSelected ? Colors.black : Colors.white,
           elevation: 10,
@@ -29,7 +34,7 @@ class CustomFoodTypeItem extends StatelessWidget {
               Image.asset(
               imageName,
                 height: 50,
-                color: isSelected ? Colors.white : Colors.black,
+              
               ),
             ],
           ),

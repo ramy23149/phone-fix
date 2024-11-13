@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/Core/servers/sherd_pref.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
+import 'package:food_delivery_app/featurs/auth/data/enums/store_type_enum.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/home_view_body.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -13,53 +16,39 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  String? userName;
-
-  Future<void> fetchUserName() async {
-    String phoneNumber =await SherdPrefHelper().getPhoneNumber() ?? '';
-    FirebaseFirestore.instance.collection('stores').doc(phoneNumber).get().then((docs) {
-      return docs.data()!['name'];
-    }).then((value) {
-      setState(() {
-        userName = value;
-      });
-      SherdPrefHelper().setName(userName);
-    });
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    fetchUserName();
+    context.read<CustomerDataProvider>().fetchCustomerData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(userName != null ? 'Hallo $userName,' : 'loading...',
-              style: Styles.textStyle20),
-          actions: [
-            Container(
-              margin: const EdgeInsets.only(right: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black,
-              ),
-              child: IconButton(
-                iconSize: 27,
-                icon: const Icon(
-                  Icons.shopping_cart_outlined,
-                  color: Colors.white,
-                ),
-                onPressed: () {},
-              ),
+    return DefaultTabController(
+      length: 2,
+      initialIndex: 0,
+      child: Consumer<CustomerDataProvider>(
+        builder: (context, value, child) => Scaffold(
+          appBar: AppBar(
+            title: Text(
+                value.name != null ? '${value.name} مرحبا' : 'جاري التحميل...',
+                style: Styles.textStyle20),
+            bottom: TabBar(tabs: [
+              Text(StoreTypeEnum.phoneAccessories.getDisplayName),
+              Text(StoreTypeEnum.phoneSpareParts.getDisplayName)
+            ]),
+            toolbarHeight: 30,
+          ),
+          body: const TabBarView(children: [
+            HomeViewBody(
+              storeType: StoreTypeEnum.phoneAccessories,
             ),
-          ],
+            HomeViewBody(
+              storeType: StoreTypeEnum.phoneSpareParts,
+            ),
+          ]),
         ),
-        body: const HomeViewBody(),
       ),
     );
   }
