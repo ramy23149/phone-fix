@@ -9,15 +9,24 @@ extension StoreTypeExtention on StoreTypeEnum {
         return 'قطع غيار';
     }
   }
-}
 
-  StoreTypeEnum getStoreType(String type) {
-    switch (type) {
-      case  'اكسسوارات':
-        return StoreTypeEnum.phoneAccessories;
-      case 'قطع غيار':
-        return StoreTypeEnum.phoneSpareParts;
-      default:
-        return StoreTypeEnum.phoneAccessories;
+  String get getCollectionName {
+    switch (this) {
+      case StoreTypeEnum.phoneAccessories:
+        return "accessories";
+      case StoreTypeEnum.phoneSpareParts:
+        return "Phone spare parts";
     }
   }
+}
+
+StoreTypeEnum getStoreType(String type) {
+  switch (type) {
+    case 'اكسسوارات':
+      return StoreTypeEnum.phoneAccessories;
+    case 'قطع غيار':
+      return StoreTypeEnum.phoneSpareParts;
+    default:
+      return StoreTypeEnum.phoneAccessories;
+  }
+}

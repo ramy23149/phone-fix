@@ -11,6 +11,7 @@ import 'package:food_delivery_app/observer.dart';
 import 'package:provider/provider.dart';
 
 import 'featurs/auth/presentation/manager/providers/auth_provider.dart';
+import 'featurs/home/Presentation/Manager/providers/change_category_provider.dart';
 import 'firebase_options.dart';
 
 
@@ -48,7 +49,10 @@ class DelivaryApp extends StatelessWidget {
           create: (context) => AuthUserProvider(),
         ),
         ChangeNotifierProvider<CustomerDataProvider>(
-          create: (context) => CustomerDataProvider())
+          create: (context) => CustomerDataProvider()
+        ),
+        ChangeNotifierProvider<ChangeCategoryProvider>(
+          create: (context) => ChangeCategoryProvider(),)
       ],
       child: SafeArea(
         child: MaterialApp.router(

@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
  class AppObserver implements BlocObserver {
@@ -9,11 +10,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
  
   @override
   void onClose(BlocBase bloc) {
-  debugPrint('$bloc closed');  }
+  log('$bloc closed');  }
  
   @override
   void onCreate(BlocBase bloc) {
-    debugPrint('$bloc created');
+    log('$bloc created');
   }
  
   @override

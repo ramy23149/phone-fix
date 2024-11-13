@@ -5,19 +5,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/featurs/auth/data/enums/store_type_enum.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
-import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/food_type_section.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/type_section.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/horizontal_List_view.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/virtical_list_view.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key, required this.storeType});
-final StoreTypeEnum storeType;
+  final StoreTypeEnum storeType;
   @override
   State<HomeViewBody> createState() => _HomeViewBodyState();
 }
 
 class _HomeViewBodyState extends State<HomeViewBody> {
-  String? foodType;
+  String? type;
 
   @override
   Widget build(BuildContext context) {
@@ -30,48 +30,30 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             const SizedBox(
               height: 10,
             ),
-             Text(
-              ': الاقرب الى ${context.watch<CustomerDataProvider>().districte}',
-              style: Styles.textStyle25,
+            TypeSection(),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 7),
+              child: Text(
+                ': الاقرب الى ${context.watch<CustomerDataProvider>().districte}',
+                style: Styles.textStyle25,
+              ),
             ),
             const SizedBox(
               height: 10,
             ),
-            FoodTypeSection(
-              onBurgerSelected: () {
-                setState(() {
-  foodType = 'Burger';
-});
-              },
-              onPizzaSelected: () {
-                setState(() {
-  foodType = 'pizza';
-});
-              },
-              onSaladSelected: () {
-                setState(() {
-                  foodType = 'Salad';
-                });
-              },
-              onIceCreamSelected: () {
-                setState(() {
-                  foodType = 'ice_cream';
-                });
-                
-              
-              },
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-          const  UperListView(
-            
-            ), //stream
+            const UperListView(), //stream
             const SizedBox(
               height: 20,
             ),
+            const Padding(
+              padding: EdgeInsets.only(right: 7),
+              child: Text(": جميع المناطق", style: Styles.textStyle25),
+            ),
             LowerListView(
-              foodType: foodType??'ice_cream',
+              foodType: type ?? 'ice_cream',
             ), //stream
           ],
         ),
