@@ -9,4 +9,14 @@ extension UserRoleExtention on UserRoleEnum{
       return 'مستخدم';
     }
   }
+  String get getCollectionName{
+    switch(this) {
+      case UserRoleEnum.storeOwner:
+       return 'stores';
+      case UserRoleEnum.user:
+      return 'users';
+    }
+  }
 }
+
+

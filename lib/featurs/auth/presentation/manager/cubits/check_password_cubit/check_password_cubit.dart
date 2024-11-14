@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/servers/sherd_pref.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:meta/meta.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../data/enums/store_type_enum.dart';
 import '../../../../data/enums/user_role_enum.dart';
@@ -34,7 +37,19 @@ class CheckPasswordCubit extends Cubit<CheckPasswordState> {
     }
   }
 
-  void resetState() {
-    emit(CheckPasswordInitial());
+  Future<void> checkAdminPassword(
+      {required String password, required BuildContext context}) async {
+    emit(CheckPasswordLoading());
+    String phoneNumber = context.read<CustomerDataProvider>().phoneNumber!;
+    final customerData = await FirebaseFirestore.instance
+        .collection(UserRoleEnum.storeOwner.getCollectionName)
+        .doc(phoneNumber)
+        .get();
+    final currentCustomerPassword = customerData['password'];
+    if (currentCustomerPassword == password) {
+      emit(TruePassword());
+    } else {
+      emit(WrongPassword(message: 'كلمه المرور غير صحيحه'));
+    }
   }
 }

@@ -6,7 +6,7 @@ import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/featurs/auth/data/enums/store_type_enum.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/type_section.dart';
-import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/horizontal_List_view.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/neareast_places_List_view.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/virtical_list_view.dart';
 
 class HomeViewBody extends StatefulWidget {
@@ -30,7 +30,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             const SizedBox(
               height: 10,
             ),
-            TypeSection(),
+            const TypeSection(),
             const SizedBox(
               height: 20,
             ),
@@ -44,7 +44,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             const SizedBox(
               height: 10,
             ),
-            const UperListView(), //stream
+            const NearestPlacesListView(), //stream
             const SizedBox(
               height: 20,
             ),

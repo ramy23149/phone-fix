@@ -1,10 +1,13 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Core/servers/sherd_pref.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
+import '../../../auth/data/enums/user_role_enum.dart';
 
 class UserImage extends StatefulWidget {
   const UserImage({super.key});
@@ -34,32 +37,32 @@ class _UserImageState extends State<UserImage> {
 
   upLoadImageToFireStore() async {
     if (image != null) {
-      String address = FirebaseAuth.instance.currentUser!.uid;
+      final customerData = context.read<CustomerDataProvider>();
+      String phoneNumber = customerData.phoneNumber!;
       Reference ref =
-          FirebaseStorage.instance.ref().child('images').child(address);
-
+          FirebaseStorage.instance.ref().child('images').child(phoneNumber);
+      String collectoinName;
+      final userRole = customerData.userRole;
+      if (userRole == UserRoleEnum.storeOwner.getDisplayName) {
+        collectoinName = UserRoleEnum.storeOwner.getCollectionName;
+      } else {
+        collectoinName = UserRoleEnum.user.getCollectionName;
+      }
       UploadTask uploadTask = ref.putFile(image ?? File(''));
 
       var url = await (await uploadTask).ref.getDownloadURL();
       imageUrl = url;
       FirebaseFirestore.instance
-          .collection('users')
-          .doc(address)
+          .collection(collectoinName)
+          .doc(phoneNumber)
           .update({'image': url});
+        await SherdPrefHelper().setImage(url);
       setState(() {});
     }
   }
 
   loadImage() async {
-    String address = FirebaseAuth.instance.currentUser!.uid;
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(address)
-        .get()
-        .then((value) {
-      imageUrl = value.data()!['image'];
-      setState(() {});
-    });
+    imageUrl = context.read<CustomerDataProvider>().image;
   }
 
   @override
@@ -85,7 +88,7 @@ class _UserImageState extends State<UserImage> {
           radius: 60,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(60),
-            child: imageUrl != null && imageUrl !=''
+            child: imageUrl != null && imageUrl != ''
                 ? Image.network(
                     imageUrl!,
                     fit: BoxFit.fill,
@@ -94,7 +97,7 @@ class _UserImageState extends State<UserImage> {
                     loadingBuilder: (BuildContext context, Widget child,
                         ImageChunkEvent? loadingProgress) {
                       if (loadingProgress == null) {
-                        return child; 
+                        return child;
                       } else {
                         return Center(
                           child: CircularProgressIndicator(
@@ -103,7 +106,7 @@ class _UserImageState extends State<UserImage> {
                                     loadingProgress.expectedTotalBytes!
                                 : null,
                           ),
-                        ); 
+                        );
                       }
                     },
                   )

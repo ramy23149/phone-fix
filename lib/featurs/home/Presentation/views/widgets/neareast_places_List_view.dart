@@ -6,15 +6,15 @@ import 'package:provider/provider.dart';
 
 import 'custom_horizontal_list_item.dart';
 
-class UperListView extends StatelessWidget {
-  const UperListView({
+class NearestPlacesListView extends StatelessWidget {
+  const NearestPlacesListView({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Selector<ChangeCategoryProvider,Future<QuerySnapshot>>(
-      selector: (context, value) => value.neriestProductsQuery(context),
+      selector: (context, value) => value.neriestProductsQuery(context: context,showTheNearestPlaces: true),
       builder: (context, query, child) => 
       FutureBuilder<QuerySnapshot<Object?>>(
           future: query,

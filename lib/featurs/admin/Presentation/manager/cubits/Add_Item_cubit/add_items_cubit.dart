@@ -1,43 +1,77 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/servers/data_base_methouds.dart';
+import 'package:food_delivery_app/featurs/admin/data/models/uploaded_product_model.dart';
+import 'package:food_delivery_app/featurs/auth/data/enums/store_type_enum.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:meta/meta.dart';
+import 'package:provider/provider.dart';
 
 part 'add_items_state.dart';
 
 class AddItemsCubit extends Cubit<AddItemsState> {
   AddItemsCubit() : super(AddItemsInitial());
 
-  Future<void> addItem(File? image, String name, String price, String detalis,
-      String categoryName) async {
+  Future<void> addItem(
+      UploadedProductModel productModel, BuildContext context) async {
     try {
       emit(AddItemsLoading());
       //String id = randomAlphaNumeric(10);
-       //await Future.delayed(Duration(seconds: 4));
+      //await Future.delayed(Duration(seconds: 4));
+      String categoryName='accessories';
+      Reference ref = FirebaseStorage.instance
+          .ref()
+          .child('images')
+          .child('${DateTime.now()}');
 
-      Reference ref =
-           FirebaseStorage.instance.ref().child('images').child('${DateTime.now()}');
-
-      UploadTask uploadTask = ref.putFile(image?? File(''));
+      UploadTask uploadTask = ref.putFile(productModel.image);
 
       var url = await (await uploadTask).ref.getDownloadURL();
 
+      final storeInfoDoc = await FirebaseFirestore.instance
+          .collection('stores')
+          .doc(context.read<CustomerDataProvider>().phoneNumber)
+          .get();
+
       Map<String, dynamic> data = {
         'image': url,
-        'name': name,
-        'price': price,
-        'detalis': detalis
+        'name': productModel.name,
+        'price': productModel.price,
+        'detalis': productModel.desc,
+        'district': context.read<CustomerDataProvider>().districte,
+        'type': productModel.subCategory,
+        'storeInfo': {
+          'name': storeInfoDoc['name'],
+          'phoneNumber': storeInfoDoc['phoneNumber'],
+          'image': storeInfoDoc['image'],
+          'districte': storeInfoDoc['districte'],
+          'type': storeInfoDoc['type'],
+        }
       };
-
-    await  DataBaseMethouds().addItem(data, categoryName);
-    await DataBaseMethouds().addItem(data, 'genral');
-    emit(AddItemsSuccess());
+      if (storeInfoDoc['type'] ==
+          StoreTypeEnum.phoneAccessories.getDisplayName) {
+         categoryName = 'accessories';
+      } else {
+         categoryName = 'Phone spare parts';
+      }
+      await DataBaseMethouds().addItem(data, categoryName);
+    //  await DataBaseMethouds().addItem(data, 'genral');
+      emit(AddItemsSuccess());
     } on FirebaseException catch (e) {
       print("Failed with error '${e.code}': ${e.message}");
       emit(AddItemsError());
+    }
+  }
+
+  bool isAccessoriesStore(BuildContext context) {
+    final storeTypeEnum = context.read<CustomerDataProvider>().storeType;
+    if (storeTypeEnum == StoreTypeEnum.phoneAccessories.getDisplayName) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

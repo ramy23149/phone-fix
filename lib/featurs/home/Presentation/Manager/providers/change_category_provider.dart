@@ -12,7 +12,7 @@ class ChangeCategoryProvider with ChangeNotifier {
   int selectedKey = 0;
   StoreTypeEnum storeType = StoreTypeEnum.phoneAccessories;
 
-  Future<QuerySnapshot> neriestProductsQuery(BuildContext context) async {
+  Future<QuerySnapshot> neriestProductsQuery({required BuildContext context,required bool showTheNearestPlaces}) async {
     final curuntCostumerPlace = context.read<CustomerDataProvider>().districte;
     List<String> categoriesList = [];
     if (storeType == StoreTypeEnum.phoneAccessories) {
@@ -20,12 +20,21 @@ class ChangeCategoryProvider with ChangeNotifier {
     } else {
       categoriesList = phoneSparePartsTypes;
     }
-    return FirebaseFirestore.instance
+    if(showTheNearestPlaces){
+      return FirebaseFirestore.instance
         .collection(storeType.getCollectionName)
         .where('district', isEqualTo: curuntCostumerPlace)
         .where('type', isEqualTo: categoriesList[selectedKey])
         .get();
+    }else {
+      return FirebaseFirestore.instance
+        .collection(storeType.getCollectionName)
+        .where('type', isEqualTo: categoriesList[selectedKey])
+        .get();
+    }
+    
   }
+
   //final curuntUserPlace =
 
 //  Future<QuerySnapshot> neriestProductsQuery = FirebaseFirestore.instance.collection(storeType.getDisplayName).where('').get();

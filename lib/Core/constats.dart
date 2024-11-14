@@ -9,6 +9,7 @@ const String kPublishablekey =
 const String kSecretkey =
     'sk_test_51OvGjzBzmdWVZwGq4wUefOWROeKMDNXPE2PqWNImhF2XYY9u0DFe48BnHgGCiwD84ZRLCMsHBDKCZn6HUtlwmiO300nSeSAw0t';
 const String kAppLogo = 'assets/images/app_logo.png';
+const String kAppLogo2 = 'assets/images/app_logo_2.jpg';
 const List<String> kSortedNeighborhoods = [
   'أبو قير',
   'أبو قير الجديدة',

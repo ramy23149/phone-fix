@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
@@ -7,8 +6,9 @@ import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:food_delivery_app/featurs/Profile/views/widgets/curved_contaner.dart';
 import 'package:food_delivery_app/featurs/Profile/views/widgets/user_image.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../Core/servers/sherd_pref.dart';
+import 'package:provider/provider.dart';
 import 'custom_listile.dart';
 import 'user_action.dart';
 
@@ -21,11 +21,11 @@ class ProfileViewBody extends StatefulWidget {
 
 class _ProfileViewBodyState extends State<ProfileViewBody> {
   String? name, email;
-  String uid = FirebaseAuth.instance.currentUser!.uid;
+  // String uid = FirebaseAuth.instance.currentUser!.uid;
 
   getSherdPref() async {
-  //  email = await SherdPrefHelper().getUserEmail();
-    name = await SherdPrefHelper().getUserName();
+    //  email = await SherdPrefHelper().getUserEmail();
+    name = context.read<CustomerDataProvider>().name;
     setState(() {});
   }
 
@@ -38,11 +38,12 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
     // TODO: implement initState
     super.initState();
     onLoad();
+    print(name);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (name == null || email == null) {
+    if (name == null) {
       return const CustomLoadingIndecator(); // Show loading indicator until data is loaded
     }
 
@@ -61,14 +62,13 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                       icon: const Icon(Icons.person),
                       title: 'Name',
                       subtitle: name!),
-                  UserInformatoin(
-                      icon: const Icon(Icons.person),
-                      title: 'Email',
-                      subtitle: email!),
+                   UserInformatoin(
+                      icon: const Icon(Icons.phone),
+                      title: 'phone',
+                      subtitle:"${context.read<CustomerDataProvider>().phoneNumber}"),
                   UserAction(
                     okBtnText: 'Yes',
                     onCancel: () {},
-                    
                     onOk: () {
                       context.push(AppRouter.kAdminView);
                     },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/featurs/auth/data/enums/store_type_enum.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/change_category_provider.dart';
@@ -34,7 +35,6 @@ class _HomeViewState extends State<HomeView>
   }
 
   void _onTabChanged(int index) {
-
     context.read<ChangeCategoryProvider>().changeCategorys(index);
   }
 
@@ -50,21 +50,32 @@ class _HomeViewState extends State<HomeView>
     return Consumer<CustomerDataProvider>(
       builder: (context, value, child) => Scaffold(
         appBar: AppBar(
-          title: Text(
-            value.name != null ? '${value.name} مرحبا' : 'جاري التحميل...',
-            style: Styles.textStyle20,
+          centerTitle: true,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: Image.asset(kAppLogo2,),
+          ),
+          title: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              value.name != null ? '${value.name} مرحبا' : 'جاري التحميل...',
+              style: Styles.textStyle20,
+            ),
           ),
           bottom: TabBar(
+            indicatorColor: kMainAppColor,
+            labelColor: kMainAppColor,
+            dividerColor: kMainAppColor,
             controller: _tabController,
             onTap: (index) {
-              _onTabChanged(index);
+              _onTabChanged(index); 
             },
             tabs: [
               Text(StoreTypeEnum.phoneAccessories.getDisplayName),
               Text(StoreTypeEnum.phoneSpareParts.getDisplayName),
             ],
           ),
-          toolbarHeight: 30,
+          toolbarHeight: 80,
         ),
         body: PageView(
           controller: _pageController,
