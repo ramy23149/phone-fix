@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Core/constats.dart';
 
 
 class LowerContaner extends StatelessWidget {
@@ -17,7 +18,7 @@ class LowerContaner extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color.fromARGB(255, 65, 61, 63),Colors.black]
+            colors: [kMainAppColor,Colors.red]
           ),
           
           borderRadius: BorderRadius.only(

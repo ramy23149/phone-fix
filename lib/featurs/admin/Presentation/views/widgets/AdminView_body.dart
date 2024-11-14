@@ -20,7 +20,6 @@ class AdminViewBody extends StatefulWidget {
 }
 
 class _AdminViewBodyState extends State<AdminViewBody> {
-  TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> key = GlobalKey();
   bool isLoading = false;
@@ -28,7 +27,6 @@ class _AdminViewBodyState extends State<AdminViewBody> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    userNameController.dispose();
     passwordController.dispose();
   }
 
@@ -37,6 +35,7 @@ class _AdminViewBodyState extends State<AdminViewBody> {
     return BlocBuilder<CheckPasswordCubit, CheckPasswordState>(
       builder: (context, state) {
         if (state is TruePassword) {
+          passwordController.clear();
           Future.microtask(() {
             context.push(AppRouter.kAdminHome);
           });
@@ -108,7 +107,7 @@ class _AdminViewBodyState extends State<AdminViewBody> {
                               borderRadius: BorderRadius.circular(10),
                               child: state is CheckPasswordLoading
                                   ? const CustomLoadingIndecator()
-                                  :  Text(
+                                  : Text(
                                       'التالي',
                                       style: Styles.textStyle18.copyWith(
                                         color: kWhite,

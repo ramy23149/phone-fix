@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/servers/data_base_methouds.dart';
 import 'package:food_delivery_app/featurs/admin/data/models/uploaded_product_model.dart';
 import 'package:food_delivery_app/featurs/auth/data/enums/store_type_enum.dart';
+import 'package:food_delivery_app/featurs/auth/data/enums/user_role_enum.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:meta/meta.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class AddItemsCubit extends Cubit<AddItemsState> {
       emit(AddItemsLoading());
       //String id = randomAlphaNumeric(10);
       //await Future.delayed(Duration(seconds: 4));
-      String categoryName='accessories';
+      String categoryName = 'accessories';
       Reference ref = FirebaseStorage.instance
           .ref()
           .child('images')
@@ -42,23 +43,29 @@ class AddItemsCubit extends Cubit<AddItemsState> {
         'price': productModel.price,
         'detalis': productModel.desc,
         'district': context.read<CustomerDataProvider>().districte,
-        'type': productModel.subCategory,
+        'type': getCategoryName(
+            productModel.subCategory, isAccessoriesStore(context)),
         'storeInfo': {
           'name': storeInfoDoc['name'],
           'phoneNumber': storeInfoDoc['phoneNumber'],
           'image': storeInfoDoc['image'],
-          'districte': storeInfoDoc['districte'],
+          'districte': storeInfoDoc['district'],
           'type': storeInfoDoc['type'],
         }
       };
       if (storeInfoDoc['type'] ==
           StoreTypeEnum.phoneAccessories.getDisplayName) {
-         categoryName = 'accessories';
+        categoryName = 'accessories';
       } else {
-         categoryName = 'Phone spare parts';
+        categoryName = 'Phone spare parts';
       }
       await DataBaseMethouds().addItem(data, categoryName);
-    //  await DataBaseMethouds().addItem(data, 'genral');
+      data.remove('storeInfo');
+      await FirebaseFirestore.instance
+          .collection(UserRoleEnum.storeOwner.getCollectionName)
+          .doc(storeInfoDoc['phoneNumber'])
+          .collection("products")
+          .add(data);
       emit(AddItemsSuccess());
     } on FirebaseException catch (e) {
       print("Failed with error '${e.code}': ${e.message}");
@@ -72,6 +79,36 @@ class AddItemsCubit extends Cubit<AddItemsState> {
       return true;
     } else {
       return false;
+    }
+  }
+
+  String getCategoryName(String enumName, bool isAccessories) {
+    if (isAccessories) {
+      switch (enumName) {
+        case 'covers':
+          return 'جرابات';
+        case 'phoneCharger':
+          return 'شارجات';
+        case 'headPhone':
+          return 'هيدفون';
+        case 'somethingElse':
+          return 'اخرى';
+        default:
+          return '';
+      }
+    } else {
+      switch (enumName) {
+        case 'bettary':
+          return 'بطاريات';
+        case 'motherBord':
+          return 'بوردات';
+        case 'phoneScreen':
+          return 'شاشات';
+        case 'someThingElse':
+          return 'اخرى';
+        default:
+          return '';
+      }
     }
   }
 }

@@ -72,8 +72,7 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
           nameController.clear();
           priceController.clear();
           detalisController.clear();
-          packedImage = File(
-              ''); //3ayz lama select image el sora t5tafy===================
+          packedImage = File('');
           showSnackBar(context, 'Item added successfully');
         } else if (state is AddItemsError) {
           showSnackBar(context, 'something went wrong,try later');
@@ -93,7 +92,7 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
                     AdminAppbar(
                       onPressed: () {
                         if (key.currentState!.validate() &&
-                            name != null && // Ensure name is not null
+                            name != null && 
                             nameController.text.isNotEmpty &&
                             priceController.text.isNotEmpty &&
                             detalisController.text.isNotEmpty &&
@@ -104,7 +103,7 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
                               name: nameController.text,
                               price: priceController.text,
                               image: packedImage,
-                              subCategory: name!,
+                              subCategory:  name!,
                               districte: context
                                   .read<CustomerDataProvider>()
                                   .districte!,
