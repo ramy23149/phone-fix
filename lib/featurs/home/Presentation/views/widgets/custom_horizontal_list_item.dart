@@ -3,25 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
+import 'package:food_delivery_app/featurs/home/data/models/product_model.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomUperListViewItem extends StatelessWidget {
-  const CustomUperListViewItem(
-      {super.key,
-      required this.imageUrl,
-      required this.foodName,
-      required this.price,
-      required this.desc, });
-  final String imageUrl;
-  final String foodName;
-  final String price;
-  final String desc;
+  const CustomUperListViewItem({
+    super.key, required this.productModel,
+
+  });
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.push(AppRouter.kfoodDetalis,
-          extra: {'image': imageUrl, 'detalis': desc, 'price': price, 'name': foodName}),
+      onTap: () => context.push(AppRouter.kfoodDetalis, extra: productModel),
       child: Container(
         width: MediaQuery.of(context).size.width * .6,
         height: MediaQuery.of(context).size.height * .37,
@@ -42,14 +37,14 @@ class CustomUperListViewItem extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Hero(
-                          tag: imageUrl,
+                          tag: productModel.imageUrl,
                           child: CachedNetworkImage(
                             height: 150,
                             width: 150,
                             progressIndicatorBuilder: (context, url, progress) {
                               return const CustomLoadingIndecator();
                             },
-                            imageUrl: imageUrl,
+                            imageUrl: productModel.imageUrl,
                             fit: BoxFit.cover,
                             errorWidget: (context, url, error) {
                               return const Icon(
@@ -66,17 +61,17 @@ class CustomUperListViewItem extends StatelessWidget {
                   Text(
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    foodName,
+                    productModel.name,
                     style: Styles.textStyle20,
                   ),
                   Text(
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    desc,
+                    productModel.desc,
                     style: Styles.textStyle14,
                   ),
                   Text(
-                    '\$$price',
+                    '\$${productModel.price}',
                     style: Styles.textStyle20,
                   )
                 ],

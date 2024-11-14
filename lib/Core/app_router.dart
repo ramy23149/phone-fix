@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_delivery_app/Core/widgets/bottomNav_bar.dart';
 import 'package:food_delivery_app/featurs/auth/presentation/views/password_recavory.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/food_detalis_view.dart';
+import 'package:food_delivery_app/featurs/home/data/models/product_model.dart';
 import 'package:food_delivery_app/featurs/on_boarding/presentation/views/on_bording_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -80,13 +80,10 @@ abstract class AppRouter {
       GoRoute(
           path: kfoodDetalis,
           builder: (context, state) {
-            final Map<String, dynamic> data =
-                state.extra! as Map<String, dynamic>;
+            final  productModel =
+                state.extra! as ProductModel;
             return FoodDetalisView(
-              name: data['name'],
-              imageUrl: data['image'],
-              desc: data['detalis'],
-              price: data['price'],
+            productModel: productModel,
             );
           }),
       GoRoute(

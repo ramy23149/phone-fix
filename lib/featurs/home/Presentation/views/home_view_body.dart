@@ -53,7 +53,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               child: Text(": جميع المناطق", style: Styles.textStyle25),
             ),
             LowerListView(
-              foodType: type ?? 'ice_cream',
             ), //stream
           ],
         ),

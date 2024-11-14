@@ -6,21 +6,17 @@ import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/cubits/add_to_curt_cubit/add_to_curt_cubit.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/custom_image.dart';
+import 'package:food_delivery_app/featurs/home/data/models/product_model.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import 'custom_counter.dart';
 
 class FoodDetalisBody extends StatefulWidget {
-  const FoodDetalisBody(
-      {super.key,
-      required this.imageUrl,
-      required this.desc,
-      required this.price,
-      required this.name});
-  final String imageUrl;
-  final String desc;
-  final String price;
-  final String name;
+  const FoodDetalisBody({
+    super.key,
+    required this.productModel,
+  });
+  final ProductModel productModel;
 
   @override
   State<FoodDetalisBody> createState() => _FoodDetalisBodyState();
@@ -29,7 +25,7 @@ class FoodDetalisBody extends StatefulWidget {
 class _FoodDetalisBodyState extends State<FoodDetalisBody> {
   late int curantprice;
 
-  int foodCount = 1;
+  int count = 1;
 
   bool isLoading = false;
 
@@ -37,7 +33,7 @@ class _FoodDetalisBodyState extends State<FoodDetalisBody> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    curantprice = int.parse(widget.price);
+    curantprice = int.parse(widget.productModel.price);
   }
 
   @override
@@ -56,21 +52,22 @@ class _FoodDetalisBodyState extends State<FoodDetalisBody> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomImage(image: widget.imageUrl),
+                CustomImage(image: widget.productModel.imageUrl),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                         child: Text(
-                      widget.name,
+                      widget.productModel.name,
                       style: Styles.textStyle20,
                       overflow: TextOverflow.ellipsis,
                     )),
                     CustomCounter(
                       onCounterValueChanged: (value) {
                         setState(() {
-                          curantprice = int.parse(widget.price) * value;
-                          foodCount = value;
+                          curantprice =
+                              int.parse(widget.productModel.price) * value;
+                          count = value;
                         });
                       },
                     )
@@ -80,7 +77,7 @@ class _FoodDetalisBodyState extends State<FoodDetalisBody> {
                   height: 7,
                 ),
                 Text(
-                  widget.desc,
+                  widget.productModel.desc,
                   style: Styles.textStyle14,
                   maxLines: 5,
                   overflow: TextOverflow.fade,
@@ -126,10 +123,10 @@ class _FoodDetalisBodyState extends State<FoodDetalisBody> {
                     CustomBotton(
                         onPressed: () {
                           BlocProvider.of<AddToCurtCubit>(context).addToCurt(
-                              widget.name,
-                              foodCount,
-                              curantprice,
-                              widget.imageUrl);
+                              productModel: widget.productModel,
+                              count: count,
+                              totalPrice: curantprice,
+                              context: context);
                         },
                         borderRadius: BorderRadius.circular(16),
                         textColor: kWhite,

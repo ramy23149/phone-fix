@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/change_category_provider.dart';
+import 'package:food_delivery_app/featurs/home/data/models/product_model.dart';
 import 'package:provider/provider.dart';
 
 import 'custom_horizontal_list_item.dart';
@@ -13,10 +14,10 @@ class NearestPlacesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<ChangeCategoryProvider,Future<QuerySnapshot>>(
-      selector: (context, value) => value.neriestProductsQuery(context: context,showTheNearestPlaces: true),
-      builder: (context, query, child) => 
-      FutureBuilder<QuerySnapshot<Object?>>(
+    return Selector<ChangeCategoryProvider, Future<QuerySnapshot>>(
+      selector: (context, value) => value.neriestProductsQuery(
+          context: context, showTheNearestPlaces: true),
+      builder: (context, query, child) => FutureBuilder<QuerySnapshot<Object?>>(
           future: query,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -28,12 +29,12 @@ class NearestPlacesListView extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: snapshot.data?.docs.length,
                     itemBuilder: (context, index) {
-                      var ds = snapshot.data?.docs[index];
+                      var docSnapshot = snapshot.data!.docs[index];
+
+                      // Convert the document data to a Map<String, dynamic>
+                      var docData = docSnapshot.data() as Map<String, dynamic>;
                       return CustomUperListViewItem(
-                        foodName: ds!['name'],
-                        imageUrl: ds['image'],
-                        price: ds['price'],
-                        desc: ds['detalis'],
+                        productModel: ProductModel.fromJson(docData),
                       );
                     }),
               );
@@ -41,7 +42,8 @@ class NearestPlacesListView extends StatelessWidget {
               return const CustomLoadingIndecator();
             } else {
               print(snapshot.error);
-              return Center(child: Text('There was an ${snapshot.error} error'));
+              return Center(
+                  child: Text('There was an ${snapshot.error} error'));
             }
           }),
     );

@@ -19,13 +19,6 @@ class DataBaseMethouds {
     return FirebaseFirestore.instance.collection(name).snapshots();
   }
 
-  Future addToCurt(Map<String, dynamic> userData, String uId) async {
-    return await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uId)
-        .collection('curt')
-        .add(userData);
-  }
 
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();

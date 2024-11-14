@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/change_category_provider.dart';
+import 'package:food_delivery_app/featurs/home/data/models/product_model.dart';
 import 'package:provider/provider.dart';
 
 import 'custom_virtical_list_item.dart';
 
 class LowerListView extends StatelessWidget {
-  const LowerListView({super.key,required this.foodType});
+  const LowerListView({super.key});
 
-  final String foodType;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +26,11 @@ class LowerListView extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   itemCount: snapshot.data?.docs.length,
                   itemBuilder: (context, index) {
-                    var ds = snapshot.data?.docs[index];
+                   var docSnapshot = snapshot.data!.docs[index];
+          
+          var docData = docSnapshot.data() as Map<String, dynamic>;
                     return CustomVirticalListItem(
-                      foodName: ds!['name'],
-                      imageUrla: ds['image'],
-                      price: ds['price'],
-                      desc: ds['detalis'],
+                      productModel: ProductModel.fromJson(docData),
                     );
                   });
             } else if (snapshot.connectionState == ConnectionState.waiting) {
