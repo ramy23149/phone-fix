@@ -24,18 +24,17 @@ class LogInView extends StatelessWidget {
           create: (context) => CheckPasswordCubit(),
         ),
       ],
-      child: SafeArea(
-          child: Scaffold(
-        backgroundColor: kWhite,
-        body: const LogInViewBody(),
-        bottomNavigationBar: UserStateQuestion(
-          question: 'Don\'t have an account?',
-          ansswer: 'Sign up',
-          onPressed: () {
-            context.push(AppRouter.kSelectRoleView);
-          },
-        ),
-      )),
+      child: Scaffold(
+              backgroundColor: kWhite,
+              body: const LogInViewBody(),
+              bottomNavigationBar: UserStateQuestion(
+      question: 'ليس لديك حساب؟',
+      ansswer: 'انشاء حساب',
+      onPressed: () {
+        context.push(AppRouter.kSelectRoleView);
+      },
+              ),
+            ),
     );
   }
 }

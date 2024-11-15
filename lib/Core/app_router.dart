@@ -3,6 +3,7 @@ import 'package:food_delivery_app/featurs/auth/presentation/views/password_recav
 import 'package:food_delivery_app/featurs/home/Presentation/views/food_detalis_view.dart';
 import 'package:food_delivery_app/featurs/home/data/models/product_model.dart';
 import 'package:food_delivery_app/featurs/on_boarding/presentation/views/on_bording_view.dart';
+import 'package:food_delivery_app/featurs/splash/Presentation/view/splash_view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../featurs/admin/Presentation/views/admin_home.dart';
@@ -17,7 +18,6 @@ import '../featurs/auth/presentation/views/slect_role_view.dart';
 import '../featurs/order/views/order_view.dart';
 
 abstract class AppRouter {
-  static String kOnBording = '/';
   static String kfoodDetalis = '/foodDetalis';
   static String kSignUpView = '/SignInViewBody';
   static String kLogInView = '/logInView';
@@ -29,15 +29,20 @@ abstract class AppRouter {
   static String kSelectRoleView = '/SelectRoleView';
   static String kVerifyView = '/VerifyView';
   static String kCreateNewPasswordView = '/CreateNewPasswordView';
+  static String kSplashView = '/';
 
   static final router = GoRouter(
-    initialLocation: kOnBording,
+    initialLocation: kSplashView,
     routes: <RouteBase>[
       GoRoute(
         path: kLogInView,
-        builder: (context, state) { 
+        builder: (context, state) {
           return const LogInView();
         },
+      ),
+      GoRoute(
+        path: kSplashView,
+        builder: (context, state) => const SplashView(),
       ),
       GoRoute(
         path: kSignUpView,
@@ -45,16 +50,7 @@ abstract class AppRouter {
       ),
       GoRoute(path: kAdminView, builder: (context, state) => const AdminView()),
       GoRoute(path: kCartView, builder: (context, state) => const OrderView()),
-      GoRoute(
-        path: kOnBording, // Route for OnBordingView
-        builder: (context, state) {
-          // if (FirebaseAuth.instance.currentUser == null) {
-             return const OnBordingView();
-          // } else {
-          //  return const BottomNavBar();
-          //}
-        },
-      ),
+    
       // GoRoute(
       //   path: kBottomNavBar, // Route for BottomNavBar
       //   builder: (context, state) {
@@ -80,10 +76,9 @@ abstract class AppRouter {
       GoRoute(
           path: kfoodDetalis,
           builder: (context, state) {
-            final  productModel =
-                state.extra! as ProductModel;
+            final productModel = state.extra! as ProductModel;
             return FoodDetalisView(
-            productModel: productModel,
+              productModel: productModel,
             );
           }),
       GoRoute(
