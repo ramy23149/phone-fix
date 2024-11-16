@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/Core/servers/sherd_pref.dart';
@@ -113,13 +114,17 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
           await SherdPrefHelper().setDistricte(userInfoModel.district);  
 
         }, (storeInfoModel) async {
+            Reference ref =
+          FirebaseStorage.instance.ref().child('images').child("+20${data.phone}");
+          UploadTask uploadTask = ref.putFile(storeInfoModel.storeLogoUrl);
+          String url = await (await uploadTask).ref.getDownloadURL();
           FirebaseFirestore.instance
               .collection('stores')
               .doc('+20${data.phone}')
               .set({
             'phoneNumber': '+20${data.phone}',
             'name': storeInfoModel.storeName,
-            'image': storeInfoModel.storeLogoUrl,
+            'image': url,
             'userId': userCredential.user!.uid,
             'district': storeInfoModel.storeAddress,
             'type': storeInfoModel.storeType.getDisplayName,
@@ -128,7 +133,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
           await SherdPrefHelper().setRole(UserRoleEnum.storeOwner);
           await SherdPrefHelper().setName(storeInfoModel.storeName);
           await SherdPrefHelper().setStoreType(storeInfoModel.storeType);
-          await SherdPrefHelper().setImage(storeInfoModel.storeLogoUrl);
+          await SherdPrefHelper().setImage(url);
           await SherdPrefHelper().setDistricte(storeInfoModel.storeAddress);  
 
         });

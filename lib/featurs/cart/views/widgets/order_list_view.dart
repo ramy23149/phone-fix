@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
-import 'package:food_delivery_app/featurs/order/views/widgets/food_item.dart';
+import 'package:food_delivery_app/featurs/cart/views/widgets/food_item.dart';
 
 import '../../../../Core/servers/data_base_methouds.dart';
 

@@ -14,7 +14,7 @@ import '../featurs/auth/presentation/views/login_view.dart';
 import '../featurs/auth/presentation/views/otp_verification_view.dart';
 import '../featurs/auth/presentation/views/signUp_view.dart';
 import '../featurs/auth/presentation/views/slect_role_view.dart';
-import '../featurs/order/views/order_view.dart';
+import '../featurs/cart/views/order_view.dart';
 
 abstract class AppRouter {
   static String kfoodDetalis = '/foodDetalis';

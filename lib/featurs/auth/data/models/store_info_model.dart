@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import '../enums/store_type_enum.dart';
 
 class StoreInfoModel {
   final String storeName;
   final String storeAddress;
   final String storePhoneNumber;
-  final String storeLogoUrl;
+  final File storeLogoUrl;
   final String password;
   final StoreTypeEnum storeType;
 

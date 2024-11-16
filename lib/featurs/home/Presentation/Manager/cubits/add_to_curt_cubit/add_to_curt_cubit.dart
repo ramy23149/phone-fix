@@ -13,7 +13,7 @@ part 'add_to_curt_state.dart';
 class AddToCurtCubit extends Cubit<AddToCurtState> {
   AddToCurtCubit() : super(AddToCurtInitial());
 
-Future<void>  addToCurt({required ProductModel productModel,required int count,required int totalPrice,required BuildContext context}) async {
+Future<void>  addToCurt({required ProductModel productModel, required int count, required int totalPrice, required BuildContext context}) async {
     emit(AddToCartLoading());
     final Map<String, dynamic> productData = {
       'name': productModel.name,
@@ -43,9 +43,7 @@ await FirebaseFirestore.instance
         .doc(phoneNumber)
         .collection('curt')
         .add(productData);
-
   }
-  
     emit(AddToCurtSuccess());
   }
 }

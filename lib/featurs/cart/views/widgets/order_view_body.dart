@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/Core/helper/Costom_alert_dialog.dart';
 import 'package:food_delivery_app/Core/widgets/custom_appbar.dart';
-import 'package:food_delivery_app/featurs/order/manager/cubit/paymony_cubit.dart';
+import 'package:food_delivery_app/featurs/cart/manager/cubit/paymony_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'check_out_box.dart';
 import 'order_list_view.dart';
@@ -41,7 +41,7 @@ class _OrderViewBodyState extends State<OrderViewBody> {
             Column(
               children: [
                 const CustomAppBar(
-                  title: 'Food Cart',
+                  title: 'Your Cart',
                 ),
                 const Spacer(),
                 ChekOutBox(

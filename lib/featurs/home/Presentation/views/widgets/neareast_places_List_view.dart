@@ -22,12 +22,13 @@ class NearestPlacesListView extends StatelessWidget {
       builder: (context, query, child) => FutureBuilder<QuerySnapshot<Object?>>(
           future: query,
           builder: (context, snapshot) {
+            print(context.watch<CustomerDataProvider>().districte);
             if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
               return Column(
                 children: [
-                    const SizedBox(
-              height: 20,
-            ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(right: 7),
                     child: Text(

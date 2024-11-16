@@ -2,7 +2,7 @@
   import 'package:flutter/material.dart';
   import 'package:food_delivery_app/featurs/Profile/views/profile_view.dart';
   import 'package:food_delivery_app/featurs/home/Presentation/views/home_view.dart';
-  import 'package:food_delivery_app/featurs/order/views/order_view.dart';
+  import 'package:food_delivery_app/featurs/cart/views/order_view.dart';
   import 'package:food_delivery_app/featurs/wallet/presentaion/views/wallet_view.dart';
 
   class BottomNavBar extends StatefulWidget {

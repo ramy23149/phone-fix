@@ -28,7 +28,6 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
   final TextEditingController areaController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   XFile? storeLogo;
@@ -51,7 +50,6 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
     super.dispose();
     nameController.dispose();
     phoneController.dispose();
-    addressController.dispose();
     areaController.dispose();
     passwordController.dispose();
   }
@@ -65,9 +63,9 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
                   data: dartz.Right(StoreInfoModel(
                     password: passwordController.text,
                       storeName: nameController.text,
-                      storeAddress: addressController.text,
+                      storeAddress: areaController.text,
                       storePhoneNumber: phoneController.text,
-                      storeLogoUrl: storeLogo==null?'':storeLogo!.path,
+                      storeLogoUrl: File(storeLogo!.path),
                       storeType: storeType!,)),
                   isForgotPasswordCase: false,
                   phone: phoneController.text,
