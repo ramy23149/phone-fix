@@ -24,7 +24,7 @@ class _ImageContanerState extends State<ImageContaner> {
         image = File(imageFile.path);
       });
     } if(widget.onImageSelected != null){
-      widget.onImageSelected!(image!);
+      widget.onImageSelected!(image??File(''));
     }
   }
 

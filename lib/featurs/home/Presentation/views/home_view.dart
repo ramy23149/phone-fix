@@ -18,7 +18,7 @@ class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late PageController _pageController;
-
+  late ChangeCategoryProvider changeCategoryProvider;
   @override
   void initState() {
     super.initState();
@@ -37,11 +37,21 @@ class _HomeViewState extends State<HomeView>
   void _onTabChanged(int index) {
     context.read<ChangeCategoryProvider>().changeCategorys(index);
   }
+  
+ @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    changeCategoryProvider = context.read<ChangeCategoryProvider>();
+  }
+
 
   @override
   void dispose() {
     _tabController.dispose();
     _pageController.dispose();
+    changeCategoryProvider.selectedKey = 0;
+    changeCategoryProvider.storeType = StoreTypeEnum.phoneAccessories;
     super.dispose();
   }
 
@@ -62,6 +72,9 @@ class _HomeViewState extends State<HomeView>
               style: Styles.textStyle20,
             ),
           ),
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+          ],
           bottom: TabBar(
             indicatorColor: kMainAppColor,
             labelColor: kMainAppColor,
@@ -75,7 +88,7 @@ class _HomeViewState extends State<HomeView>
               Text(StoreTypeEnum.phoneSpareParts.getDisplayName),
             ],
           ),
-          toolbarHeight: 80,
+          toolbarHeight: 60,
         ),
         body: PageView(
           controller: _pageController,

@@ -15,17 +15,17 @@ class SignUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CheckUserExisteniceCubit(),
-      child:  SafeArea(
-        child: Scaffold(
-          backgroundColor: kWhite,
-          body:const SignInViewBody(),
-          bottomNavigationBar: UserStateQuestion(
-            question: 'Already have an account?',
-            ansswer: 'LOGIN',
-            onPressed: () {
-              context.go(AppRouter.kLogInView);
-            },
-          ),
+      child:  Scaffold(
+        backgroundColor: kWhite,
+        body:const SignInViewBody(),
+        bottomNavigationBar: UserStateQuestion(
+          question: 'لديك حساب بالفعل؟',
+          ansswer: 'تسجيل الدخول',
+          onPressed: () {
+            context.go(AppRouter.kLogInView);
+            // push
+            // pop
+          },
         ),
       ),
     );

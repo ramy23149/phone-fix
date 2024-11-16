@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 class ChangeCategoryProvider with ChangeNotifier {
   int selectedKey = 0;
+  
   StoreTypeEnum storeType = StoreTypeEnum.phoneAccessories;
 
   Future<QuerySnapshot> neriestProductsQuery({required BuildContext context,required bool showTheNearestPlaces}) async {
@@ -23,7 +24,7 @@ class ChangeCategoryProvider with ChangeNotifier {
     if(showTheNearestPlaces){
       return FirebaseFirestore.instance
         .collection(storeType.getCollectionName)
-        .where('district', isEqualTo: curuntCostumerPlace)
+        .where('storeInfo.districte', isEqualTo: curuntCostumerPlace)
         .where('type', isEqualTo: categoriesList[selectedKey])
         .get();
     }else {
@@ -32,7 +33,6 @@ class ChangeCategoryProvider with ChangeNotifier {
         .where('type', isEqualTo: categoriesList[selectedKey])
         .get();
     }
-    
   }
 
   //final curuntUserPlace =
@@ -41,15 +41,15 @@ class ChangeCategoryProvider with ChangeNotifier {
 
   List<String> phoneAccessoriesTypes = [
     AccessoriesEnum.covers.getDisplayName,
+      AccessoriesEnum.headPhone.getDisplayName,
     AccessoriesEnum.phoneCharger.getDisplayName,
-    AccessoriesEnum.headPhone.getDisplayName,
     AccessoriesEnum.somethingElse.getDisplayName
   ];
 
   List<String> phoneSparePartsTypes = [
+    SparePartsEnum.phoneScreen.displayName,
     SparePartsEnum.bettary.displayName,
     SparePartsEnum.motherBord.displayName,
-    SparePartsEnum.phoneScreen.displayName,
     SparePartsEnum.someThingElse.displayName
   ];
 

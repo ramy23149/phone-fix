@@ -11,18 +11,18 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import 'custom_counter.dart';
 
-class FoodDetalisBody extends StatefulWidget {
-  const FoodDetalisBody({
+class ProductDetalisBody extends StatefulWidget {
+  const ProductDetalisBody({
     super.key,
     required this.productModel,
   });
   final ProductModel productModel;
 
   @override
-  State<FoodDetalisBody> createState() => _FoodDetalisBodyState();
+  State<ProductDetalisBody> createState() => _ProductDetalisBodyState();
 }
 
-class _FoodDetalisBodyState extends State<FoodDetalisBody> {
+class _ProductDetalisBodyState extends State<ProductDetalisBody> {
   late int curantprice;
 
   int count = 1;

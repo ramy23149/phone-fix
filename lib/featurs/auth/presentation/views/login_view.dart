@@ -25,16 +25,16 @@ class LogInView extends StatelessWidget {
         ),
       ],
       child: Scaffold(
-              backgroundColor: kWhite,
-              body: const LogInViewBody(),
-              bottomNavigationBar: UserStateQuestion(
-      question: 'ليس لديك حساب؟',
-      ansswer: 'انشاء حساب',
-      onPressed: () {
-        context.push(AppRouter.kSelectRoleView);
-      },
-              ),
-            ),
+        backgroundColor: kWhite,
+        body: const LogInViewBody(),
+        bottomNavigationBar: UserStateQuestion(
+          question: 'ليس لديك حساب؟',
+          ansswer: 'انشاء حساب',
+          onPressed: () {
+            context.push(AppRouter.kSelectRoleView);
+          },
+        ),
+      ),
     );
   }
 }

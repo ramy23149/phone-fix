@@ -21,7 +21,7 @@ Future<void>  addToCurt({required ProductModel productModel,required int count,r
       'totalPrice': totalPrice,
       'image': productModel.imageUrl,
       'date': DateTime.now(),
-      'district': productModel.district,
+      'district': productModel.storeInfo['district'],
       'type': productModel.type,
       'picePrice': productModel.price,
       'detalis': productModel.desc,

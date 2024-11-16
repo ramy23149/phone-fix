@@ -47,7 +47,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
             children: [
               const CustomUperContainer(),
               Positioned(
-                top: 320,
+                top: 240,
                 child: Container(
                   height: 30,
                   width: MediaQuery.of(context).size.width,

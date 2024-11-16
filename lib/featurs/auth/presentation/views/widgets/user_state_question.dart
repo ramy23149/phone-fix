@@ -22,22 +22,23 @@ class UserStateQuestion extends StatelessWidget {
           Text.rich(
             TextSpan(
               children: [
-                TextSpan(
-                  text: question,
-                  style: Styles.textStyle18,
-                ),
                 WidgetSpan(
                   child: Transform.translate(
                     offset: const Offset(0, 15),
                     child: TextButton(
                       onPressed: onPressed,
                       child: Text(
-                        ansswer, // Corrected typo
+                        ansswer, 
                         style: Styles.textStyle18,
                       ),
                     ),
                   ),
                 ),
+                TextSpan(
+                  text: question,
+                  style: Styles.textStyle18,
+                ),
+                
               ],
             ),
           ),

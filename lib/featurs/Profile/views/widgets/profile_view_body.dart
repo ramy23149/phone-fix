@@ -20,31 +20,25 @@ class ProfileViewBody extends StatefulWidget {
 }
 
 class _ProfileViewBodyState extends State<ProfileViewBody> {
-  String? name, email;
+  String? name, role;
+
   // String uid = FirebaseAuth.instance.currentUser!.uid;
 
-  getSherdPref() async {
-    //  email = await SherdPrefHelper().getUserEmail();
+  getSherdPref() {
     name = context.read<CustomerDataProvider>().name;
-    setState(() {});
-  }
-
-  onLoad() async {
-    await getSherdPref();
+    role = context.read<CustomerDataProvider>().userRole;
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    onLoad();
-    print(name);
+    getSherdPref();
   }
 
   @override
   Widget build(BuildContext context) {
     if (name == null) {
-      return const CustomLoadingIndecator(); // Show loading indicator until data is loaded
+      return const CustomLoadingIndecator();
     }
 
     return SingleChildScrollView(
@@ -58,44 +52,41 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
               ),
               Column(
                 children: [
+                    role == 'صاحب محل'
+                      ? const UserAction(
+                        goToAdminView: true,
+                          title: 'لوحه التحكم',
+                          icon: Icon(Icons.admin_panel_settings_rounded),
+                        )
+                      : const SizedBox(),
                   UserInformatoin(
                       icon: const Icon(Icons.person),
-                      title: 'Name',
+                      title: 'الاسم',
                       subtitle: name!),
-                   UserInformatoin(
+                  UserInformatoin(
                       icon: const Icon(Icons.phone),
-                      title: 'phone',
-                      subtitle:"${context.read<CustomerDataProvider>().phoneNumber}"),
+                      title: 'رقم الجوال',
+                      subtitle:
+                          "${context.read<CustomerDataProvider>().phoneNumber}"),
+                
                   UserAction(
-                    okBtnText: 'Yes',
-                    onCancel: () {},
-                    onOk: () {
-                      context.push(AppRouter.kAdminView);
-                    },
-                    dialogTitle: 'Are You Admin ?',
-                    title: 'Start as Admin',
-                    icon: const Icon(Icons.admin_panel_settings_rounded),
-                  ),
-                  UserAction(
-                    onCancel: () {},
-                    title: 'Delete Account',
+                    title: 'حذف الحساب',
                     icon: const Icon(Icons.delete),
-                    dialogTitle: 'Are You Sure To Delete Your Account ?',
-                    okBtnText: 'Delete',
+                    dialogTitle: 'هل انت متاكد من حذف حسابك؟',
+                    okBtnText: 'حذف',
                     onOk: () {
                       DataBaseMethouds().deleteUser();
                       context.go(AppRouter.kSignUpView);
                     },
                   ),
                   UserAction(
-                    onCancel: () {},
                     onOk: () {
                       DataBaseMethouds().logOut();
                       context.go(AppRouter.kLogInView);
                     },
-                    dialogTitle: 'Are You Sure To Log Out ?',
-                    okBtnText: 'Log Out',
-                    title: 'Log Out',
+                    dialogTitle: 'هل انت متاكد من تسجيل الخروج؟',
+                    okBtnText: 'تسجيل الخروج',
+                    title: 'تسجيل الخروج',
                     icon: const Icon(Icons.logout),
                   ),
                 ],

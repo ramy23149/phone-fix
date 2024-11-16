@@ -148,6 +148,7 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
                       style: Styles.textStyle18,
                     ),
                     AdminTextField(
+                      keyboardType: TextInputType.number,
                       controller: priceController,
                       hint: 'Enter Item Price',
                     ),

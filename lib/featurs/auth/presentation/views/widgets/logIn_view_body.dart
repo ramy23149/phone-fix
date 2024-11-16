@@ -32,7 +32,8 @@ class _LogInViewBodyState extends State<LogInViewBody> {
     return BlocListener<CheckUserExisteniceCubit, CheckUserExisteniceState>(
       listener: (context, state) {
         if (state is ThisIsNewUser) {
-          showNotExistUserDialog(context: context, message: "يبدو ان 0${state.phone} لم يقم بتسجيل الدخول قم بانشاء حساب الان");
+          showNotExistUserDialog(context: context,
+           message: "يبدو ان 0${state.phone} لم يقم بتسجيل الدخول قم بانشاء حساب الان");
         }
       },
       child: Stack(
@@ -40,7 +41,7 @@ class _LogInViewBodyState extends State<LogInViewBody> {
         children: [
           const CustomUperContainer(),
           Positioned(
-            top: 320,
+            top: 240,
             child: Container(
               height: 30,
               width: MediaQuery.of(context).size.width,

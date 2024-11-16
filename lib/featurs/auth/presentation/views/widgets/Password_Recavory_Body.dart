@@ -36,15 +36,12 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
         const SizedBox(
           height: 40,
         ),
-        Container(
-          alignment: Alignment.topCenter,
-          child: const Text(
-            "استعادة كلمة المرور",
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold),
-          ),
+        const Text(
+          "استعادة كلمة المرور",
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold),
         ),
         const SizedBox(
           height: 10.0,
@@ -60,9 +57,11 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                   padding: const EdgeInsets.symmetric(horizontal: 14.0),
                   child: ListView(
                     children: [
+
                       const SizedBox(
                         height: 70,
                       ),
+                      
                       CustomTextField(
                         textEditingController: phoneController,
                         hinttext: 'رقم الهاتف',
@@ -72,7 +71,6 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                         keyboardType: TextInputType.phone,
                         maxLength: 10,
                         validator: (value) =>validateEgyptianPhoneNumber(value),
-                        
                       ),
                       const SizedBox(
                         height: 40.0,
@@ -106,9 +104,6 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                             "ليس لديك حساب؟",
                             style:
                                 TextStyle(fontSize: 18.0, color: Colors.white),
-                          ),
-                          const SizedBox(
-                            width: 5.0,
                           ),
                           
                         ],

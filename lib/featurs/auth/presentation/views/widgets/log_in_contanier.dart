@@ -84,15 +84,7 @@ class LogInContanier extends StatelessWidget {
                                   ),
                                   keyboardType: TextInputType.phone,
                                   maxLength: 10,
-                                  validator: (value) {
-                                    final errorMessage =
-                                        validateEgyptianPhoneNumber(value);
-    
-                                    if (errorMessage != null) {
-                                      return errorMessage;
-                                    }
-                                    return null;
-                                  },
+                                  validator: (value)=> validateEgyptianPhoneNumber(value),
                                 ),
                                 const SizedBox(
                                   height: 13,
@@ -111,6 +103,8 @@ class LogInContanier extends StatelessWidget {
                                       onTap: () {
                                     //    context.go(AppRouter.kCreateNewPasswordView);
                                      context.push(AppRouter.kPasswordRecavory);
+                                     //pop
+                                     //go
                                       },
                                       child: const Text(
                                         "هل نسيت كلمه المرور؟",

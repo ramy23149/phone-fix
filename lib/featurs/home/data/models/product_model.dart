@@ -4,11 +4,9 @@ class ProductModel {
   final String price;
   final String name;
   final Map<String, dynamic> storeInfo;
-  final String district;
   final String type;
   ProductModel({
     required this.type,
-    required this.district,
     required this.storeInfo,
     required this.imageUrl,
     required this.desc,
@@ -18,7 +16,6 @@ class ProductModel {
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       type: json['type'],
-      district: json['district'],
       storeInfo: json['storeInfo'],
       imageUrl: json['image'],
       desc: json['detalis'],
