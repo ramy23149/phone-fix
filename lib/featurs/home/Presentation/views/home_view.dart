@@ -51,6 +51,7 @@ class _HomeViewState extends State<HomeView>
     _tabController.dispose();
     _pageController.dispose();
     changeCategoryProvider.selectedKey = 0;
+    changeCategoryProvider.selectedSparePartsSubCategorys.clear();
     changeCategoryProvider.storeType = StoreTypeEnum.phoneAccessories;
     super.dispose();
   }

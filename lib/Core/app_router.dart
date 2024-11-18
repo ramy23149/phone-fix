@@ -15,6 +15,7 @@ import '../featurs/auth/presentation/views/otp_verification_view.dart';
 import '../featurs/auth/presentation/views/signUp_view.dart';
 import '../featurs/auth/presentation/views/slect_role_view.dart';
 import '../featurs/cart/views/order_view.dart';
+import '../featurs/home/Presentation/views/search_view.dart';
 
 abstract class AppRouter {
   static String kfoodDetalis = '/foodDetalis';
@@ -29,6 +30,7 @@ abstract class AppRouter {
   static String kVerifyView = '/VerifyView';
   static String kCreateNewPasswordView = '/CreateNewPasswordView';
   static String kSplashView = '/';
+  static String kSearchView = '/SearchView';
 
   static final router = GoRouter(
     initialLocation: kSplashView,
@@ -44,12 +46,16 @@ abstract class AppRouter {
         builder: (context, state) => const SplashView(),
       ),
       GoRoute(
+          path: kSearchView,
+          builder: (context, state) => const SearchView()
+      ),
+      GoRoute(
         path: kSignUpView,
         builder: (context, state) => const SignUpView(),
       ),
       GoRoute(path: kAdminView, builder: (context, state) => const AdminView()),
       GoRoute(path: kCartView, builder: (context, state) => const OrderView()),
-    
+
       // GoRoute(
       //   path: kBottomNavBar, // Route for BottomNavBar
       //   builder: (context, state) {

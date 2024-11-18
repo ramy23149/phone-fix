@@ -1,7 +1,7 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Core/constats.dart';
+import 'package:food_delivery_app/Core/helper/custom_delightFul_toast.dart';
 import 'package:food_delivery_app/featurs/auth/data/enums/store_type_enum.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:food_delivery_app/featurs/home/data/enums/accessories_enum.dart';
@@ -10,10 +10,25 @@ import 'package:provider/provider.dart';
 
 class ChangeCategoryProvider with ChangeNotifier {
   int selectedKey = 0;
-  
+
+  List<String> selectedSparePartsSubCategorys = [];
+
+  Color dropDownColor = kMainAppColor;
+
   StoreTypeEnum storeType = StoreTypeEnum.phoneAccessories;
 
-  Future<QuerySnapshot> neriestProductsQuery({required BuildContext context,required bool showTheNearestPlaces}) async {
+  void selectCategory(String category) {
+    if (selectedSparePartsSubCategorys.contains(category)) {
+      selectedSparePartsSubCategorys.remove(category);
+    } else {
+      selectedSparePartsSubCategorys.add(category);
+    }
+    notifyListeners();
+  }
+
+  Future<QuerySnapshot> neriestProductsQuery(
+      {required BuildContext context,
+      required bool showTheNearestPlaces}) async {
     final curuntCostumerPlace = context.read<CustomerDataProvider>().districte;
     List<String> categoriesList = [];
     if (storeType == StoreTypeEnum.phoneAccessories) {
@@ -21,17 +36,17 @@ class ChangeCategoryProvider with ChangeNotifier {
     } else {
       categoriesList = phoneSparePartsTypes;
     }
-    if(showTheNearestPlaces){
+    if (showTheNearestPlaces) {
       return FirebaseFirestore.instance
-        .collection(storeType.getCollectionName)
-        .where('storeInfo.districte', isEqualTo: curuntCostumerPlace)
-        .where('type', isEqualTo: categoriesList[selectedKey])
-        .get();
-    }else {
+          .collection(storeType.getCollectionName)
+          .where('storeInfo.districte', isEqualTo: curuntCostumerPlace)
+          .where('type', isEqualTo: categoriesList[selectedKey])
+          .get();
+    } else {
       return FirebaseFirestore.instance
-        .collection(storeType.getCollectionName)
-        .where('type', isEqualTo: categoriesList[selectedKey])
-        .get();
+          .collection(storeType.getCollectionName)
+          .where('type', isEqualTo: categoriesList[selectedKey])
+          .get();
     }
   }
 
@@ -41,7 +56,7 @@ class ChangeCategoryProvider with ChangeNotifier {
 
   List<String> phoneAccessoriesTypes = [
     AccessoriesEnum.covers.getDisplayName,
-      AccessoriesEnum.headPhone.getDisplayName,
+    AccessoriesEnum.headPhone.getDisplayName,
     AccessoriesEnum.phoneCharger.getDisplayName,
     AccessoriesEnum.somethingElse.getDisplayName
   ];
@@ -82,5 +97,22 @@ class ChangeCategoryProvider with ChangeNotifier {
 
   bool isSelected(int key) {
     return selectedKey == key;
+  }
+
+  void hanleFiltieringProcess(
+      {required String hint, required BuildContext context}) {
+    
+       if (storeType == StoreTypeEnum.phoneAccessories) {
+        //go to filtiring screen
+      }else  if (selectedSparePartsSubCategorys.isNotEmpty &&
+          hint != "حدد نوع هاتفك") {
+        //go to filtiring screen
+      } else if (selectedSparePartsSubCategorys.isEmpty) {
+        showDelightfulToast(message: "برجاء اختيار نوع المنتج", context: context);
+      } else if (hint == "حدد نوع هاتفك") {
+        dropDownColor = Colors.red;
+        showDelightfulToast(message:'حدد نوع هاتفك' ,context: context);
+      }
+    
   }
 }

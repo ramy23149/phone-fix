@@ -7,15 +7,16 @@ import 'package:provider/provider.dart';
 class CustomTypeItem extends StatelessWidget {
   const CustomTypeItem({
     super.key,
-    required this.keyIdentefair,
+    required this.keyIdentefair, this.onTap,
   });
 
   final int keyIdentefair;
+final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Consumer<ChangeCategoryProvider>(
       builder: (context, provider, child) => InkWell(
-        onTap: () {
+        onTap: onTap??(){
           provider.selectKey(keyIdentefair);
         },
         child: Container(
@@ -34,7 +35,9 @@ class CustomTypeItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                provider.storeType ==StoreTypeEnum.phoneAccessories?provider.phoneAccessoriesImages[keyIdentefair]:  provider.phoneSparePartsImages[keyIdentefair],
+                  provider.storeType == StoreTypeEnum.phoneAccessories
+                      ? provider.phoneAccessoriesImages[keyIdentefair]
+                      : provider.phoneSparePartsImages[keyIdentefair],
                   height: 60,
                   width: 60,
                 ),

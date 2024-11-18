@@ -56,6 +56,7 @@ class DelivaryApp extends StatelessWidget {
       ],
       child: SafeArea(
         child: MaterialApp.router(
+        //  locale: const Locale('ar'),
           debugShowCheckedModeBanner: false,
           routerConfig: AppRouter.router,
         ),

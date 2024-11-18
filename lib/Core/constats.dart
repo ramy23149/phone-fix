@@ -10,6 +10,26 @@ const String kSecretkey =
     'sk_test_51OvGjzBzmdWVZwGq4wUefOWROeKMDNXPE2PqWNImhF2XYY9u0DFe48BnHgGCiwD84ZRLCMsHBDKCZn6HUtlwmiO300nSeSAw0t';
 const String kAppLogo = 'assets/images/app_logo.png';
 const String kAppLogo2 = 'assets/images/app_logo_2.jpg';
+ const List<String> kRepairableParts = [
+    'الشاشة',
+    'البطارية',
+    'الكاميرا الأمامية',
+    'الكاميرا الخلفية',
+    'زر الهوم',
+    'السماعات الخارجية',
+    'ميكروفون',
+    'زر التشغيل',
+    'أزرار التحكم بالصوت',
+    'منفذ الشحن',
+    'مدخل السماعات',
+    'اللوحة الأم',
+    'الذاكرة الداخلية',
+    'وحدة المعالجة المركزية',
+    'مستشعر البصمة',
+    'مستشعر القرب',
+    'مستشعر الإضاءة',
+    'الواي فاي والبلوتوث',
+  ];
 const List<String> kSortedNeighborhoods = [
   'أبو قير',
   'أبو قير الجديدة',
@@ -151,3 +171,18 @@ const List<String> kSortedNeighborhoods = [
   'Victoria',
   'West District'
 ];
+const List<String> kPhoneTypes = [
+    'Samsung',
+    'Apple',
+    'Xiaomi',
+    'Huawei',
+    'Oppo',
+    'Vivo',
+    'OnePlus',
+    'Realme',
+    'Sony',
+    'Google Pixel',
+    'Nokia',
+    'Motorola',
+    'LG',
+  ];

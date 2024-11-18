@@ -3,7 +3,8 @@
 void showSnackBar(BuildContext context, String massege) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        backgroundColor: Colors.orangeAccent,
+        
+        backgroundColor: Colors.indigo,
         content: Text(massege),
         duration: const Duration(seconds: 2),
       ),
