@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/featurs/auth/data/enums/store_type_enum.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/change_category_provider.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/home_view_body.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
@@ -37,14 +39,13 @@ class _HomeViewState extends State<HomeView>
   void _onTabChanged(int index) {
     context.read<ChangeCategoryProvider>().changeCategorys(index);
   }
-  
- @override
+
+  @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     changeCategoryProvider = context.read<ChangeCategoryProvider>();
   }
-
 
   @override
   void dispose() {
@@ -64,7 +65,9 @@ class _HomeViewState extends State<HomeView>
           centerTitle: true,
           leading: Padding(
             padding: const EdgeInsets.only(left: 5.0),
-            child: Image.asset(kAppLogo2,),
+            child: Image.asset(
+              kAppLogo2,
+            ),
           ),
           title: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -74,7 +77,11 @@ class _HomeViewState extends State<HomeView>
             ),
           ),
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+            IconButton(
+                onPressed: () {
+                  context.push(AppRouter.kSearchView);
+                },
+                icon: const Icon(Icons.search)),
           ],
           bottom: TabBar(
             indicatorColor: kMainAppColor,
@@ -82,7 +89,7 @@ class _HomeViewState extends State<HomeView>
             dividerColor: kMainAppColor,
             controller: _tabController,
             onTap: (index) {
-              _onTabChanged(index); 
+              _onTabChanged(index);
             },
             tabs: [
               Text(StoreTypeEnum.phoneAccessories.getDisplayName),

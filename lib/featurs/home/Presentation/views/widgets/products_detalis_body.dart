@@ -33,7 +33,7 @@ class _ProductDetalisBodyState extends State<ProductDetalisBody> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    curantprice = int.parse(widget.productModel.price);
+    curantprice = widget.productModel.price;
   }
 
   @override
@@ -66,7 +66,7 @@ class _ProductDetalisBodyState extends State<ProductDetalisBody> {
                       onCounterValueChanged: (value) {
                         setState(() {
                           curantprice =
-                              int.parse(widget.productModel.price) * value;
+                              widget.productModel.price * value;
                           count = value;
                         });
                       },
@@ -115,7 +115,7 @@ class _ProductDetalisBodyState extends State<ProductDetalisBody> {
                           style: Styles.textStyle18,
                         ),
                         Text(
-                          '\$$curantprice',
+                          '$curantprice EGP',
                           style: Styles.textStyle20,
                         )
                       ],

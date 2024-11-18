@@ -1,6 +1,7 @@
 import 'package:food_delivery_app/Core/widgets/bottomNav_bar.dart';
 import 'package:food_delivery_app/featurs/auth/presentation/views/password_recavory.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/product_detalis_view.dart';
+import 'package:food_delivery_app/featurs/home/data/models/filter_model.dart';
 import 'package:food_delivery_app/featurs/home/data/models/product_model.dart';
 import 'package:food_delivery_app/featurs/splash/Presentation/view/splash_view.dart';
 import 'package:go_router/go_router.dart';
@@ -47,8 +48,12 @@ abstract class AppRouter {
       ),
       GoRoute(
           path: kSearchView,
-          builder: (context, state) => const SearchView()
-      ),
+          builder: (context, state) {
+            final filterModel = state.extra as FilterModel?;
+            return SearchView(
+              filterModel: filterModel,
+            );
+          }),
       GoRoute(
         path: kSignUpView,
         builder: (context, state) => const SignUpView(),

@@ -1,12 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/helper/custom_delightFul_toast.dart';
 import 'package:food_delivery_app/featurs/auth/data/enums/store_type_enum.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:food_delivery_app/featurs/home/data/enums/accessories_enum.dart';
 import 'package:food_delivery_app/featurs/home/data/enums/spare_parts_enum.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
+import '../../../data/models/filter_model.dart';
 
 class ChangeCategoryProvider with ChangeNotifier {
   int selectedKey = 0;
@@ -23,7 +27,6 @@ class ChangeCategoryProvider with ChangeNotifier {
     } else {
       selectedSparePartsSubCategorys.add(category);
     }
-    notifyListeners();
   }
 
   Future<QuerySnapshot> neriestProductsQuery(
@@ -100,19 +103,30 @@ class ChangeCategoryProvider with ChangeNotifier {
   }
 
   void hanleFiltieringProcess(
-      {required String hint, required BuildContext context}) {
-    
-       if (storeType == StoreTypeEnum.phoneAccessories) {
-        //go to filtiring screen
-      }else  if (selectedSparePartsSubCategorys.isNotEmpty &&
-          hint != "حدد نوع هاتفك") {
-        //go to filtiring screen
-      } else if (selectedSparePartsSubCategorys.isEmpty) {
-        showDelightfulToast(message: "برجاء اختيار نوع المنتج", context: context);
-      } else if (hint == "حدد نوع هاتفك") {
-        dropDownColor = Colors.red;
-        showDelightfulToast(message:'حدد نوع هاتفك' ,context: context);
-      }
-    
+      {required String brand,
+      required BuildContext context,
+      required int minPrice,
+      required int maxPrice}) {
+    if (storeType == StoreTypeEnum.phoneAccessories) {
+      context.push(AppRouter.kSearchView,
+          extra: FilterModel(
+              maxPrice: maxPrice,
+              minPrice: minPrice,
+              brand: null,
+              categories: null));
+    } else if (selectedSparePartsSubCategorys.isNotEmpty &&
+        brand != "حدد نوع هاتفك") {
+      context.push(AppRouter.kSearchView,
+          extra: FilterModel(
+              maxPrice: maxPrice,
+              minPrice: minPrice,
+              brand: brand,
+              categories: selectedSparePartsSubCategorys));
+    } else if (selectedSparePartsSubCategorys.isEmpty) {
+      showDelightfulToast(message: "برجاء اختيار نوع المنتج", context: context);
+    } else if (brand == "حدد نوع هاتفك") {
+      dropDownColor = Colors.red;
+      showDelightfulToast(message: 'حدد نوع هاتفك', context: context);
+    }
   }
 }

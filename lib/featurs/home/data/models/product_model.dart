@@ -1,7 +1,7 @@
 class ProductModel {
   final String imageUrl;
   final String desc;
-  final String price;
+  final int price;
   final String name;
   final Map<String, dynamic> storeInfo;
   final String type;

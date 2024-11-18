@@ -71,7 +71,7 @@ class CustomUperListViewItem extends StatelessWidget {
                     style: Styles.textStyle14,
                   ),
                   Text(
-                    '\$${productModel.price}',
+                    '${productModel.price} EGP',
                     style: Styles.textStyle20,
                   )
                 ],

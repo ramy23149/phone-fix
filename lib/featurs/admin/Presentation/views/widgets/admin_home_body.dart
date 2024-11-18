@@ -101,7 +101,7 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
                             UploadedProductModel(
                               desc: detalisController.text,
                               name: nameController.text,
-                              price: priceController.text,
+                              price: int.parse(priceController.text),
                               image: packedImage,
                               subCategory:  name!,
                               districte: context

@@ -2,7 +2,7 @@ import 'dart:io';
 
 class   UploadedProductModel {
   final String name;
-  final String price;
+  final int price;
   final File image;
   final String desc;
   final String subCategory;

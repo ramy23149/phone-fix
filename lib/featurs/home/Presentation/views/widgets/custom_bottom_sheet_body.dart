@@ -74,7 +74,9 @@ class _FilterBottomsheetBodyState extends State<FilterBottomsheetBody> {
                         context
                             .read<ChangeCategoryProvider>()
                             .hanleFiltieringProcess(
-                                hint: hint, context: context);
+                              minPrice: int.parse(_fromController.text),
+                              maxPrice: int.parse(_toController.text),
+                                brand: hint, context: context);
                           setState(() {
                             
                           });

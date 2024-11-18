@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../Manager/providers/change_category_provider.dart';
 
-class ProductCheckBox extends StatelessWidget {
+class ProductCheckBox extends StatefulWidget {
   const ProductCheckBox({
     super.key,
     required this.categoryEnum,
@@ -12,21 +12,24 @@ class ProductCheckBox extends StatelessWidget {
   final dynamic categoryEnum;
 
   @override
+  State<ProductCheckBox> createState() => _ProductCheckBoxState();
+}
+
+class _ProductCheckBoxState extends State<ProductCheckBox> {
+  @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ChangeCategoryProvider>(context);
     return Row(
       children: [
         // Listen to selected category and update the radio buttons accordingly
-        Consumer<ChangeCategoryProvider>(
-          builder: (_, ChangeCategoryProvider provider, __) => Checkbox(
-            value: provider.selectedSparePartsSubCategorys.contains(categoryEnum),
-            onChanged: (value) {
-              // Call provider's method to select category
-              provider.selectCategory(categoryEnum);
-              
-            },
-          ),
+        Checkbox(
+          value: provider.selectedSparePartsSubCategorys.contains(widget.categoryEnum),
+          onChanged: (value) {
+            provider.selectCategory(widget.categoryEnum);
+            setState(() {});
+          },
         ),
-        Text(categoryEnum),
+        Text(widget.categoryEnum),
       ],
     );
   }
