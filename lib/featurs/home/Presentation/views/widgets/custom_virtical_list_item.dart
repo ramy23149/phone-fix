@@ -24,7 +24,7 @@ class CustomVirticalListItem extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(10),
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * .2,
+        height: MediaQuery.of(context).size.height * .21,
         padding: const EdgeInsets.only(right: 10, bottom: 10),
         child: Material(
           borderRadius: BorderRadius.circular(16),
@@ -71,6 +71,7 @@ class CustomVirticalListItem extends StatelessWidget {
                       Text(
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
+                      //  "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, accusantium.",
                         productModel.desc,
                         style: Styles.textStyle14,
                       ),

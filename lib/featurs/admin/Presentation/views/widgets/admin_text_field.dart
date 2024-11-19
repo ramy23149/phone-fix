@@ -1,35 +1,39 @@
 import 'package:flutter/material.dart';
+import '../../../../../Core/text_styles/Styles.dart';
 
 class AdminTextField extends StatelessWidget {
-  const AdminTextField({super.key, required this.hint, this.maxlines, this.controller, this.keyboardType});
+  final String label;
   final String hint;
-  final int? maxlines;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final TextInputType? keyboardType;
+  final int maxLines;
+
+  const AdminTextField({
+    super.key,
+    required this.label,
+    required this.hint,
+    required this.controller,
+    this.keyboardType,
+    this.maxLines = 1,
+  });
+
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: keyboardType,
-      controller: controller,
-    validator: (value) {
-      if (value!.isEmpty) {
-        return 'Field is required';
-      }
-      return null;
-    },
-      maxLines: maxlines,
-      decoration: InputDecoration(
-          hintText: hint,
-          filled: true,
-          fillColor: const Color(0xffE8E8F7),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: Styles.textStyle18),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: controller,
+          keyboardType: keyboardType,
+          maxLines: maxLines,
+          decoration: InputDecoration(
+            hintText: hint,
+            border: const OutlineInputBorder(),
           ),
-          
-            contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          ),
-        
+        ),
+      ],
     );
   }
 }

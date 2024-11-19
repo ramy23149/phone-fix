@@ -32,7 +32,8 @@ class _LogInViewBodyState extends State<LogInViewBody> {
     return BlocListener<CheckUserExisteniceCubit, CheckUserExisteniceState>(
       listener: (context, state) {
         if (state is ThisIsNewUser) {
-          showNotExistUserDialog(context: context,
+          showNotExistUserDialog(
+           context: context,
            message: "يبدو ان 0${state.phone} لم يقم بتسجيل الدخول قم بانشاء حساب الان");
         }
       },

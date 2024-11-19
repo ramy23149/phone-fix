@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '../featurs/admin/Presentation/views/admin_home.dart';
 import '../featurs/admin/Presentation/views/admin_view.dart';
+import '../featurs/admin/Presentation/views/select_what_spare_parts_store_need_to_add_view.dart';
 import '../featurs/auth/data/models/update_passowrd_model.dart';
 import '../featurs/auth/data/models/verificatoin_data_model.dart';
 import '../featurs/auth/presentation/views/create_new_password_view.dart';
@@ -32,6 +33,8 @@ abstract class AppRouter {
   static String kCreateNewPasswordView = '/CreateNewPasswordView';
   static String kSplashView = '/';
   static String kSearchView = '/SearchView';
+  static String kSelectWhatSparePartsStoreNeedToAddView =
+      '/SelectWhatSparePartsStoreNeedToAddView';
 
   static final router = GoRouter(
     initialLocation: kSplashView,
@@ -46,6 +49,10 @@ abstract class AppRouter {
         path: kSplashView,
         builder: (context, state) => const SplashView(),
       ),
+      GoRoute(
+          path: kSelectWhatSparePartsStoreNeedToAddView,
+          builder: (context, state) =>
+              const SelectWhatSparePartsStoreNeedToAddView()),
       GoRoute(
           path: kSearchView,
           builder: (context, state) {
@@ -72,9 +79,11 @@ abstract class AppRouter {
       //   },
       // ),
       GoRoute(
-        path: kAdminHome,
-        builder: (context, state) => const HomeAdmin(),
-      ),
+          path: kAdminHome,
+          builder: (context, state) {
+            final isNeedsToAddService = state.extra as bool?;
+            return HomeAdmin(isNeedsToAddService:isNeedsToAddService);
+          }),
       GoRoute(
         path: kBottomNavBar,
         builder: (context, state) => const BottomNavBar(),

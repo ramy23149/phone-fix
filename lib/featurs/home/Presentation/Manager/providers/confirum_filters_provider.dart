@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/featurs/auth/data/enums/store_type_enum.dart';
@@ -77,6 +79,7 @@ class ConfirumFiltersProvider with ChangeNotifier {
   }
 
   Future<void> confirmFilters() async {
+    log("brand is ${filterModel?.brand} and categories is ${filterModel?.categories}");
     isLoading = true;
     notifyListeners();
     if (filterModel == null) {
@@ -90,10 +93,10 @@ class ConfirumFiltersProvider with ChangeNotifier {
           .where('price', isLessThanOrEqualTo: filterModel!.maxPrice)
           .get();
       searchResults.addAll(avilableAccessoriesInThisRange.docs);
-    } else if (filterModel!.brand != null && filterModel!.categories == null) {
+    } else if (filterModel!.brand != null && filterModel!.categories != null) {
       QuerySnapshot avilableAccessoriesInThisRange = await FirebaseFirestore
           .instance
-          .collection(StoreTypeEnum.phoneAccessories.getCollectionName)
+          .collection(StoreTypeEnum.phoneSpareParts.getCollectionName)
           .where('price', isGreaterThanOrEqualTo: filterModel!.minPrice)
           .where('price', isLessThanOrEqualTo: filterModel!.maxPrice)
           .where('brand', isEqualTo: filterModel!.brand)

@@ -108,6 +108,7 @@ class ChangeCategoryProvider with ChangeNotifier {
       required int minPrice,
       required int maxPrice}) {
     if (storeType == StoreTypeEnum.phoneAccessories) {
+      Navigator.pop(context); //close bottom sheet
       context.push(AppRouter.kSearchView,
           extra: FilterModel(
               maxPrice: maxPrice,
@@ -116,6 +117,7 @@ class ChangeCategoryProvider with ChangeNotifier {
               categories: null));
     } else if (selectedSparePartsSubCategorys.isNotEmpty &&
         brand != "حدد نوع هاتفك") {
+          Navigator.pop(context); //close bottom sheet
       context.push(AppRouter.kSearchView,
           extra: FilterModel(
               maxPrice: maxPrice,
@@ -123,7 +125,7 @@ class ChangeCategoryProvider with ChangeNotifier {
               brand: brand,
               categories: selectedSparePartsSubCategorys));
     } else if (selectedSparePartsSubCategorys.isEmpty) {
-      showDelightfulToast(message: "برجاء اختيار نوع المنتج", context: context);
+      showDelightfulToast(message: "برجاء تحديد نوع قطع الغيار", context: context);
     } else if (brand == "حدد نوع هاتفك") {
       dropDownColor = Colors.red;
       showDelightfulToast(message: 'حدد نوع هاتفك', context: context);

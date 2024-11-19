@@ -96,29 +96,9 @@ class _FilterBottomsheetBodyState extends State<FilterBottomsheetBody> {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                SizedBox(
-                    width: MediaQuery.of(context).size.width / 3,
-                    child: CustomTextField(
-                      onChanged: (value) {
-                        setState(() {});
-                      },
-                      keyboardType: TextInputType.number,
-                      hinttext: "من", // S.of(context).from,
-                      textEditingController: _fromController,
-                      validator: (value) {
-                        if (_toController.text.isNotEmpty &&
-                            _isNumeric(value) &&
-                            _isNumeric(_toController.text) &&
-                            int.parse(_toController.text) < int.parse(value!)) {
-                          return "from must be less than to"; //S.of(context).from_must_be_less_than_to;
-                        } else if(value == null || value.isEmpty){
-                          return "value is required";
-                        } else {
-                          return null;
-                        }
-                      },
-                    )),
+              Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 3,
                   child: CustomTextField(
@@ -142,6 +122,29 @@ class _FilterBottomsheetBodyState extends State<FilterBottomsheetBody> {
                     },
                   ),
                 ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width / 3,
+                    child: CustomTextField(
+                      onChanged: (value) {
+                        setState(() {});
+                      },
+                      keyboardType: TextInputType.number,
+                      hinttext: "من", // S.of(context).from,
+                      textEditingController: _fromController,
+                      validator: (value) {
+                        if (_toController.text.isNotEmpty &&
+                            _isNumeric(value) &&
+                            _isNumeric(_toController.text) &&
+                            int.parse(_toController.text) < int.parse(value!)) {
+                          return "from must be less than to"; //S.of(context).from_must_be_less_than_to;
+                        } else if(value == null || value.isEmpty){
+                          return "value is required";
+                        } else {
+                          return null;
+                        }
+                      },
+                    )),
+                
               ]),
               const SizedBox(height: 16),
             if(changeCategoryProvider.storeType == StoreTypeEnum.phoneSpareParts)

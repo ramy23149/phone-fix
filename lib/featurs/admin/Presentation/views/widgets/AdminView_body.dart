@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../Core/constats.dart';
 import '../../../../../Core/text_styles/Styles.dart';
 import '../../../../../Core/widgets/custom_bottom.dart';
+import '../../manager/cubits/Add_Item_cubit/add_items_cubit.dart';
 import 'Uper_contaner.dart';
 
 class AdminViewBody extends StatefulWidget {
@@ -20,6 +21,7 @@ class AdminViewBody extends StatefulWidget {
 }
 
 class _AdminViewBodyState extends State<AdminViewBody> {
+  late bool isPhoneAccessoriesStore;
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> key = GlobalKey();
   bool isLoading = false;
@@ -30,15 +32,28 @@ class _AdminViewBodyState extends State<AdminViewBody> {
     passwordController.dispose();
   }
 
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+      isPhoneAccessoriesStore =
+        context.read<AddItemsCubit>().isAccessoriesStore(context);
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CheckPasswordCubit, CheckPasswordState>(
       builder: (context, state) {
         if (state is TruePassword) {
           passwordController.clear();
+          
           Future.microtask(() {
-            context.push(AppRouter.kAdminHome);
+            if(isPhoneAccessoriesStore){
+              context.push(AppRouter.kAdminHome);
+            }else{
+              context.push(AppRouter.kSelectWhatSparePartsStoreNeedToAddView);
+            }
           });
+        //  context.push(AppRouter.kAdminHome);
         } else if (state is WrongPassword) {
           Future.microtask(() {
             showSnackBar(context, state.message);
