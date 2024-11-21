@@ -4,6 +4,7 @@ import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:food_delivery_app/featurs/cart/views/widgets/product_item.dart';
 import 'package:provider/provider.dart';
 
+import '../../data/models/cart_product_model.dart';
 import '../../manager/providers/user_cart_provider.dart';
 
 class OrderListView extends StatelessWidget {
@@ -28,11 +29,7 @@ class OrderListView extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var ds = snapshot.data?.docs[index];
                     return ProductItem(
-                      image: ds!['image'],
-                      name: ds['name'],
-                      price: ds['totalPrice'],
-                      count: ds['quanter'],
-                      productId: ds.id,
+                      cartProductModel: CartProductModel.fromJson(ds!.data() as Map<String, dynamic>, ds.id),
                     );
                   });
             } else if (snapshot.connectionState == ConnectionState.waiting) {

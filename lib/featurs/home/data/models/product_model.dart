@@ -1,3 +1,5 @@
+import '../../../cart/data/models/cart_product_model.dart';
+
 class ProductModel {
   final String imageUrl;
   final String desc;
@@ -21,6 +23,17 @@ class ProductModel {
       desc: json['detalis'],
       price: json['price'],
       name: json['name'],
+    );
+  }
+
+  factory ProductModel.fromCart(CartProductModel cartProductModel) {
+    return ProductModel(
+      type: cartProductModel.type,
+      storeInfo: cartProductModel.storeInfo,
+      imageUrl: cartProductModel.image,
+      desc: cartProductModel.desc,
+      price: cartProductModel.price,
+      name: cartProductModel.name,
     );
   }
 }

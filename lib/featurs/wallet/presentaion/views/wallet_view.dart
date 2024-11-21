@@ -5,7 +5,7 @@ import 'package:food_delivery_app/featurs/cart/data/repos/payment_repos/payment_
 import 'package:food_delivery_app/featurs/wallet/presentaion/views/widgets/wallet_view_body.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../cart/manager/add_mony_cubit/add_mony_cubit.dart';
+import '../../../cart/manager/card_payment_cubit/card_payment_cubit.dart';
 
 class WalletView extends StatelessWidget {
   const WalletView({super.key});
@@ -13,7 +13,7 @@ class WalletView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddMonyCubit(WalletRepoImple(ApiService(Dio()))),//================git Locator
+      create: (context) => CardPaymentCubit(WalletRepoImple(ApiService(Dio()))),//================git Locator
       child: const SafeArea(
         child: Scaffold(
           body: WalletViewBody(),

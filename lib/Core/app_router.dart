@@ -20,7 +20,7 @@ import '../featurs/cart/views/order_view.dart';
 import '../featurs/home/Presentation/views/search_view.dart';
 
 abstract class AppRouter {
-  static String kfoodDetalis = '/foodDetalis';
+  static String kProductDetalis = '/foodDetalis';
   static String kSignUpView = '/SignInViewBody';
   static String kLogInView = '/logInView';
   static String kBottomNavBar = '/BottomNavBar';
@@ -93,7 +93,7 @@ abstract class AppRouter {
         builder: (context, state) => const PasswordRecavory(),
       ),
       GoRoute(
-          path: kfoodDetalis,
+          path: kProductDetalis,
           builder: (context, state) {
             final productModel = state.extra! as ProductModel;
             return ProductDetalisView(

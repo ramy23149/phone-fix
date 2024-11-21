@@ -19,4 +19,8 @@ class CustomerDataProvider with ChangeNotifier {
     districte = await SherdPrefHelper().getDistricte();
     notifyListeners();
   }
+
+  Future<void> updateUserCart() async {
+    notifyListeners();
+  }
 }

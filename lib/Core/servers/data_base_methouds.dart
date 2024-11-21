@@ -57,11 +57,11 @@ class DataBaseMethouds {
     });
   }
 
-  Future deleteItemFromCurt(String id) async {
-    String uId = FirebaseAuth.instance.currentUser!.uid;
+  Future deleteItemFromCurt(String id,BuildContext context) async {
+    String? phoneNumber = context.read<CustomerDataProvider>().phoneNumber;
       FirebaseFirestore.instance
         .collection('users')
-        .doc(uId)
+        .doc(phoneNumber)
         .collection('curt').doc(id).delete();
   
   }

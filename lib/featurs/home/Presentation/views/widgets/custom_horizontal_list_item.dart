@@ -16,7 +16,7 @@ class CustomUperListViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.push(AppRouter.kfoodDetalis, extra: productModel),
+      onTap: () => context.push(AppRouter.kProductDetalis, extra: productModel),
       child: Container(
         width: MediaQuery.of(context).size.width * .6,
         height: MediaQuery.of(context).size.height * .37,

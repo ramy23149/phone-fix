@@ -19,7 +19,7 @@ class CustomVirticalListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push(AppRouter.kfoodDetalis, extra: productModel);
+        context.push(AppRouter.kProductDetalis, extra: productModel);
       },
       child: Container(
         margin: const EdgeInsets.all(10),

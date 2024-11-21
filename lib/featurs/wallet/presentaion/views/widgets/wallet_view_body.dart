@@ -10,8 +10,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../../Core/constats.dart';
 import '../../../../../Core/text_styles/Styles.dart';
 import '../../../../../Core/widgets/custom_appbar.dart';
-import '../../../../cart/manager/add_mony_cubit/add_mony_cubit.dart';
-import '../../../../cart/manager/add_mony_cubit/add_mony_state.dart';
+import '../../../../cart/manager/card_payment_cubit/card_payment_cubit.dart';
+import '../../../../cart/manager/card_payment_cubit/card_payment_state.dart';
 import 'custom_wallet_contaner.dart';
 
 class WalletViewBody extends StatefulWidget {
@@ -35,10 +35,10 @@ class _WalletViewBodyState extends State<WalletViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AddMonyCubit, AddMonyState>(
+    return BlocListener<CardPaymentCubit, CardPaymentState>(
       listener: (context, state) {
         setState(() {
-          isLoading = state is AddMonyLoading;
+          isLoading = state is CardPaymentLoading;
         });
       },
       child: ModalProgressHUD(
@@ -62,8 +62,8 @@ class _WalletViewBodyState extends State<WalletViewBody> {
                 } else {
                   // final userData =
                   //     snapshot.data!.data() as Map<String, dynamic>;
-                //  final totalMoney = userData[''];
-                  return CustomWalletContaner(totalMony:200);
+                  //  final totalMoney = userData[''];
+                  return CustomWalletContaner(totalMony: 200);
                 }
               },
             ),
@@ -122,10 +122,10 @@ class _WalletViewBodyState extends State<WalletViewBody> {
             onPressed: () {
               showPaymentDialog(context, paymentController, () {
                 if (key.currentState!.validate()) {
-                  int amount = int.tryParse(paymentController.text) ?? 0;
-                  showPaymentSheet(
-                    amount,
-                  );
+                //  int amount = int.tryParse(paymentController.text) ?? 0;
+                  // showPaymentSheet(
+                  //   amount,
+                  // );
                   paymentController.clear();
                   context.pop();
                 }
@@ -141,20 +141,21 @@ class _WalletViewBodyState extends State<WalletViewBody> {
   Widget buildAddMoneyButton(int amount) {
     return CustomTextButtom(
       onPressed: () {
-        showPaymentSheet(
-          amount,
-        );
+        // showPaymentSheet(
+        //   amount,
+        // );
       },
       text: "\$$amount",
     );
   }
 
-  Future<void> showPaymentSheet(
-    int money,
-  ) async {
-    await BlocProvider.of<AddMonyCubit>(context).addMony(
-      money,
-      context,
-    );
-  }
+//   Future<void> showPaymentSheet(
+//     int money,
+//   ) async {
+//     await BlocProvider.of<CardPaymentCubit>(context).makeCardPayment(
+//       money,
+//       context,
+//     );
+//   }
+// }
 }

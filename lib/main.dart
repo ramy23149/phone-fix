@@ -10,6 +10,7 @@ import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/cu
 import 'package:food_delivery_app/observer.dart';
 import 'package:provider/provider.dart';
 
+import 'Core/servers/get_locator.dart';
 import 'featurs/auth/presentation/manager/providers/auth_provider.dart';
 import 'featurs/home/Presentation/Manager/providers/change_category_provider.dart';
 import 'firebase_options.dart';
@@ -25,7 +26,7 @@ await SystemChrome.setPreferredOrientations(
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  
+  setupLocator();
   runApp(const DelivaryApp());
 }
 
