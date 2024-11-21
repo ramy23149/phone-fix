@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 
 void showLoadingDialog(BuildContext context) {
   showDialog(
+    barrierColor: kMainAppColor,
     barrierDismissible: false,
     context: context,
     builder: (context) {

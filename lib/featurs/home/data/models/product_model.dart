@@ -36,4 +36,15 @@ class ProductModel {
       name: cartProductModel.name,
     );
   }
+
+  factory ProductModel.fromPurchase(Map<String, dynamic> json) {
+        return ProductModel(
+      type: json['type'],
+      storeInfo: json['storeInfo'],
+      imageUrl: json['image'],
+      desc: json['detalis'],
+      price: json['picePrice'],
+      name: json['name'],
+    );
+  }
 }

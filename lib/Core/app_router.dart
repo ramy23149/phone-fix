@@ -18,6 +18,7 @@ import '../featurs/auth/presentation/views/signUp_view.dart';
 import '../featurs/auth/presentation/views/slect_role_view.dart';
 import '../featurs/cart/views/order_view.dart';
 import '../featurs/home/Presentation/views/search_view.dart';
+import '../featurs/purchases/presentation/views/purchases_view.dart';
 
 abstract class AppRouter {
   static String kProductDetalis = '/foodDetalis';
@@ -35,6 +36,7 @@ abstract class AppRouter {
   static String kSearchView = '/SearchView';
   static String kSelectWhatSparePartsStoreNeedToAddView =
       '/SelectWhatSparePartsStoreNeedToAddView';
+  static String kPurchasesView = '/PurchasesView';
 
   static final router = GoRouter(
     initialLocation: kSplashView,
@@ -49,6 +51,7 @@ abstract class AppRouter {
         path: kSplashView,
         builder: (context, state) => const SplashView(),
       ),
+      GoRoute(path: kPurchasesView, builder: (context, state) => const PurchasesView()),
       GoRoute(
           path: kSelectWhatSparePartsStoreNeedToAddView,
           builder: (context, state) =>

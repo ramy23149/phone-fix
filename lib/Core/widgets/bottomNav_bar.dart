@@ -3,7 +3,8 @@
   import 'package:food_delivery_app/featurs/Profile/views/profile_view.dart';
   import 'package:food_delivery_app/featurs/home/Presentation/views/home_view.dart';
   import 'package:food_delivery_app/featurs/cart/views/order_view.dart';
-  import 'package:food_delivery_app/featurs/wallet/presentaion/views/wallet_view.dart';
+
+import '../../featurs/purchases/presentation/views/purchases_view.dart';
 
   class BottomNavBar extends StatefulWidget {
     const BottomNavBar({super.key});
@@ -19,14 +20,14 @@
     late Widget crruntPage;
     late HomeView homeView;
     late OrderView orderView;
-    late WalletView walletView;
+    late PurchasesView walletView;
     late ProfileView profileView;
 
     @override
     void initState() {
       homeView = const HomeView();
       orderView = const OrderView();
-      walletView = const WalletView();
+      walletView = const PurchasesView();
       profileView = const ProfileView();
       pagesList = [homeView, orderView, walletView, profileView];
       super.initState();
@@ -55,11 +56,11 @@
               color: Colors.white,
             ),
             Icon(
-              Icons.shopping_bag_outlined,
+              Icons.shopping_cart_outlined,
               color: Colors.white,
             ),
             Icon(
-              Icons.wallet_outlined,
+              Icons.shopping_bag_outlined,
               color: Colors.white,
             ),
             Icon(
