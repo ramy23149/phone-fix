@@ -16,13 +16,14 @@ part 'add_items_state.dart';
 class AddItemsCubit extends Cubit<AddItemsState> {
   AddItemsCubit() : super(AddItemsInitial());
 
-  Future<void> addItem(
-      UploadedProductModel productModel, BuildContext context) async {
+  Future<void> addItem(UploadedProductModel productModel, BuildContext context,
+      {required bool isAccessoriesStore,
+      required bool? isNeedToAddService}) async {
     try {
       emit(AddItemsLoading());
       //String id = randomAlphaNumeric(10);
       //await Future.delayed(Duration(seconds: 4));
-      String categoryName = 'accessories';
+      String collectionName = 'accessories';
       Reference ref = FirebaseStorage.instance
           .ref()
           .child('images')
@@ -37,14 +38,13 @@ class AddItemsCubit extends Cubit<AddItemsState> {
           .doc(context.read<CustomerDataProvider>().phoneNumber)
           .get();
 
-      Map<String, dynamic> data = {
+      Map<String, dynamic> productData = {
         'image': url,
         'name': productModel.name,
         'price': productModel.price,
         'detalis': productModel.desc,
         'district': context.read<CustomerDataProvider>().districte,
-        'type': getCategoryName(
-            productModel.subCategory, isAccessoriesStore(context)),
+        'type': productModel.subCategory,
         'storeInfo': {
           'name': storeInfoDoc['name'],
           'phoneNumber': storeInfoDoc['phoneNumber'],
@@ -53,20 +53,48 @@ class AddItemsCubit extends Cubit<AddItemsState> {
           'type': storeInfoDoc['type'],
         }
       };
+      Map<String, dynamic> serviceData = {
+        'image': url,
+        'name': productModel.name,
+        'price': productModel.price,
+        'detalis': productModel.desc,
+        'district': context.read<CustomerDataProvider>().districte,
+        'type': productModel.subCategory,
+        'brand': productModel.brand,
+        'storeInfo': {
+          'name': storeInfoDoc['name'],
+          'phoneNumber': storeInfoDoc['phoneNumber'],
+          'image': storeInfoDoc['image'],
+          'districte': storeInfoDoc['district'],
+          'type': storeInfoDoc['type'],
+        }
+      };
+
       if (storeInfoDoc['type'] ==
           StoreTypeEnum.phoneAccessories.getDisplayName) {
-        categoryName = 'accessories';
+        collectionName = StoreTypeEnum.phoneAccessories.getCollectionName;
       } else {
-        categoryName = 'Phone spare parts';
+        collectionName = StoreTypeEnum.phoneSpareParts.getCollectionName;
       }
-      await DataBaseMethouds().addItem(data, categoryName);
-      data.remove('storeInfo');
-      await FirebaseFirestore.instance
-          .collection(UserRoleEnum.storeOwner.getCollectionName)
-          .doc(storeInfoDoc['phoneNumber'])
-          .collection("products")
-          .add(data);
-      emit(AddItemsSuccess());
+      if (isNeedToAddService == true && isAccessoriesStore == false) {
+        await DataBaseMethouds().addItem(serviceData, collectionName);
+        serviceData.remove('storeInfo');
+        await FirebaseFirestore.instance
+            .collection(UserRoleEnum.storeOwner.getCollectionName)
+            .doc(storeInfoDoc['phoneNumber'])
+            .collection("products")
+            .add(serviceData);
+        emit(AddItemsSuccess());
+      } else {
+        await DataBaseMethouds().addItem(productData, collectionName);
+        productData.remove('storeInfo');
+        await FirebaseFirestore.instance
+            .collection(UserRoleEnum.storeOwner.getCollectionName)
+            .doc(storeInfoDoc['phoneNumber'])
+            .collection("products")
+            .add(productData);
+        emit(AddItemsSuccess());
+      }
     } on FirebaseException catch (e) {
       print("Failed with error '${e.code}': ${e.message}");
       emit(AddItemsError());
@@ -82,33 +110,33 @@ class AddItemsCubit extends Cubit<AddItemsState> {
     }
   }
 
-  String getCategoryName(String enumName, bool isAccessories) {
-    if (isAccessories) {
-      switch (enumName) {
-        case 'covers':
-          return 'جرابات';
-        case 'phoneCharger':
-          return 'شارجات';
-        case 'headPhone':
-          return 'هيدفون';
-        case 'somethingElse':
-          return 'اخرى';
-        default:
-          return '';
-      }
-    } else {
-      switch (enumName) {
-        case 'bettary':
-          return 'بطاريات';
-        case 'motherBord':
-          return 'بوردات';
-        case 'phoneScreen':
-          return 'شاشات';
-        case 'someThingElse':
-          return 'اخرى';
-        default:
-          return '';
-      }
-    }
-  }
+  // String getCategoryName(String enumName, bool isAccessories) {
+  //   if (isAccessories) {
+  //     switch (enumName) {
+  //       case 'covers':
+  //         return 'جرابات';
+  //       case 'phoneCharger':
+  //         return 'شارجات';
+  //       case 'headPhone':
+  //         return 'هيدفون';
+  //       case 'somethingElse':
+  //         return 'اخرى';
+  //       default:
+  //         return '';
+  //     }
+  //   } else {
+  //     switch (enumName) {
+  //       case 'bettary':
+  //         return 'بطاريات';
+  //       case 'motherBord':
+  //         return 'بوردات';
+  //       case 'phoneScreen':
+  //         return 'شاشات';
+  //       case 'someThingElse':
+  //         return 'اخرى';
+  //       default:
+  //         return '';
+  //     }
+  //   }
+  // }
 }

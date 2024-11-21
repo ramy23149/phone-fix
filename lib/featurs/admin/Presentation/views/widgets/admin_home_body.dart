@@ -29,6 +29,7 @@ class AdminHomeBody extends StatefulWidget {
 class _AdminHomeBodyState extends State<AdminHomeBody> {
   late bool isPhoneAccessoriesStore;
   String? name;
+  String? selectedSparePart;
   File packedImage = File('');
   bool isLoading = false;
 
@@ -40,6 +41,7 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
 
   List<AccessoriesEnum> accsessoriesCategories = AccessoriesEnum.values;
   List<SparePartsEnum> sparePartsCategories = SparePartsEnum.values;
+  List<String> dynamicItems = [];
 
   @override
   void initState() {
@@ -64,19 +66,26 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
         priceController.text.isNotEmpty &&
         detailsController.text.isNotEmpty) {
       context.read<AddItemsCubit>().addItem(
+        
             UploadedProductModel(
+              brand: widget.isNeedsToAddService == true ? name : null,
               desc: detailsController.text,
               name: nameController.text,
               price: int.parse(priceController.text),
               image: packedImage,
-              subCategory: name!,
+              subCategory: selectedSparePart ?? name!,
               districte: context.read<CustomerDataProvider>().districte!,
             ),
             context,
+            isAccessoriesStore: isPhoneAccessoriesStore,
+            isNeedToAddService: widget.isNeedsToAddService
           );
+    } else if (widget.isNeedsToAddService == true &&
+        selectedSparePart == null) {
+      showSnackBar(context, 'حدد نوع الخدمه');
     } else {
       showSnackBar(context,
-          name == null ? 'Please select category' : 'Please select image');
+          name == null ? 'الرجاء تحديد الفئة' : 'الرجاء اختيار الصورة');
     }
   }
 
@@ -86,9 +95,9 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
       listener: (context, state) {
         if (state is AddItemsSuccess) {
           _clearFields();
-          showSnackBar(context, 'Item added successfully');
+          showSnackBar(context, 'تمت إضافة العنصر بنجاح');
         } else if (state is AddItemsError) {
-          showSnackBar(context, 'Something went wrong, try later');
+          showSnackBar(context, 'حدث خطأ ما، حاول لاحقًا');
         }
       },
       builder: (context, state) {
@@ -109,53 +118,69 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
                           onImageSelected: (File image) => packedImage = image),
                       const SizedBox(height: 20),
                       AdminTextField(
-                        label: 'Item Name',
+                        label: 'اسم العنصر',
                         controller: nameController,
-                        hint: 'Enter Item Name',
+                        hint: 'أدخل اسم العنصر',
                       ),
                       const SizedBox(height: 20),
                       AdminTextField(
-                        label: 'Item Price',
+                        label: 'سعر السلعة',
                         controller: priceController,
-                        hint: 'Enter Item Price',
+                        hint: 'أدخل سعر السلعة',
                         keyboardType: TextInputType.number,
                       ),
                       const SizedBox(height: 20),
                       AdminTextField(
-                        label: 'Item Details',
+                        label: 'تفاصيل السلعة',
                         controller: detailsController,
-                        hint: 'Enter Item Details',
+                        hint: 'أدخل تفاصيل العنصر',
                         maxLines: 5,
                       ),
                       const SizedBox(height: 20),
                       DropdownCategory(
+                        dynamicItems: dynamicItems,
                         isNeedsToAddService: widget.isNeedsToAddService,
                         isAccessoriesStore: isPhoneAccessoriesStore,
                         selectedValue: name,
                         onChanged: (String? value) {
-                          if (value == AccessoriesEnum.somethingElse.name ||
-                              value == SparePartsEnum.someThingElse.name) {
+                          if (value == "شيء اخر") {
                             showTextFieldDialog(context, newCategoryController,
                                 () {
                               setState(() {
-                                name = newCategoryController.text;
+                                final newValue =
+                                    newCategoryController.text.trim();
+                                if (newValue.isNotEmpty &&
+                                    !dynamicItems.contains(newValue)) {
+                                  dynamicItems.add(newValue);
+                                  name = newValue; // Update the selected value
+                                }
                               });
-                              context.pop(); //close dialog
-                            }, key);
+                              print(name);
+
+                          context.pop(); // Close the dialog
+                            }, isPhoneAccessoriesStore);
                           } else {
                             setState(() {
                               name = value;
                             });
+                              print(name);
+
                           }
                         },
                       ),
                       const SizedBox(height: 20),
-                      if(widget.isNeedsToAddService!)
-                      const Text(
-                        ":حدد نوع الخدمه",
-                        style: Styles.textStyle18,
-                      ),
-                      if (!isPhoneAccessoriesStore && widget.isNeedsToAddService!) SparePartsSelector(),
+                      if (widget.isNeedsToAddService!)
+                        const Text(
+                          ":حدد نوع الخدمه",
+                          style: Styles.textStyle18,
+                        ),
+                      if (!isPhoneAccessoriesStore &&
+                          widget.isNeedsToAddService!)
+                        SparePartsSelector(
+                          onSelect: (value) {
+                            selectedSparePart = value;
+                          },
+                        ),
                     ],
                   ),
                 ),

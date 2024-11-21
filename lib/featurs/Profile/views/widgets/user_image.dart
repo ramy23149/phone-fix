@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/servers/sherd_pref.dart';
+import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -89,26 +91,18 @@ class _UserImageState extends State<UserImage> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(60),
             child: imageUrl != null && imageUrl != ''
-                ? Image.network(
-                    imageUrl!,
+                ? CachedNetworkImage(
+                  imageUrl:   imageUrl!,
+                  errorWidget: (context, url, error) {
+                    return const Icon(
+                      Icons.error,);
+                  },
+                  placeholder: (context, url) => const Center(
+                child:   CustomLoadingIndecator()
+                  ),
                     fit: BoxFit.fill,
                     height: 120,
                     width: 120,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      } else {
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                : null,
-                          ),
-                        );
-                      }
-                    },
                   )
                 : Image.asset(
                     'assets/images/profile.jpg',

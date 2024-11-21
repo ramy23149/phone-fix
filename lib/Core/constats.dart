@@ -10,6 +10,29 @@ const String kSecretkey =
     'sk_test_51OvGjzBzmdWVZwGq4wUefOWROeKMDNXPE2PqWNImhF2XYY9u0DFe48BnHgGCiwD84ZRLCMsHBDKCZn6HUtlwmiO300nSeSAw0t';
 const String kAppLogo = 'assets/images/app_logo.png';
 const String kAppLogo2 = 'assets/images/app_logo_2.jpg';
+const List<String> kPhoneAccessories = [
+  "اسكرينة",
+  "جراب موبايل",
+  "شاحن",
+  "وصلة شاحن",
+  "سماعة أذن",
+  "سماعة بلوتوث",
+  "جراب سيليكون",
+  "باور بانك",
+  "ماسك موبايل",
+  "ستاند موبايل",
+  "لينس كاميرا",
+  "كابل OTG",
+  "وصلة HDMI",
+  "كيبورد بلوتوث",
+  "ماوس بلوتوث",
+  "حلقة مسكة للموبايل",
+  "فلاش ميموري",
+  "كابل AUX",
+  "إضاءة موبايل",
+  "مروحة موبايل",
+  "ذاكرة خارجية (كارت ميموري)"
+];
  const List<String> kRepairableParts = [
     'الشاشة',
     'البطارية',

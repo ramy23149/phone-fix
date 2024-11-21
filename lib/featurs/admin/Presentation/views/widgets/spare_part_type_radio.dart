@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../../Core/constats.dart';
 
 class SparePartsSelector extends StatefulWidget {
+  final void Function(String) onSelect;
+
+  const SparePartsSelector({super.key, required this.onSelect});
   @override
   _SparePartsSelectorState createState() => _SparePartsSelectorState();
 }
@@ -15,13 +18,13 @@ class _SparePartsSelectorState extends State<SparePartsSelector> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: GridView.builder(
-        shrinkWrap: true, 
-        physics: const NeverScrollableScrollPhysics(), 
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3, // Number of items per row
           mainAxisSpacing: 10.0,
-          crossAxisSpacing:10,
-          childAspectRatio: 4/2, // Adjust for more or less width per item
+          crossAxisSpacing: 10,
+          childAspectRatio: 4 / 2, // Adjust for more or less width per item
         ),
         itemCount: kRepairableParts.length,
         itemBuilder: (context, index) {
@@ -30,6 +33,7 @@ class _SparePartsSelectorState extends State<SparePartsSelector> {
               setState(() {
                 selectedPart = kRepairableParts[index];
               });
+              widget.onSelect(selectedPart!);
             },
             child: Container(
               decoration: BoxDecoration(

@@ -23,8 +23,6 @@ class SignUpView extends StatelessWidget {
           ansswer: 'تسجيل الدخول',
           onPressed: () {
             context.go(AppRouter.kLogInView);
-            // push
-            // pop
           },
         ),
       ),

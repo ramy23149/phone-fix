@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
+import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/functions/validate_the_egyption_phone_number.dart';
 import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
 import 'package:food_delivery_app/featurs/auth/data/enums/store_type_enum.dart';
@@ -14,7 +15,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../../Core/widgets/custom_text_feild.dart';
 import '../../../data/enums/user_role_enum.dart';
 import '../../manager/cubits/ceck_user_existeince_cubit/ceck_user_existeince_cubit.dart';
-import 'district_suggestion_field.dart';
+import '../../../../../Core/widgets/district_suggestion_field.dart';
 
 class SignUpStoreOwnerContanier extends StatefulWidget {
   const SignUpStoreOwnerContanier({super.key});
@@ -144,7 +145,9 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
                           },
                         ),
                     const SizedBox(height: 20),
-                    DistrictSuggestionField(
+                    SuggestionField(
+                      hintText: 'المنطقه / الحي',
+                      suggestions: kSortedNeighborhoods,
                       controller: areaController,
                     ),
                     Align(
