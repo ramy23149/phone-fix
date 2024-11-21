@@ -8,11 +8,11 @@ extension AccessoriesExtention on AccessoriesEnum{
   String get getDisplayName{
     switch(this) {
       case AccessoriesEnum.covers:
-       return "جرابات";
+       return "جراب موبايل";
       case AccessoriesEnum.phoneCharger:
-       return 'شارجات';
+       return 'شاحن';
       case AccessoriesEnum.headPhone:
-       return 'هيدفون';
+       return "سماعة أذن";
       case AccessoriesEnum.somethingElse:
        return 'اخرى';
     }

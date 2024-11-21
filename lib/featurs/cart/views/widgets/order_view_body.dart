@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/Core/helper/Costom_alert_dialog.dart';
 import 'package:food_delivery_app/Core/widgets/custom_appbar.dart';
-import 'package:food_delivery_app/featurs/cart/manager/cubit/paymony_cubit.dart';
+import 'package:food_delivery_app/featurs/cart/manager/confirm_order_cubit/paymony_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'check_out_box.dart';
 import 'order_list_view.dart';
@@ -41,37 +41,22 @@ class _OrderViewBodyState extends State<OrderViewBody> {
             Column(
               children: [
                 const CustomAppBar(
-                  title: 'Your Cart',
+                  title: 'عربة التسوق',
                 ),
                 const Spacer(),
                 ChekOutBox(
                   onTap: () {
                     BlocProvider.of<PaymonyCubit>(context).paymony(total);
                   },
-                  totalPrice: total,
                 ),
               ],
             ),
-            Positioned(
+            const Positioned(
                 top: 65,
                 bottom: 110,
                 right: 0,
                 left: 0,
                 child: OrderListView(
-                  onClear: () {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      setState(() {
-                        total = 0;
-                      });
-                    });
-                  },
-                  onAdd: (int totalMoney) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      setState(() {
-                        total = totalMoney;
-                      });
-                    });
-                  },
                 )),
           ]),
         );

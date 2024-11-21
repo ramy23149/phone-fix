@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 
 class DataBaseMethouds {
   Future addUserDetails(Map<String, dynamic> userData, String uId) async {
@@ -32,10 +35,10 @@ class DataBaseMethouds {
     await FirebaseAuth.instance.currentUser!.delete();
   }
 
-  Future<Stream<QuerySnapshot>> getCart() async {
-    return FirebaseFirestore.instance
+  Stream<QuerySnapshot> getCart(BuildContext context) async* {
+    yield* FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .doc(context.read<CustomerDataProvider>().phoneNumber)
         .collection('curt')
         .orderBy('date', descending: true)
         .snapshots();

@@ -36,7 +36,7 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-       context.go(AppRouter.kBottomNavBar);
+       context.go(AppRouter.kLogInView);
       }
     });
   }

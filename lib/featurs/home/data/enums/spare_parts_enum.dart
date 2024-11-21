@@ -17,11 +17,11 @@ extension SparePartsEnumExtention on SparePartsEnum {
   String get displayName {
     switch (this) {
       case SparePartsEnum.bettary:
-        return "بطاريات";
+        return "البطارية";
       case SparePartsEnum.motherBord:
-        return "بوردات";
+        return'اللوحة الأم';
       case SparePartsEnum.phoneScreen:
-        return "شاشات";
+        return "الشاشة";
       case SparePartsEnum.someThingElse:
         return "اخرى";
     }

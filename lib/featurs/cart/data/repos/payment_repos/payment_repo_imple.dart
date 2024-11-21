@@ -4,7 +4,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:food_delivery_app/Core/api_service.dart';
 
 import '../../../../../Core/falier/falier.dart';
-import 'wallet_repo.dart';
+import 'payment_repo.dart';
 
 class WalletRepoImple implements WalletRepo {
 final  ApiService apiService;

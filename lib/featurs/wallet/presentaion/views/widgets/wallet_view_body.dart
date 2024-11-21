@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/Core/helper/custom_payment_dialog.dart';
@@ -11,12 +10,12 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../../Core/constats.dart';
 import '../../../../../Core/text_styles/Styles.dart';
 import '../../../../../Core/widgets/custom_appbar.dart';
-import '../../manager/add_mony_cubit/add_mony_cubit.dart';
-import '../../manager/add_mony_cubit/add_mony_state.dart';
+import '../../../../cart/manager/add_mony_cubit/add_mony_cubit.dart';
+import '../../../../cart/manager/add_mony_cubit/add_mony_state.dart';
 import 'custom_wallet_contaner.dart';
 
 class WalletViewBody extends StatefulWidget {
-  const WalletViewBody({Key? key}) : super(key: key);
+  const WalletViewBody({super.key});
 
   @override
   State<WalletViewBody> createState() => _WalletViewBodyState();
@@ -53,7 +52,7 @@ class _WalletViewBodyState extends State<WalletViewBody> {
             FutureBuilder<DocumentSnapshot>(
               future: FirebaseFirestore.instance
                   .collection('users')
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .doc("+201212977066")
                   .get(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -61,10 +60,10 @@ class _WalletViewBodyState extends State<WalletViewBody> {
                 } else if (snapshot.hasError) {
                   return const Text('Error fetching data');
                 } else {
-                  final userData =
-                      snapshot.data!.data() as Map<String, dynamic>;
-                  final totalMoney = userData['Wallet'];
-                  return CustomWalletContaner(totalMony: totalMoney??0);
+                  // final userData =
+                  //     snapshot.data!.data() as Map<String, dynamic>;
+                //  final totalMoney = userData[''];
+                  return CustomWalletContaner(totalMony:200);
                 }
               },
             ),

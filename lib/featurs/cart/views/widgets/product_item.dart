@@ -7,19 +7,19 @@ import 'package:go_router/go_router.dart';
 import '../../../../Core/text_styles/Styles.dart';
 import '../../../../Core/widgets/custom_loadingIndecator.dart';
 
-class FoodItem extends StatelessWidget {
-  const FoodItem(
+class ProductItem extends StatelessWidget {
+  const ProductItem(
       {super.key,
       required this.count,
       required this.image,
       required this.name,
       required this.price,
-      required this.id});
+      required this.productId});
   final int count;
   final String image;
   final String name;
   final int price;
-  final String id;
+  final String productId;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +108,7 @@ class FoodItem extends StatelessWidget {
                 IconButton(
                     onPressed: () {
                       showAwesomeDialog(context, () {
-                        DataBaseMethouds().deleteItemFromCurt(id);
+                        DataBaseMethouds().deleteItemFromCurt(productId, context);
                       });
                     },
                     icon: const Icon(Icons.delete))
