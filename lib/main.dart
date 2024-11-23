@@ -50,7 +50,7 @@ class DelivaryApp extends StatelessWidget {
           create: (context) => AuthUserProvider(),
         ),
         ChangeNotifierProvider<CustomerDataProvider>(
-          create: (context) => CustomerDataProvider()
+          create: (context) => CustomerDataProvider()..fetchCustomerData(),
         ),
         ChangeNotifierProvider<ChangeCategoryProvider>(
           create: (context) => ChangeCategoryProvider(),)

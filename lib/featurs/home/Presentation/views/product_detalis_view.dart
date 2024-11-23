@@ -7,7 +7,8 @@ import 'widgets/products_detalis_body.dart';
 
 class ProductDetalisView extends StatelessWidget {
   const ProductDetalisView({
-    super.key, required this.productModel,
+    super.key,
+    required this.productModel,
   });
   final ProductModel productModel;
   @override
@@ -17,7 +18,7 @@ class ProductDetalisView extends StatelessWidget {
       body: BlocProvider(
         create: (context) => AddToCurtCubit(),
         child: ProductDetalisBody(
-productModel: productModel,
+          productModel: productModel,
         ),
       ),
     );

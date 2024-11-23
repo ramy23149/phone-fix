@@ -24,7 +24,7 @@ class _HomeViewState extends State<HomeView>
   @override
   void initState() {
     super.initState();
-    context.read<CustomerDataProvider>().fetchCustomerData();
+  //  context.read<CustomerDataProvider>().fetchCustomerData();
 
     _tabController = TabController(length: 2, vsync: this);
     _pageController = PageController();

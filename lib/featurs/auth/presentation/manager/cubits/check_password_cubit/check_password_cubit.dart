@@ -27,7 +27,6 @@ class CheckPasswordCubit extends Cubit<CheckPasswordState> {
           final storeType = doc['type'];
           await SherdPrefHelper().setStoreType(getStoreType(storeType));
         }
-
         emit(TruePassword());
       } else {
         emit(WrongPassword(message: "كلمه مرور غير صحيحه"));

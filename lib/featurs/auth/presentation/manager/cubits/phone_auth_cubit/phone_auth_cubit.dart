@@ -38,7 +38,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
             if (value.user != null) {
               log('User signed in successfully: ${value.user}');
 
-              emit(PhoneAuthSuccess());
+              emit(PhoneAuthSuccess(userRole: UserRoleEnum.user.getDisplayName));
             } else {
               log('User sign-in failed: $value');
               emit(PhoneAuthError(error: 'Automatic sign-in failed'));
@@ -82,6 +82,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
     log('Starting OTP verification with code: $pin and verificationId: $verificationcode');
     emit(PhoneAuthLoading());
     try {
+      String? userRole;
       final userCredential = await FirebaseAuth.instance.signInWithCredential(
         PhoneAuthProvider.credential(
             verificationId: verificationcode, smsCode: pin),
@@ -109,13 +110,15 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
           });
           //sheredPrefs do not forgot to add
           await SherdPrefHelper().setRole(UserRoleEnum.user);
-          await SherdPrefHelper().setName(userInfoModel.name);  
-          await SherdPrefHelper().setImage(userInfoModel.image);  
-          await SherdPrefHelper().setDistricte(userInfoModel.district);  
-
+          await SherdPrefHelper().setName(userInfoModel.name);
+          await SherdPrefHelper().setImage(userInfoModel.image);
+          await SherdPrefHelper().setDistricte(userInfoModel.district);
+          userRole = UserRoleEnum.user.getDisplayName;
         }, (storeInfoModel) async {
-            Reference ref =
-          FirebaseStorage.instance.ref().child('images').child("+20${data.phone}");
+          Reference ref = FirebaseStorage.instance
+              .ref()
+              .child('images')
+              .child("+20${data.phone}");
           UploadTask uploadTask = ref.putFile(storeInfoModel.storeLogoUrl);
           String url = await (await uploadTask).ref.getDownloadURL();
           FirebaseFirestore.instance
@@ -134,12 +137,12 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
           await SherdPrefHelper().setName(storeInfoModel.storeName);
           await SherdPrefHelper().setStoreType(storeInfoModel.storeType);
           await SherdPrefHelper().setImage(url);
-          await SherdPrefHelper().setDistricte(storeInfoModel.storeAddress);  
-
+          await SherdPrefHelper().setDistricte(storeInfoModel.storeAddress);
+          userRole = UserRoleEnum.storeOwner.getDisplayName;
         });
         await SherdPrefHelper().setPhoneNumber("+20${data.phone}");
-        
-        emit(PhoneAuthSuccess());
+
+        emit(PhoneAuthSuccess(userRole: userRole??UserRoleEnum.user.getDisplayName));
       }
       // if (userCredential.user != null) {
       //   log('User signed in successfully: ${userCredential.user}');

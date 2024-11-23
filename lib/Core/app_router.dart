@@ -5,7 +5,6 @@ import 'package:food_delivery_app/featurs/home/data/models/filter_model.dart';
 import 'package:food_delivery_app/featurs/home/data/models/product_model.dart';
 import 'package:food_delivery_app/featurs/splash/Presentation/view/splash_view.dart';
 import 'package:go_router/go_router.dart';
-
 import '../featurs/admin/Presentation/views/admin_home.dart';
 import '../featurs/admin/Presentation/views/admin_view.dart';
 import '../featurs/admin/Presentation/views/select_what_spare_parts_store_need_to_add_view.dart';
@@ -69,7 +68,7 @@ abstract class AppRouter {
         builder: (context, state) => const SignUpView(),
       ),
       GoRoute(path: kAdminView, builder: (context, state) => const AdminView()),
-      GoRoute(path: kCartView, builder: (context, state) => const OrderView()),
+      GoRoute(path: kCartView, builder: (context, state) => const CartView()),
 
       // GoRoute(
       //   path: kBottomNavBar, // Route for BottomNavBar
@@ -89,7 +88,12 @@ abstract class AppRouter {
           }),
       GoRoute(
         path: kBottomNavBar,
-        builder: (context, state) => const BottomNavBar(),
+        builder: (context, state) {
+          final userRole = state.extra as String;
+          return  BottomNavBar(
+            userRole: userRole,
+          );
+        }
       ),
       GoRoute(
         path: kPasswordRecavory,

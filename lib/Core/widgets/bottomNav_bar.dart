@@ -1,75 +1,92 @@
-  import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-  import 'package:flutter/material.dart';
-  import 'package:food_delivery_app/featurs/Profile/views/profile_view.dart';
-  import 'package:food_delivery_app/featurs/home/Presentation/views/home_view.dart';
-  import 'package:food_delivery_app/featurs/cart/views/order_view.dart';
 
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:food_delivery_app/featurs/Profile/views/profile_view.dart';
+import 'package:food_delivery_app/featurs/auth/data/enums/user_role_enum.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/views/home_view.dart';
+import 'package:food_delivery_app/featurs/cart/views/order_view.dart';
+import '../../featurs/orders/presentation/views/orders_view.dart';
 import '../../featurs/purchases/presentation/views/purchases_view.dart';
 
-  class BottomNavBar extends StatefulWidget {
-    const BottomNavBar({super.key});
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({super.key, required this.userRole});
+final String userRole;
+  @override
+  State<BottomNavBar> createState() => _BottomNavBarState();
+}
 
-    @override
-    State<BottomNavBar> createState() => _BottomNavBarState();
-  }
+class _BottomNavBarState extends State<BottomNavBar> {
+  int pageIndex = 0;
+  List<Widget>? pagesList;
+  List<Widget>? navBarItems;
 
-  class _BottomNavBarState extends State<BottomNavBar> {
-    int pageIndex = 0;
+  Future<void> _initializeNavBar() async {
+    // Wait for userRole to be available
+    
 
-    late List<Widget> pagesList;
-    late Widget crruntPage;
-    late HomeView homeView;
-    late OrderView orderView;
-    late PurchasesView walletView;
-    late ProfileView profileView;
-
-    @override
-    void initState() {
-      homeView = const HomeView();
-      orderView = const OrderView();
-      walletView = const PurchasesView();
-      profileView = const ProfileView();
-      pagesList = [homeView, orderView, walletView, profileView];
-      super.initState();
+    if (widget.userRole == UserRoleEnum.user.getDisplayName) {
+      pagesList = [
+        const HomeView(),
+        const CartView(),
+        const PurchasesView(),
+        const ProfileView()
+      ];
+      navBarItems = const [
+        Icon(Icons.home_outlined, color: Colors.white),
+        Icon(Icons.shopping_cart_outlined, color: Colors.white),
+        Icon(Icons.shopping_bag_outlined, color: Colors.white),
+        Icon(Icons.person_outline, color: Colors.white),
+      ];
+    } else {
+      pagesList = [
+        const HomeView(),
+        const OrdersView(),
+        const ProfileView(),
+      ];
+      navBarItems = const [
+        Icon(Icons.home_outlined, color: Colors.white),
+        Icon(Icons.list_alt_outlined, color: Colors.white),
+        Icon(Icons.person_outline, color: Colors.white),
+      ];
     }
 
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        bottomNavigationBar: CurvedNavigationBar(
-          animationDuration: const Duration(milliseconds: 500),
-          height: 55,
-          color: Colors.black,
-          buttonBackgroundColor: Colors.black,
-          backgroundColor: Colors.white,
-          onTap: (index) {
-            setState(() {
-              pageIndex = index;
-            });
-          //   if(index==2){
-          //     BlocProvider.of<AddMonyCubit>(context).addMony(100);
-          //   }
-          },
-          items: const [
-            Icon(
-              Icons.home_outlined,
-              color: Colors.white,
-            ),
-            Icon(
-              Icons.shopping_cart_outlined,
-              color: Colors.white,
-            ),
-            Icon(
-              Icons.shopping_bag_outlined,
-              color: Colors.white,
-            ),
-            Icon(
-              Icons.person_outline,
-              color: Colors.white,
-            )
-          ],
-        ),
-        body: pagesList[pageIndex],
+    setState(() {
+      // Trigger a rebuild once initialization is complete
+      pageIndex = 0;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeNavBar();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Show a loading indicator while navBarItems/pagesList is being initialized
+    if (navBarItems == null || pagesList == null) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
       );
     }
+
+    return Scaffold(
+      bottomNavigationBar: CurvedNavigationBar(
+        index: pageIndex,
+        animationDuration: const Duration(milliseconds: 500),
+        height: 55,
+        color: Colors.black,
+        buttonBackgroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
+        onTap: (index) {
+          setState(() {
+            pageIndex = index;
+          });
+        },
+        items: navBarItems!,
+      ),
+      body: pagesList![pageIndex],
+    );
   }
+}

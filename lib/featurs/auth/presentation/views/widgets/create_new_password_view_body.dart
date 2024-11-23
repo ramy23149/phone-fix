@@ -6,6 +6,7 @@ import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/helper/Costom_alert_dialog.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/Core/widgets/custom_text_feild.dart';
+import 'package:food_delivery_app/featurs/auth/data/enums/user_role_enum.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -33,7 +34,7 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
     return BlocConsumer<UpdatePasswordCubit, UpdatePasswordState>(
       listener: (context, state) {
         if(state is UpdatePasswordSuccess){
-          context.go(AppRouter.kBottomNavBar);
+          context.go(AppRouter.kBottomNavBar,extra: widget.updatePassowrdModel.userRole.getDisplayName);
         }else if (state is UpdatePasswordError) {
           showAlertDialog(context, state.error, const Icon(Icons.error), Colors.red);
         }

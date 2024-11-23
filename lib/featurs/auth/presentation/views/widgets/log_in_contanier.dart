@@ -6,10 +6,12 @@ import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
 import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:food_delivery_app/featurs/auth/presentation/manager/cubits/check_password_cubit/check_password_cubit.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../Core/functions/validate_the_egyption_phone_number.dart';
 import '../../../../../Core/helper/Costom_alert_dialog.dart';
 import '../../../../../Core/widgets/custom_text_feild.dart';
+import '../../../data/enums/user_role_enum.dart';
 import '../../manager/cubits/ceck_user_existeince_cubit/ceck_user_existeince_cubit.dart';
 
 class LogInContanier extends StatelessWidget {
@@ -29,7 +31,7 @@ class LogInContanier extends StatelessWidget {
     return BlocListener<CheckPasswordCubit, CheckPasswordState>(
       listener: (context, checkPasswordState) {
         if(checkPasswordState is TruePassword){
-          context.go(AppRouter.kBottomNavBar);
+          context.go(AppRouter.kBottomNavBar,extra: context.read<CustomerDataProvider>().userRole??UserRoleEnum.user.getDisplayName);
         }else if(checkPasswordState is WrongPassword){
           showAlertDialog(context, checkPasswordState.message,
            const Icon(Icons.error), Colors.red);

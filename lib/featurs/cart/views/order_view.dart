@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 
 import '../manager/providers/user_cart_provider.dart';
 
-class OrderView extends StatelessWidget {
-  const OrderView({super.key});
+class CartView extends StatelessWidget {
+  const CartView({super.key});
 
   @override
   Widget build(BuildContext context) {

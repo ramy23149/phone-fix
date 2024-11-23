@@ -7,13 +7,18 @@ class PhoneAuthInitial extends PhoneAuthState {}
 
 class PhoneAuthLoading extends PhoneAuthState {}
 
-class PhoneAuthSuccess extends PhoneAuthState {}
+class PhoneAuthSuccess extends PhoneAuthState {
+  final String userRole;
+
+  PhoneAuthSuccess({required this.userRole});
+}
 
 class PhoneAuthError extends PhoneAuthState {
   final String error;
 
   PhoneAuthError({required this.error});
 }
+
 class InvalidPhoneNumber extends PhoneAuthState {
   final String error;
   InvalidPhoneNumber({required this.error});
@@ -37,7 +42,7 @@ class InvalidOtpError extends PhoneAuthState {
 }
 
 class GoToResetPasswordView extends PhoneAuthState {
-final  UpdatePassowrdModel updatePassowrdModel;
+  final UpdatePassowrdModel updatePassowrdModel;
 
   GoToResetPasswordView({required this.updatePassowrdModel});
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
+import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -11,6 +13,7 @@ class SplashViewBody extends StatefulWidget {
 }
 
 class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProviderStateMixin {
+  late CustomerDataProvider _customerDataProvider;
   late AnimationController _controller;
   late Animation<double> _positionAnimation;
   late Animation<double> _scaleAnimation;
@@ -18,7 +21,7 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
   @override
   void initState() {
     super.initState();
-
+  _customerDataProvider = context.read<CustomerDataProvider>();
     _controller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
@@ -36,7 +39,12 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-       context.go(AppRouter.kBottomNavBar);
+        if (_customerDataProvider.phoneNumber == null) {
+          context.go(AppRouter.kLogInView);
+        }else{
+           context.go(AppRouter.kBottomNavBar,extra: _customerDataProvider.userRole);
+
+        }
       }
     });
   }
