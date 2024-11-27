@@ -169,13 +169,13 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
                         },
                       ),
                       const SizedBox(height: 20),
-                      if (widget.isNeedsToAddService!)
+                      if (widget.isNeedsToAddService??true)
                         const Text(
                           ":حدد نوع الخدمه",
                           style: Styles.textStyle18,
                         ),
-                      if (!isPhoneAccessoriesStore &&
-                          widget.isNeedsToAddService!)
+                      if (
+                          widget.isNeedsToAddService??true)
                         SparePartsSelector(
                           onSelect: (value) {
                             selectedSparePart = value;

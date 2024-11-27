@@ -28,31 +28,29 @@ class OrdersViewBody extends StatelessWidget {
                 .collection('orders')
                 .get(),
             builder: (context, snapshot) {
-  if (snapshot.connectionState == ConnectionState.waiting) {
-    return const Center(child: CircularProgressIndicator());
-  } else if (snapshot.hasError) {
-    return const Center(child: Text('Error fetching data'));
-  } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-    return const Center(child: Text('لا توجد طلبات حتى الان'));
-  } else {
-    // Parse purchases
-    final List<ProductModel> allItems = [];
-
-    for (var doc in snapshot.data!.docs) {
-      final items = (doc['items'] as List<dynamic>).map((item) {
-        return ProductModel.fromPurchase(item as Map<String, dynamic>);
-      }).toList();
-
-      allItems.addAll(items);
-    }
-
-    return ListView.builder(
-      itemCount: allItems.length,
-      itemBuilder: (context, index) {
-        return CustomVirticalListItem(productModel: allItems[index]);
-      },
-    );
-  }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Error fetching data'));
+              } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                return const Center(child: Text('لا توجد طلبات حتى الان'));
+              } else {
+                final List<ProductModel> allItems = [];
+                for (var doc in snapshot.data!.docs) {
+                  final items = (doc['items'] as List<dynamic>).map((item) {
+                    return ProductModel.fromPurchase(
+                        item as Map<String, dynamic>);
+                  }).toList();
+                  allItems.addAll(items);
+                }
+                return ListView.builder(
+                  itemCount: allItems.length,
+                  itemBuilder: (context, index) {
+                    return CustomVirticalListItem(
+                        productModel: allItems[index]);
+                  },
+                );
+              }
             },
           ),
         ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_delivery_app/featurs/home/Presentation/Manager/cubits/add_to_curt_cubit/add_to_curt_cubit.dart';
 
 import '../../data/models/product_model.dart';
+import '../Manager/cubits/add_to_curt_cubit/add_to_curt_cubit.dart';
 import 'widgets/products_detalis_body.dart';
 
 class ProductDetalisView extends StatelessWidget {

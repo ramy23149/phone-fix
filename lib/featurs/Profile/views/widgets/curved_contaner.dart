@@ -11,7 +11,7 @@ class CurvedContaner extends StatelessWidget {
               height: MediaQuery.of(context).size.height/4.2,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: kMainAppColor,
+                gradient: const LinearGradient(colors: [kMainAppColor, Color(0xffF84A1E)]),
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.elliptical(MediaQuery.of(context).size.width, 90),
                   

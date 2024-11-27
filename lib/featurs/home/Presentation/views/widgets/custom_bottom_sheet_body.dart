@@ -35,13 +35,6 @@ class _FilterBottomsheetBodyState extends State<FilterBottomsheetBody> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    // _categoryEnumValues =
-    //     context.read<ProductsListProvider>().getCatrgoryEnum();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -84,7 +77,6 @@ class _FilterBottomsheetBodyState extends State<FilterBottomsheetBody> {
                     },
                     child: const Text(
                       "بحث",
-                      //  S.of(context).confirm_filters,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -92,7 +84,6 @@ class _FilterBottomsheetBodyState extends State<FilterBottomsheetBody> {
               ),
               const Text(
                 "مجال السعر",
-                //  S.of(context).price_range,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
@@ -113,7 +104,7 @@ class _FilterBottomsheetBodyState extends State<FilterBottomsheetBody> {
                           _isNumeric(value) &&
                           _isNumeric(_fromController.text) &&
                           int.parse(_fromController.text) > int.parse(value!)) {
-                        return "from must be less than to"; //S.of(context).from_must_be_less_than_to;
+                        return "from must be less than to";
                       } else if(value == null || value.isEmpty){
                           return "value is required";
                         } else {
@@ -129,14 +120,14 @@ class _FilterBottomsheetBodyState extends State<FilterBottomsheetBody> {
                         setState(() {});
                       },
                       keyboardType: TextInputType.number,
-                      hinttext: "من", // S.of(context).from,
+                      hinttext: "من", 
                       textEditingController: _fromController,
                       validator: (value) {
                         if (_toController.text.isNotEmpty &&
                             _isNumeric(value) &&
                             _isNumeric(_toController.text) &&
                             int.parse(_toController.text) < int.parse(value!)) {
-                          return "from must be less than to"; //S.of(context).from_must_be_less_than_to;
+                          return "from must be less than to";
                         } else if(value == null || value.isEmpty){
                           return "value is required";
                         } else {
@@ -158,6 +149,7 @@ class _FilterBottomsheetBodyState extends State<FilterBottomsheetBody> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
+
                             color: context
                                 .watch<ChangeCategoryProvider>()
                                 .dropDownColor),
@@ -198,13 +190,14 @@ class _FilterBottomsheetBodyState extends State<FilterBottomsheetBody> {
                   ),
                 ],
               ),
-              // SizedBox(height: 16),
             ],
           ),
         ),
       ),
     );
   }
+
+
 
   List<Widget> _buildCategoryColumns() {
     //  if (_categoryEnumValues == null) return [];

@@ -4,14 +4,14 @@ import 'package:food_delivery_app/Core/widgets/custom_appbar.dart';
 import 'check_out_box.dart';
 import 'order_list_view.dart';
 
-class OrderViewBody extends StatefulWidget {
-  const OrderViewBody({super.key});
+class CartViewBody extends StatefulWidget {
+  const CartViewBody({super.key});
 
   @override
-  State<OrderViewBody> createState() => _OrderViewBodyState();
+  State<CartViewBody> createState() => _CartViewBodyState();
 }
 
-class _OrderViewBodyState extends State<OrderViewBody> {
+class _CartViewBodyState extends State<CartViewBody> {
   int total = 0;
   bool isLoading = false;
 

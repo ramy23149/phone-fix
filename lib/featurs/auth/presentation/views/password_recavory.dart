@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../Core/constats.dart';
 import 'widgets/Password_Recavory_Body.dart';
 
-class PasswordRecavory extends StatelessWidget {
-  const PasswordRecavory({super.key});
+class PasswordRecavoryView extends StatelessWidget {
+  const PasswordRecavoryView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,3 +24,4 @@ class PasswordRecavory extends StatelessWidget {
   );
   }
 }
+

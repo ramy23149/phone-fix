@@ -22,8 +22,6 @@ class ProfileViewBody extends StatefulWidget {
 class _ProfileViewBodyState extends State<ProfileViewBody> {
   String? name, role;
 
-  // String uid = FirebaseAuth.instance.currentUser!.uid;
-
   getSherdPref() {
     name = context.read<CustomerDataProvider>().name;
     role = context.read<CustomerDataProvider>().userRole;

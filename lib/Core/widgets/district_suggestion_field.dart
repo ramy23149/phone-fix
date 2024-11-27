@@ -58,6 +58,7 @@ class _SuggestionFieldState extends State<SuggestionField> {
           maxLength: 20,
           onChanged: _filterSuggestions,
           decoration: InputDecoration(
+            counter: const Offstage(),
             hintText: widget.hintText,
             border: const OutlineInputBorder(),
           ),

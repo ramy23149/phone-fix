@@ -13,7 +13,7 @@ class CartView extends StatelessWidget {
       create: (context) => UserCartProvider()..calculateCartTotalPrice(context),
       child: const SafeArea(
           child: Scaffold(
-        body: OrderViewBody(),
+        body: CartViewBody(),
       )),
     );
   }

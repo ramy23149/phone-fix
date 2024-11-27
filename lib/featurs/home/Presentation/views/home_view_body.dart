@@ -22,7 +22,7 @@ class HomeViewBody extends StatelessWidget {
               height: 10,
             ),
             TypeSection(),
-            NearestPlacesListView(), //stream
+            NearestPlacesListView(),
             SizedBox(
               height: 20,
             ),
@@ -30,7 +30,7 @@ class HomeViewBody extends StatelessWidget {
               padding: EdgeInsets.only(right: 7),
               child: Text(": جميع المناطق", style: Styles.textStyle25),
             ),
-            LowerListView(), //stream
+            LowerListView(),
           ],
         ),
       ),

@@ -89,13 +89,13 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     const Text(
                       'بيانات المحل',
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 5),
                     GestureDetector(
                       onTap: pickStoreLogo,
                       child: storeLogo == null
@@ -114,12 +114,12 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
                               fit: BoxFit.cover,
                             ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 5),
                     CustomTextField(
                       textEditingController: nameController,
                       hinttext: 'اسم المحل',
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 5),
                     CustomTextField(
                       textEditingController: phoneController,
                       hinttext: 'رقم الهاتف',
@@ -130,7 +130,7 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
                       maxLength: 10,
                       validator: (value) => validateEgyptianPhoneNumber(value),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 5),
                       CustomTextField(
                           textEditingController: passwordController,
                           hinttext: 'كلمة المرور',
@@ -144,11 +144,12 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
                             return null;
                           },
                         ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 5),
                     SuggestionField(
                       hintText: 'المنطقه / الحي',
                       suggestions: kSortedNeighborhoods,
                       controller: areaController,
+                      
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
@@ -173,7 +174,7 @@ class _SignUpStoreOwnerContanierState extends State<SignUpStoreOwnerContanier> {
                             }
                           }),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 5),
                     CustomBotton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()&&storeType!=null) {

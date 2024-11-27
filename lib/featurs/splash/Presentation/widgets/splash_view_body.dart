@@ -43,8 +43,8 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
           context.go(AppRouter.kLogInView);
         }else{
            context.go(AppRouter.kBottomNavBar,extra: _customerDataProvider.userRole);
-
         }
+      //  context.go(AppRouter.kLogInView);
       }
     });
   }

@@ -16,14 +16,10 @@ class SignInViewBody extends StatefulWidget {
   @override
   State<SignInViewBody> createState() => _SignInViewBodyState();
 }
-
 class _SignInViewBodyState extends State<SignInViewBody> {
     late UserRoleEnum? userRoleEnum;
-
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     userRoleEnum = context.read<AuthUserProvider>().userRole;
   }

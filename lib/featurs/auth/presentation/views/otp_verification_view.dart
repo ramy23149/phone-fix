@@ -15,7 +15,7 @@ class VerifyView extends StatelessWidget {
       create: (context) => PhoneAuthCubit(
       ),
       child: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(), //to hide keyboard
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
           appBar: AppBar(),
           body: Container(

@@ -25,6 +25,7 @@ class NearestPlacesListView extends StatelessWidget {
             print(context.watch<CustomerDataProvider>().districte);
             if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   const SizedBox(
                     height: 20,

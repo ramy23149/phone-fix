@@ -97,7 +97,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kPasswordRecavory,
-        builder: (context, state) => const PasswordRecavory(),
+        builder: (context, state) => const PasswordRecavoryView(),
       ),
       GoRoute(
           path: kProductDetalis,

@@ -1,18 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_delivery_app/Core/constats.dart';
 import 'package:food_delivery_app/Core/helper/custom_snakBar.dart';
 import 'package:food_delivery_app/Core/text_styles/Styles.dart';
-import 'package:food_delivery_app/Core/widgets/custom_bottom.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/cubits/add_to_curt_cubit/add_to_curt_cubit.dart';
-import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/views/widgets/custom_image.dart';
 import 'package:food_delivery_app/featurs/home/data/models/product_model.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import '../../../../auth/data/enums/user_role_enum.dart';
+import 'bottom_ditaiels_sectoin.dart';
 import 'custom_counter.dart';
+import 'store_info_section.dart';
 
 class ProductDetalisBody extends StatefulWidget {
   const ProductDetalisBody({
@@ -91,48 +89,8 @@ Widget build(BuildContext context) {
                                         ),
                                 ),
                                 const SizedBox(width: 12),
-                                // Store Details
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        widget.productModel.storeInfo['name'],
-                                        style: Styles.textStyle20,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Text(
-                                        widget.productModel
-                                            .storeInfo['districte'],
-                                        style: Styles.textStyle14
-                                            .copyWith(color: Colors.grey),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.phone,
-                                              size: 16, color: Colors.grey),
-                                          const SizedBox(width: 5),
-                                          Text(
-                                            widget.productModel
-                                                .storeInfo['phoneNumber']
-                                                .toString()
-                                                .substring(2),
-                                            style: Styles.textStyle14,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                              SoreInfo(storeInfo: widget.productModel.storeInfo,)]))),
                         const SizedBox(height: 15),
-                        // Product Info Section
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -161,27 +119,7 @@ Widget build(BuildContext context) {
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 27),
-                        Directionality(
-                          textDirection: TextDirection.rtl,
-                          child: Row(
-                            children: [
-                              const Icon(Icons.alarm_outlined,
-                                  color: Color(0xffB2ACB2)),
-                              const SizedBox(width: 5),
-                              const Text(
-                                'وقت التوصيل:',
-                                style: Styles.textStyle20,
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                'خلال ثلاث أيام',
-                                style: Styles.textStyle20.copyWith(
-                                    color: Colors.red),
-                              ),
-                              const SizedBox(width: 10),
-                            ],
-                          ),
-                        ),
+                        const DeilaveryTimeInfo(),
                         const SizedBox(height: 20),
                       
                       ],
@@ -189,40 +127,7 @@ Widget build(BuildContext context) {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                const Text(':المجموع', style: Styles.textStyle18),
-                                Text('$curantprice EGP',
-                                    style: Styles.textStyle20),
-                              ],
-                            ),
-                          ],
-                        ),
-                  context.read<CustomerDataProvider>().userRole == UserRoleEnum.user.getDisplayName ?   CustomBotton(
-                      onPressed: () {
-                        BlocProvider.of<AddToCurtCubit>(context).addToCurt(
-                          productModel: widget.productModel,
-                          count: count,
-                          totalPrice: curantprice,
-                          context: context,
-                        );
-                      },
-                      borderRadius: BorderRadius.circular(16),
-                      textColor: kWhite,
-                      backgroundColor: kMainAppColor,
-                      text: 'إضافة إلى العربة 🛒',
-                    ):const SizedBox() ,
-                  ],
-                ),
-              ),
+              BottomDetailesSectoin(curantprice: curantprice, widget: widget, count: count),
               const SizedBox(height: 10),
             ],
           ),
@@ -232,6 +137,40 @@ Widget build(BuildContext context) {
   );
 }
 }
+
+
+
+class DeilaveryTimeInfo extends StatelessWidget {
+  const DeilaveryTimeInfo({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Row(
+        children: [
+          const Icon(Icons.alarm_outlined,
+              color: Color(0xffB2ACB2)),
+          const SizedBox(width: 5),
+          const Text(
+            'وقت التوصيل:',
+            style: Styles.textStyle20,
+          ),
+          const SizedBox(width: 10),
+          Text(
+            'خلال ثلاث أيام',
+            style: Styles.textStyle20.copyWith(
+                color: Colors.red),
+          ),
+          const SizedBox(width: 10),
+        ],
+      ),
+    );
+  }
+}
+
 
 
 

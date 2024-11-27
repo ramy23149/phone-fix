@@ -23,7 +23,7 @@ class AdminAppbar extends StatelessWidget {
                 child: const Icon(Icons.arrow_back_ios)),
             
             const Text(
-              'Add Item',
+              'اضف خدمه جديده',
               style: Styles.textStyle25,
               //textAlign: TextAlign.center,
             ),

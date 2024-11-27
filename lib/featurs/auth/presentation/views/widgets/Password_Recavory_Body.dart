@@ -19,12 +19,10 @@ class PasswordRecavoryBody extends StatefulWidget {
 
 class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
   TextEditingController phoneController = TextEditingController();
-
   GlobalKey<FormState> formKey = GlobalKey();
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     phoneController.dispose();
   }
@@ -57,11 +55,9 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                   padding: const EdgeInsets.symmetric(horizontal: 14.0),
                   child: ListView(
                     children: [
-
                       const SizedBox(
                         height: 70,
                       ),
-                      
                       CustomTextField(
                         textEditingController: phoneController,
                         hinttext: 'رقم الهاتف',
@@ -90,9 +86,7 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                           }
                         },
                       ),
-                      const SizedBox(
-                        height: 50.0,
-                      ),
+                      const SizedBox(height: 50.0,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -105,12 +99,8 @@ class _PasswordRecavoryBodyState extends State<PasswordRecavoryBody> {
                             style:
                                 TextStyle(fontSize: 18.0, color: Colors.white),
                           ),
-                          
-                        ],
-                      )
-                    ],
-                  ),
-                ))),
+                          ])])))
+                          ),
       ],
     );
   }
