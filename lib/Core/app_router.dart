@@ -89,9 +89,7 @@ abstract class AppRouter {
       GoRoute(
         path: kBottomNavBar,
         builder: (context, state) {
-          final userRole = state.extra as String;
-          return  BottomNavBar(
-            userRole: userRole,
+          return  const BottomNavBar(
           );
         }
       ),

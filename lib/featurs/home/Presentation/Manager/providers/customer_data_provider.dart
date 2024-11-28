@@ -9,6 +9,15 @@ class CustomerDataProvider with ChangeNotifier {
   String? userRole;
   String? storeType;
   String? districte;
+  void resetCustomerData() {
+    name = null;
+    image = null;
+    phoneNumber = null;
+    userRole = null;
+    storeType = null;
+    districte = null;
+  //  notifyListeners();
+  }
 
   Future<void> fetchCustomerData() async {
     name = await SherdPrefHelper().getUserName();

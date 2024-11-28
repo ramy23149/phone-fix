@@ -42,7 +42,7 @@ class _SplashViewBodyState extends State<SplashViewBody> with SingleTickerProvid
         if (_customerDataProvider.phoneNumber == null) {
           context.go(AppRouter.kLogInView);
         }else{
-           context.go(AppRouter.kBottomNavBar,extra: _customerDataProvider.userRole);
+           context.go(AppRouter.kBottomNavBar);
         }
       //  context.go(AppRouter.kLogInView);
       }

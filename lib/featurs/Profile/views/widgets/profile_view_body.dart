@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/Core/app_router.dart';
 import 'package:food_delivery_app/Core/constats.dart';
@@ -6,6 +8,7 @@ import 'package:food_delivery_app/Core/text_styles/Styles.dart';
 import 'package:food_delivery_app/Core/widgets/custom_loadingIndecator.dart';
 import 'package:food_delivery_app/featurs/Profile/views/widgets/curved_contaner.dart';
 import 'package:food_delivery_app/featurs/Profile/views/widgets/user_image.dart';
+import 'package:food_delivery_app/featurs/auth/data/enums/user_role_enum.dart';
 import 'package:food_delivery_app/featurs/home/Presentation/Manager/providers/customer_data_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -20,11 +23,12 @@ class ProfileViewBody extends StatefulWidget {
 }
 
 class _ProfileViewBodyState extends State<ProfileViewBody> {
-  String? name, role;
+  String? name, role, phoneNumber;
 
   getSherdPref() {
     name = context.read<CustomerDataProvider>().name;
     role = context.read<CustomerDataProvider>().userRole;
+    phoneNumber = context.read<CustomerDataProvider>().phoneNumber;
   }
 
   @override
@@ -35,10 +39,9 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    if (name == null) {
+    if (name == null || role == null || phoneNumber == null) {
       return const CustomLoadingIndecator();
     }
-
     return SingleChildScrollView(
       child: Stack(
         children: [
@@ -50,9 +53,9 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
               ),
               Column(
                 children: [
-                    role == 'صاحب محل'
+                  role == UserRoleEnum.storeOwner.getDisplayName
                       ? const UserAction(
-                        goToAdminView: true,
+                          goToAdminView: true,
                           title: 'لوحه التحكم',
                           icon: Icon(Icons.admin_panel_settings_rounded),
                         )
@@ -64,22 +67,26 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                   UserInformatoin(
                       icon: const Icon(Icons.phone),
                       title: 'رقم الجوال',
-                      subtitle:
-                          "${context.read<CustomerDataProvider>().phoneNumber}"),
-                
+                      subtitle: "$phoneNumber"),
                   UserAction(
                     title: 'حذف الحساب',
                     icon: const Icon(Icons.delete),
                     dialogTitle: 'هل انت متاكد من حذف حسابك؟',
                     okBtnText: 'حذف',
                     onOk: () {
-                      DataBaseMethouds().deleteUser();
+                      log('phoneNumber $phoneNumber and role $role =======================');
+                      DataBaseMethouds().deleteUser(
+                        userRole: role!,
+                        phoneNumber: phoneNumber!,
+                      );
+                      context.read<CustomerDataProvider>().resetCustomerData();
                       context.go(AppRouter.kSignUpView);
                     },
                   ),
                   UserAction(
                     onOk: () {
                       DataBaseMethouds().logOut();
+                      context.read<CustomerDataProvider>().resetCustomerData();
                       context.go(AppRouter.kLogInView);
                     },
                     dialogTitle: 'هل انت متاكد من تسجيل الخروج؟',

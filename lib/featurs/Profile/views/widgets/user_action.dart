@@ -37,7 +37,7 @@ class UserAction extends StatelessWidget {
             title: dialogTitle,
             btnOkText: okBtnText,
             btnOkOnPress: onOk,
-            btnCancelText: 'cancel',
+            btnCancelText: 'الغاء',
             btnCancelOnPress: () {},
           ).show();
         }

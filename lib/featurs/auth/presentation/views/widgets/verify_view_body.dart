@@ -72,7 +72,7 @@ class _VerifyViewBodyState extends State<VerifyViewBody> {
           listener: (context, state) {
             if (state is PhoneAuthSuccess) {
               showSnackBar(context, "تم التحقق بنجاح");
-              context.go(AppRouter.kBottomNavBar,extra: state.userRole);
+              context.go(AppRouter.kBottomNavBar);
             }else if(state is GoToResetPasswordView){
               context.go(AppRouter.kCreateNewPasswordView,extra: state.updatePassowrdModel);
             } else if (state is PhoneAuthError) {
