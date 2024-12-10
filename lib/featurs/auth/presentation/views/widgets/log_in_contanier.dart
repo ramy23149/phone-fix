@@ -63,7 +63,6 @@ class LogInContanier extends StatelessWidget {
                           child: Form(
                             key: formKey,
                             child: Column(
-                              mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 const SizedBox(
@@ -112,7 +111,7 @@ class LogInContanier extends StatelessWidget {
                                       ),
                                     )),
                                 const SizedBox(
-                                  height: 7,
+                                  height: 26,
                                 ),
                                 CustomBotton(
                                   onPressed: () {

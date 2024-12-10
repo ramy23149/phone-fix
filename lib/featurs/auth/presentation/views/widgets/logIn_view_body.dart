@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../Core/constats.dart';
-
 import '../../helper/not_exist_user_dialog.dart';
 import '../../manager/cubits/ceck_user_existeince_cubit/ceck_user_existeince_cubit.dart';
 import 'custom_uper_container.dart';
@@ -33,35 +31,33 @@ class _LogInViewBodyState extends State<LogInViewBody> {
       listener: (context, state) {
         if (state is ThisIsNewUser) {
           showNotExistUserDialog(
-           context: context,
-           message: "يبدو ان 0${state.phone} لم يقم بتسجيل الدخول قم بانشاء حساب الان");
+              context: context,
+              message:
+                  "يبدو ان 0${state.phone} لم يقم بتسجيل الدخول قم بانشاء حساب الان");
         }
       },
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          const CustomUperContainer(),
-          Positioned(
-            top: 240,
-            child: Container(
-              height: 30,
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                  color: kWhite),
-            ),
+      child: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              const CustomUperContainer(),
+              Center(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.9, // نسبة من العرض
+                  height:
+                      MediaQuery.of(context).size.height * 0.5, // نسبة من الارتفاع
+                  child: LogInContanier(
+                    passwordController: passwordController,
+                    formKey: formKey,
+                    phoneController: phoneController,
+                  ),
+                ),
+              ),
+            ],
           ),
-          Positioned(
-            right: 20,
-            left: 20,
-            top: 100,
-            bottom: 50,
-            child: LogInContanier(
-                passwordController: passwordController,
-                formKey: formKey,
-                phoneController: phoneController),
-          ),
-        ],
+        ),
       ),
     );
   }

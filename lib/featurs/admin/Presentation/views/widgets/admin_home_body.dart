@@ -66,20 +66,18 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
         priceController.text.isNotEmpty &&
         detailsController.text.isNotEmpty) {
       context.read<AddItemsCubit>().addItem(
-        
-            UploadedProductModel(
-              brand: widget.isNeedsToAddService == true ? name : null,
-              desc: detailsController.text,
-              name: nameController.text,
-              price: int.parse(priceController.text),
-              image: packedImage,
-              subCategory: selectedSparePart ?? name!,
-              districte: context.read<CustomerDataProvider>().districte!,
-            ),
-            context,
-            isAccessoriesStore: isPhoneAccessoriesStore,
-            isNeedToAddService: widget.isNeedsToAddService
-          );
+          UploadedProductModel(
+            brand: widget.isNeedsToAddService == true ? name : null,
+            desc: detailsController.text,
+            name: nameController.text,
+            price: int.parse(priceController.text),
+            image: packedImage,
+            subCategory: selectedSparePart ?? name!,
+            districte: context.read<CustomerDataProvider>().districte!,
+          ),
+          context,
+          isAccessoriesStore: isPhoneAccessoriesStore,
+          isNeedToAddService: widget.isNeedsToAddService);
     } else if (widget.isNeedsToAddService == true &&
         selectedSparePart == null) {
       showSnackBar(context, 'حدد نوع الخدمه');
@@ -157,25 +155,23 @@ class _AdminHomeBodyState extends State<AdminHomeBody> {
                               });
                               print(name);
 
-                          context.pop(); // Close the dialog
+                              context.pop(); // Close the dialog
                             }, isPhoneAccessoriesStore);
                           } else {
                             setState(() {
                               name = value;
                             });
-                              print(name);
-
+                            print(name);
                           }
                         },
                       ),
                       const SizedBox(height: 20),
-                      if (widget.isNeedsToAddService??true)
+                      if (widget.isNeedsToAddService == true)
                         const Text(
                           ":حدد نوع الخدمه",
                           style: Styles.textStyle18,
                         ),
-                      if (
-                          widget.isNeedsToAddService??true)
+                      if (widget.isNeedsToAddService == true)
                         SparePartsSelector(
                           onSelect: (value) {
                             selectedSparePart = value;

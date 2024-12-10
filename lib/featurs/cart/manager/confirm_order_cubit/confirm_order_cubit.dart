@@ -70,7 +70,7 @@ class ConfirmOrderCubit extends Cubit<ConfirmOrderState> {
         'date': FieldValue.serverTimestamp(),
       };
 
-      await _firestore.collection('Purchases').doc().set(orderData);
+    //  await _firestore.collection('Purchases').doc().set(orderData);
 
       final userPurchasesRef = _firestore
           .collection('users')
